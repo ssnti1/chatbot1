@@ -13,6 +13,40 @@ from backend.services.openai_client import chat as llm_chat
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
+# --- Catálogo / Portafolio (no altera el resto del flujo) ---
+CATALOG_URL = os.getenv("ECOLITE_CATALOG_URL", "https://ecolite.com.co/")
+# Usamos texto normalizado (sin tildes/ñ)
+CATALOG_KEYWORDS = {
+    "catalogo", "catalogos",
+    "portafolio", "portafolios",
+    "brochure", "folleto", "catalogue"
+}
+
+QUOTE_WHATSAPP_URL = os.getenv(
+    "ECOLITE_QUOTE_WHATSAPP_URL",
+    "https://wa.me/573168759639?text=Hola%20quiero%20cotizar" 
+)
+
+COTIZAR_KEYWORDS = {
+    # Raíces y verbos
+    "cotiz", "cotiza", "cotizo", "cotizas", "cotizan", "cotizame", "coticen", "cotizador",
+    # Presupuesto
+    "presupuesto", "presupuestar", "presupuesta", "presupuesten",
+    "quiero un presupuesto", "necesito presupuesto", "hacer un presupuesto", "presupuesto formal",
+    # Frases típicas de solicitud
+    "quiero cotizar", "puedes cotizar", "me puedes cotizar", "me cotizas", "me cotiza", "me cotizan",
+    "solicitar cotizacion", "solicitud de cotizacion", "hacer una cotizacion", "enviar cotizacion",
+    "enviame una cotizacion", "mandame una cotizacion", "comparteme una cotizacion", "coticen por favor",
+    # Lista / unitario / cuánto
+    "lista de precios", "precio unitario", "cuanto cuesta", "cuanto vale", "cuanto sale",
+    "me regalas precio", "me das precio", "me pasas precio",
+    # Documentos comerciales
+    "proforma", "factura proforma", "oferta economica", "propuesta economica", "propuesta comercial",
+    # Inglés / RFQ
+    "quote", "quotation", "request for quote", "rfq"
+}
+
+
 # ===== Modelos =====
 class ChatIn(BaseModel):
     session_id: str
@@ -380,6 +414,17 @@ def chat(in_: ChatIn) -> ChatOut:
         msg_raw = (in_.message or "").strip()
         if not msg_raw:
             raise HTTPException(status_code=400, detail="message is required")
+
+        msg_norm = _norm(msg_raw)
+        if any(k in msg_norm for k in CATALOG_KEYWORDS):
+            text = f"Puedes ver el catálogo y portafolio aquí: {CATALOG_URL}"
+            return ChatOut(content=text, products=[], page=0, last_query="", has_more=False)
+        
+        msg_norm = _norm(msg_raw)
+        if any(k in msg_norm for k in COTIZAR_KEYWORDS):
+            text = f"Para cotizaciones y presupuestos, escríbenos por [[a|WhatsApp|{QUOTE_WHATSAPP_URL}]]"
+            return ChatOut(content=text, products=[], page=0, last_query="", has_more=False)
+
 
         st = _st(in_.session_id)
 

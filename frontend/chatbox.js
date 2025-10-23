@@ -209,6 +209,30 @@
       return '<a class="cb-link" href="' + url + '" target="_blank" rel="noopener">' + m + '</a>';
     });
   }
+function renderRichBotText(s) {
+  var anchors = [];
+  var raw = String(s || "");
+
+  // 1) Detecta tokens [[a|Texto Visible|URL]] en el string RAW y los guarda como placeholders
+  raw = raw.replace(/\[\[a\|([^|]+)\|([^\]]+)\]\]/gi, function (_, label, url) {
+    var cleanUrl = (url || "").trim();
+    if (!/^https?:\/\//i.test(cleanUrl)) cleanUrl = "https://" + cleanUrl;
+
+    var html = '<a class="cb-link" href="' + escapeHtml(cleanUrl) + '" target="_blank" rel="noopener">' +
+               escapeHtml(label) + '</a>';
+    var idx = anchors.push(html) - 1;
+    return "__A" + idx + "__"; // placeholder temporal
+  });
+
+  // 2) Escapar + linkify del resto del texto
+  var safe = linkify(escapeHtml(raw));
+
+  // 3) Reinyectar los anchors reales en los placeholders
+  safe = safe.replace(/__A(\d+)__/g, function (_, i) { return anchors[+i] || ""; });
+
+  return safe;
+}
+
   function row(cls, htmlOrNode) {
     if (!refs.stream) return;
     var wrap = document.createElement("div");
@@ -221,7 +245,7 @@
     refs.stream.scrollTop = refs.stream.scrollHeight;
   }
   function appendUser(t) { row("me", escapeHtml(t)); }
-  function appendBot(t) { row("", linkify(escapeHtml(t))); }
+  function appendBot(t) { row("", renderRichBotText(t)); }
   function appendSystem(t) { row("system", escapeHtml(t)); }
   function prettyPrice(v) {
     if (typeof v === "number" && isFinite(v)) {
