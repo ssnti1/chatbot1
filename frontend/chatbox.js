@@ -22,6 +22,51 @@
   var __pending = 0;
 
   // =======================
+  // Estilos de validación (inyectados)
+  // =======================
+  function injectValidationStyles() {
+    if (document.getElementById("ecolite-validation-styles")) return;
+
+    var css = `
+    /* === Estados inválidos para el formulario del chat === */
+    #leadForm input.invalid,
+    #leadForm select.invalid,
+    #leadForm textarea.invalid {
+      border-color: #DC2626 !important;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    #leadForm input.invalid:focus,
+    #leadForm select.invalid:focus,
+    #leadForm textarea.invalid:focus {
+      outline: 2px solid #DC2626;
+      outline-offset: 2px;
+    }
+    #leadForm .field-error {
+      color: #DC2626;
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.25;
+    }
+    /* Efecto sutil al marcar error */
+    #leadForm input.invalid,
+    #leadForm select.invalid,
+    #leadForm textarea.invalid {
+      animation: ecoliteInvalid .15s ease-in;
+    }
+    @keyframes ecoliteInvalid {
+      from { transform: translateY(-1px); }
+      to   { transform: translateY(0); }
+    }`;
+
+    var style = document.createElement("style");
+    style.id = "ecolite-validation-styles";
+    style.type = "text/css";
+    style.appendChild(document.createTextNode(css));
+    document.head.appendChild(style);
+  }
+
+  // =======================
   // Boot
   // =======================
   if (document.readyState === "loading") {
@@ -31,13 +76,15 @@
   }
 
   function init() {
+    injectValidationStyles(); // ← inyecta estilos para .invalid y .field-error
+
     wireRefs();
     wireOpenClose();
     wireChat();
 
     if (refs.typing) refs.typing.classList.add('is-hidden');
 
-    // Mensaje de bienvenida (no abre overlay aún)
+    // Mensaje de bienvenida
     if (refs.stream && !refs.stream.children.length) {
       appendBot(
         "👋 Bienvenido a Ecolite. Te ayudamos a elegir la iluminación LED ideal para tus proyectos. ¿Qué espacio deseas iluminar? (oficina, piscina, bodega…)\n" +
@@ -45,8 +92,6 @@
       );
     }
 
-    // Mostrar overlay al cargar la página (si el panel ya está abierto)
-    // y siempre al abrir el chat (ver openPanelHard)
     if (isPanelOpen()) showLeadOverlay();
   }
 
@@ -87,6 +132,9 @@
 
     // Wire del overlay
     if (refs.leadForm) {
+      // Validaciones & constraints
+      setupLeadValidation();
+
       refs.leadForm.addEventListener("submit", onLeadSubmit, { passive: false });
     }
     if (refs.leadSkip) {
@@ -127,7 +175,7 @@
 
     setTimeout(function () { try { refs.input && refs.input.focus(); } catch (_) { } }, 60);
 
-    // Mostrar SIEMPRE el overlay al abrir el chat
+    // Mostrar SIEMPRE el overlay al abrir
     showLeadOverlay();
   }
 
@@ -203,36 +251,434 @@
   function escapeHtml(s) {
     return (s || "").replace(/[&<>"']/g, function (m) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[m]; });
   }
+
+  // =======================
+  // WhatsApp helpers
+  // =======================
+  function getLeadName() {
+    try { return (localStorage.getItem("ecolite_lead_name") || "").trim(); }
+    catch (_) { return ""; }
+  }
+  function buildQuoteMessage() {
+    var name = getLeadName();
+    var base = name ? ("Hola, soy " + name + ", quiero cotizar") : "Hola, quiero cotizar";
+    // if (window.__ecoliteLastQuery) base += " sobre: " + window.__ecoliteLastQuery;
+    return base;
+  }
+  function normalizePhone(raw) {
+    return String(raw || "").replace(/[^\d]/g, ""); // deja solo dígitos
+  }
+  function extractPhoneFromUrl(u) {
+    // wa.me/<phone>
+    if (/wa\.me$/i.test(u.hostname)) {
+      var seg = (u.pathname || "").split("/").filter(Boolean);
+      if (seg.length) return normalizePhone(seg[0]);
+    }
+    // api.whatsapp.com/send?phone=<phone> | phoneNumber=
+    var p = new URLSearchParams(u.search);
+    if (p.get("phone")) return normalizePhone(p.get("phone"));
+    if (p.get("phoneNumber")) return normalizePhone(p.get("phoneNumber"));
+    return "";
+  }
+  function isWhatsAppHost(host) {
+    return /(^|\.)(wa\.me|whatsapp\.com)$/.test(String(host || "").toLowerCase());
+  }
+  function isAndroid() { return /Android/i.test(navigator.userAgent || ""); }
+  function isIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent || ""); }
+
+  // =======================
+  // Decorador de URLs → WA con nombre + mensaje
+  // =======================
+  function maybeDecorateWhatsApp(url) {
+    try {
+      var u = new URL(url);
+      if (!isWhatsAppHost(u.hostname)) return url;
+
+      var phone = extractPhoneFromUrl(u);
+      var params = new URLSearchParams(u.search);
+      var existing = (params.get("text") || "").trim();
+      var name = (getLeadName() || "").trim();
+
+      // Construye el mensaje final
+      var text;
+      if (name) {
+        text = existing ? ("Hola, soy " + name + ". " + existing) : ("Hola, soy " + name + ", quiero cotizar");
+      } else {
+        text = existing || "Hola, quiero cotizar";
+      }
+
+      if (phone) {
+        return "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+      }
+
+      params.set("text", text);
+      var q = params.toString().replace(/\+/g, "%20");
+      return u.origin + u.pathname + (q ? ("?" + q) : "");
+    } catch (e) {
+      return url; // ante cualquier error, deja el link intacto
+    }
+  }
+
+  // =======================
+  // Linkify + anchors enriquecidos
+  // =======================
   function linkify(s) {
     return (s || "").replace(/(https?:\/\/[^\s)]+)|(\bwww\.[^\s)]+)/gi, function (m) {
       var url = m.startsWith("http") ? m : ("https://" + m);
-      return '<a class="cb-link" href="' + url + '" target="_blank" rel="noopener">' + m + '</a>';
+      url = maybeDecorateWhatsApp(url); // ← decoración WA
+      var target = "_blank";
+      try {
+        var H = new URL(url).hostname;
+        if (isWhatsAppHost(H)) target = "_self"; // abre en la misma pestaña para conservar el text
+      } catch (_) {}
+      return '<a class="cb-link" href="' + url + '" target="' + target + '" rel="noopener">' + m + '</a>';
     });
   }
-function renderRichBotText(s) {
-  var anchors = [];
-  var raw = String(s || "");
 
-  // 1) Detecta tokens [[a|Texto Visible|URL]] en el string RAW y los guarda como placeholders
-  raw = raw.replace(/\[\[a\|([^|]+)\|([^\]]+)\]\]/gi, function (_, label, url) {
-    var cleanUrl = (url || "").trim();
-    if (!/^https?:\/\//i.test(cleanUrl)) cleanUrl = "https://" + cleanUrl;
+  function renderRichBotText(s) {
+    var anchors = [];
+    var raw = String(s || "");
 
-    var html = '<a class="cb-link" href="' + escapeHtml(cleanUrl) + '" target="_blank" rel="noopener">' +
-               escapeHtml(label) + '</a>';
-    var idx = anchors.push(html) - 1;
-    return "__A" + idx + "__"; // placeholder temporal
+    // 1) Detecta tokens [[a|Texto Visible|URL]] y guarda placeholders
+    raw = raw.replace(/\[\[a\|([^|]+)\|([^\]]+)\]\]/gi, function (_, label, url) {
+      var cleanUrl = (url || "").trim();
+      if (!/^https?:\/\//i.test(cleanUrl)) cleanUrl = "https://" + cleanUrl;
+      cleanUrl = maybeDecorateWhatsApp(cleanUrl); // ← decoración WA también para anchors
+
+      var target = "_blank";
+      try {
+        var H = new URL(cleanUrl).hostname;
+        if (isWhatsAppHost(H)) target = "_self";
+      } catch (_) {}
+
+      var html = '<a class="cb-link" href="' + escapeHtml(cleanUrl) + '" target="' + target + '" rel="noopener">' +
+                 escapeHtml(label) + '</a>';
+      var idx = anchors.push(html) - 1;
+      return "__A" + idx + "__"; // placeholder temporal
+    });
+
+    // 2) Escapar + linkify del resto del texto
+    var safe = linkify(escapeHtml(raw));
+
+    // 3) Reinyectar anchors reales
+    safe = safe.replace(/__A(\d+)__/g, function (_, i) { return anchors[+i] || ""; });
+
+    return safe;
+  }
+
+  // =======================
+  // Deep-link / Intent a la app de WhatsApp con fallback a Web
+  // =======================
+  function buildWhatsAppLinksFromHref(href) {
+    try {
+      var u = new URL(href);
+      if (!isWhatsAppHost(u.hostname)) return null;
+
+      // Reusa la misma lógica del decorador
+      var web = maybeDecorateWhatsApp(href);        // -> https://wa.me/PHONE?text=...
+      var U = new URL(web);
+      var phone = extractPhoneFromUrl(U);
+      var params = new URLSearchParams(U.search);
+      var text = params.get("text") || "";
+
+      // Deep-link prioritario para app (iOS usa wa.me, Android intenta intent://)
+      var deep = phone
+        ? ("whatsapp://send?phone=" + phone + "&text=" + encodeURIComponent(text))
+        : ("whatsapp://send?text=" + encodeURIComponent(text));
+
+      // Intent (Android)
+      var androidIntent = phone
+        ? ("intent://send?phone=" + phone + "&text=" + encodeURIComponent(text) + "#Intent;scheme=whatsapp;package=com.whatsapp;end")
+        : ("intent://send?text=" + encodeURIComponent(text) + "#Intent;scheme=whatsapp;package=com.whatsapp;end");
+
+      return { deep: deep, web: web, intent: androidIntent, phone: phone };
+    } catch {
+      return null;
+    }
+  }
+
+  function tryOpenWhatsApp(links) {
+    if (!links) return;
+
+    var opened = false;
+    var onVis = function () { opened = true; cleanup(); };
+    function cleanup() {
+      clearTimeout(tid);
+      document.removeEventListener("visibilitychange", onVis);
+      window.removeEventListener("pagehide", onVis);
+      window.removeEventListener("blur", onVis);
+    }
+    document.addEventListener("visibilitychange", onVis);
+    window.addEventListener("pagehide", onVis);
+    window.addEventListener("blur", onVis);
+
+    if (isAndroid()) {
+      window.location.href = links.intent; // INTENT primero
+    } else if (isIOS()) {
+      window.location.href = links.web;    // iOS: wa.me conserva mejor el text
+    } else {
+      window.location.href = links.deep;   // Otros: intenta deep
+    }
+
+    var tid = setTimeout(function () {
+      if (!opened) window.location.href = links.web; // Fallback a wa.me
+      cleanup();
+    }, 1200);
+  }
+
+  // Intercepta clicks en enlaces de WhatsApp y aplica intento de app + fallback
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest && e.target.closest("a.cb-link");
+    if (!a) return;
+
+    var href = a.getAttribute("href");
+    try {
+      var host = new URL(href).hostname;
+      if (!isWhatsAppHost(host)) return;
+    } catch (_) { return; }
+
+    e.preventDefault();
+    var links = buildWhatsAppLinksFromHref(href);
+    tryOpenWhatsApp(links);
+  }, true);
+
+  // =======================
+  // VALIDACIONES FORM LEAD
+  // =======================
+  function setupLeadValidation() {
+    var f = refs.leadForm;
+    if (!f) return;
+
+    f.setAttribute('novalidate', 'novalidate');
+
+    var name = f.elements.namedItem("name");
+    var email = f.elements.namedItem("email");
+    var phone = f.elements.namedItem("phone");
+    var profession = f.elements.namedItem("profession");
+    var city = f.elements.namedItem("city");
+
+    // Atributos HTML para ayudar al navegador
+if (name) {
+  name.required = true;
+  name.maxLength = 60;
+  name.inputMode = "text";
+  name.pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñÜü.\\-\\s]{2,60}";
+  name.autocapitalize = "words";
+  name.placeholder = name.placeholder || "Nombre y apellido";
+
+  // ⬇️ Sanea en tiempo real: NO números ni símbolos fuera de . - y espacio
+  name.addEventListener("input", function () {
+    var v = this.value;
+    v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, ""); // quita dígitos y otros
+    v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, "");   // colapsa espacios / recorta inicios
+    this.value = v;
+    clearFieldError(this);
   });
 
-  // 2) Escapar + linkify del resto del texto
-  var safe = linkify(escapeHtml(raw));
-
-  // 3) Reinyectar los anchors reales en los placeholders
-  safe = safe.replace(/__A(\d+)__/g, function (_, i) { return anchors[+i] || ""; });
-
-  return safe;
+  name.addEventListener("blur", function(){ validateField("name"); });
 }
 
+    if (email) {
+      email.required = true;
+      email.inputMode = "email";
+      email.placeholder = email.placeholder || "correo@ejemplo.com";
+      email.addEventListener("input", function(){ clearFieldError(this); });
+      email.addEventListener("blur", function(){ validateField("email"); });
+    }
+    if (phone) {
+      phone.required = true;
+      phone.inputMode = "numeric";
+      phone.pattern = "\\d*";
+      phone.maxLength = 13; // exactamente 10
+      phone.placeholder = phone.placeholder || "Celular (10 dígitos)";
+      phone.addEventListener("input", function () {
+        var digits = this.value.replace(/\D+/g, "");
+        if (digits.length > 13) digits = digits.slice(0, 13);
+        this.value = digits;
+        clearFieldError(this);
+      });
+      phone.addEventListener("blur", function(){ validateField("phone"); });
+    }
+    if (profession) {
+      profession.required = true;
+      profession.maxLength = 60;
+      profession.autocapitalize = "words";
+      profession.addEventListener("input", function () {
+        this.value = this.value.replace(/\s+/g, " ").replace(/^[\s-]+/, "");
+        clearFieldError(this);
+      });
+      profession.addEventListener("blur", function(){ validateField("profession"); });
+    }
+if (city) {
+  city.required = true;
+  city.maxLength = 60;
+  city.inputMode = "text";
+  city.pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñÜü.\\-\\s]{2,60}";
+  city.autocapitalize = "words";
+
+  // ⬇️ Sanea en tiempo real: NO números ni símbolos fuera de . - y espacio
+  city.addEventListener("input", function () {
+    var v = this.value;
+    v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, ""); // quita dígitos y otros
+    v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, "");   // colapsa espacios / recorta inicios
+    this.value = v;
+    clearFieldError(this);
+  });
+
+  city.addEventListener("blur", function(){ validateField("city"); });
+}
+
+  }
+
+  function fieldEl(name) {
+    return refs.leadForm && refs.leadForm.elements.namedItem(name);
+  }
+
+  function getOrCreateErrorNode(el) {
+    if (!el) return null;
+    var next = el.nextElementSibling;
+    if (next && next.classList && next.classList.contains("field-error")) return next;
+    var div = document.createElement("div");
+    div.className = "field-error";
+    div.style.color = "#DC2626";
+    div.style.fontSize = "12px";
+    div.style.marginTop = "4px";
+    el.parentNode.insertBefore(div, el.nextSibling);
+    return div;
+  }
+
+  function showFieldError(el, msg) {
+    if (!el) return;
+    el.classList.add("invalid");
+    el.setAttribute("aria-invalid", "true");
+    var node = getOrCreateErrorNode(el);
+    if (node) node.textContent = msg || "Campo inválido";
+  }
+
+  function clearFieldError(el) {
+    if (!el) return;
+    el.classList.remove("invalid");
+    el.removeAttribute("aria-invalid");
+    var next = el.nextElementSibling;
+    if (next && next.classList && next.classList.contains("field-error")) {
+      next.textContent = "";
+    }
+  }
+
+  function clearAllErrors() {
+    if (!refs.leadForm) return;
+    ["name","email","phone","profession","city"].forEach(function(n){
+      clearFieldError(fieldEl(n));
+    });
+  }
+
+  function validateField(name) {
+    var el = fieldEl(name);
+    if (!el) return true;
+
+    var v = (el.value || "").trim();
+    var onlyLetters = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]{2,60}$/;
+    var emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    var phoneRx = /^\d{10}$/;
+
+    if (name === "name") {
+      if (!onlyLetters.test(v)) { showFieldError(el, "Usa solo letras y mínimo 2 caracteres."); return false; }
+      return true;
+    }
+    if (name === "email") {
+      if (!emailRx.test(v)) { showFieldError(el, "Email no válido."); return false; }
+      return true;
+    }
+    if (name === "phone") {
+      if (!phoneRx.test(v)) { showFieldError(el, "Debe tener 10 dígitos numéricos."); return false; }
+      return true;
+    }
+    if (name === "profession") {
+      if (!onlyLetters.test(v)) { showFieldError(el, "Usa solo letras (mínimo 2)."); return false; }
+      return true;
+    }
+    if (name === "city") {
+      if (!onlyLetters.test(v)) { showFieldError(el, "Usa solo letras (mínimo 2)."); return false; }
+      return true;
+    }
+    return true;
+  }
+
+  function validateLeadForm() {
+    clearAllErrors();
+    var ok = true;
+    ["name","email","phone","profession","city"].forEach(function(n){
+      if (!validateField(n)) ok = false;
+    });
+    // focus en el primero con error
+    if (!ok) {
+      for (var i=0;i<5;i++){
+        var nm = ["name","email","phone","profession","city"][i];
+        var el = fieldEl(nm);
+        var err = el && el.nextElementSibling && el.nextElementSibling.classList.contains("field-error") && el.nextElementSibling.textContent;
+        if (err) { try { el.focus(); } catch(_){} break; }
+      }
+    }
+    return ok;
+  }
+
+  // =======================
+  // Formulario Overlay
+  // =======================
+  function showLeadOverlay() {
+    if (!refs.leadOverlay) return;
+    refs.leadOverlay.hidden = false;
+    var first = refs.leadForm && refs.leadForm.elements.namedItem("name");
+    if (first && typeof first.focus === "function") setTimeout(function(){ first.focus(); }, 60);
+  }
+  function hideLeadOverlay() {
+    if (!refs.leadOverlay) return;
+    refs.leadOverlay.hidden = true;
+  }
+
+  function onLeadSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!refs.leadForm) return;
+
+    // Validación
+    if (!validateLeadForm()) {
+      return;
+    }
+
+    var data = {
+      session_id: getSessionId(),
+      name: (refs.leadForm.elements.namedItem("name").value || "").trim(),
+      email: (refs.leadForm.elements.namedItem("email").value || "").trim(),
+      phone: (refs.leadForm.elements.namedItem("phone").value || "").trim(),
+      profession: (refs.leadForm.elements.namedItem("profession").value || "").trim(),
+      city: (refs.leadForm.elements.namedItem("city").value || "").trim(),
+    };
+
+    // Guardar el nombre para WhatsApp
+    try { localStorage.setItem("ecolite_lead_name", data.name || ""); } catch (_e) {}
+
+    var btn = refs.leadForm.querySelector(".lead-submit");
+    if (btn) btn.disabled = true;
+
+    fetch(LEADS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then(function (r) { return r.json(); })
+      .then(function () {
+        appendBot("✅ Gracias, tus datos fueron guardados. ¿Qué necesitas iluminar hoy?");
+        hideLeadOverlay();
+      })
+      .catch(function (err) {
+        if (btn) btn.disabled = false;
+        appendSystem("⚠️ No pude guardar tus datos: " + (err && err.message ? err.message : "error"));
+      });
+  }
+
+  // =======================
+  // Render / Productos
+  // =======================
   function row(cls, htmlOrNode) {
     if (!refs.stream) return;
     var wrap = document.createElement("div");
@@ -308,7 +754,9 @@ function renderRichBotText(s) {
     }
   }
 
-  // ---------- Red / API ----------
+  // =======================
+  // Red / API
+  // =======================
   function getSessionId() {
     var KEY = "ecolite_session_id";
     var sid = localStorage.getItem(KEY);
@@ -340,58 +788,9 @@ function renderRichBotText(s) {
     catch (e) { hideTyping(); onErr && onErr(e); }
   }
 
-  // ---------- Formulario Overlay ----------
-  function showLeadOverlay() {
-    if (!refs.leadOverlay) return;
-    refs.leadOverlay.hidden = false;
-    // Foco en el primer input
-    var first = refs.leadForm && refs.leadForm.elements.namedItem("name");
-    if (first && typeof first.focus === "function") setTimeout(function(){ first.focus(); }, 60);
-  }
-  function hideLeadOverlay() {
-    if (!refs.leadOverlay) return;
-    refs.leadOverlay.hidden = true;
-  }
-
-  function onLeadSubmit(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (!refs.leadForm) return;
-
-    var data = {
-      session_id: getSessionId(),
-      name: (refs.leadForm.elements.namedItem("name").value || "").trim(),
-      email: (refs.leadForm.elements.namedItem("email").value || "").trim(),
-      phone: (refs.leadForm.elements.namedItem("phone").value || "").trim(),
-      profession: (refs.leadForm.elements.namedItem("profession").value || "").trim(),
-      city: (refs.leadForm.elements.namedItem("city").value || "").trim(),
-    };
-
-    if (!data.name || !data.email || !data.phone || !data.profession || !data.city) {
-      appendSystem("Por favor completa todos los campos.");
-      return;
-    }
-
-    var btn = refs.leadForm.querySelector(".lead-submit");
-    if (btn) btn.disabled = true;
-
-    fetch(LEADS_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    }).then(function (r) { return r.json(); })
-      .then(function (j) {
-        appendBot("✅ Gracias, tus datos fueron guardados. ¿Qué necesitas iluminar hoy?");
-        hideLeadOverlay(); // Se oculta ahora; volverá a salir la próxima vez que abras la página o el chat
-      })
-      .catch(function (err) {
-        if (btn) btn.disabled = false;
-        appendSystem("⚠️ No pude guardar tus datos: " + (err && err.message ? err.message : "error"));
-      });
-  }
-
-  // ---------- Chat / Lógica ----------
+  // =======================
+  // Chat / Lógica
+  // =======================
   function sendMessage(text) {
     var msg = (text || "").trim();
     if (!msg) return;
@@ -410,6 +809,7 @@ function renderRichBotText(s) {
 
     callAPI(q, page, function (data) {
       lastQuery = data.last_query || q;
+      window.__ecoliteLastQuery = lastQuery; // opcional para WA
 
       if (Array.isArray(data.products) && data.products.length) {
         renderProductCards(data.products, !!data.has_more);
