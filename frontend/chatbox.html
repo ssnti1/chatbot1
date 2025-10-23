@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Asistente de ecolite</title>
+  <link rel="stylesheet" href="/static/chatbox.css">
+</head>
+
+<body>
+  <button class="cb-fab" id="cbFab" aria-label="Abrir chat">
+    <span class="pulse"></span><span>¿Necesitas ayuda?</span>
+  </button>
+
+  <section class="cb-panel" id="cbPanel" role="dialog" aria-label="Asistente de ecolite">
+    <header class="cb-header">
+      <div class="cb-logo">
+        <img src="https://ecolite.com.co/wp-content/uploads/2023/04/logo-ecolite.png" alt="" style="width: 110px;">
+      </div>
+      <div>
+        <p class="cb-title">Asistente de Ecolite</p>
+        <p class="cb-sub">Atención rápida y personalizada</p>
+      </div>
+      <button id="cbClose" class="cb-close">✕</button>
+    </header>
+
+    <div class="cb-body">
+      <!-- OVERLAY de formulario (cubre toda la pantallita del chat) -->
+      <div id="leadOverlay" class="lead-overlay" aria-modal="true" role="dialog" hidden>
+        <form class="lead-form" id="leadForm" novalidate>
+          <div class="lead-title">Déjanos tus datos para atenderte mejor</div>
+
+          <label>
+            <span>Nombre</span>
+            <input name="name" type="text" required placeholder="Tu nombre">
+          </label>
+
+          <label>
+            <span>Correo</span>
+            <input name="email" type="email" required placeholder="tucorreo@ejemplo.com">
+          </label>
+
+          <label>
+            <span>Celular</span>
+            <input name="phone" type="tel" required inputmode="numeric" placeholder="3001234567">
+          </label>
+
+<label>
+  <span>Profesión</span>
+  <select name="profession" required>
+    <option value="" disabled selected>Selecciona tu profesión…</option>
+    <option>Diseño de Iluminación</option>
+    <option>Arquitectura</option>
+    <option>Diseño de Interiores</option>
+    <option>Ingeniería Civil</option>
+    <option>Ingeniería Industrial</option>
+    <option>Ingeniería Mecánica</option>
+    <option>Ingenieros eléctricos</option>
+    <option>Ingeniero de Sistemas</option>
+    <option>Administradores de empresas</option>
+    <option>Paisajistas</option>
+    <option>Decorador</option>
+    <option>Técnico electricista</option>
+    <option>Técnico en Instalaciones Eléctricas y Alumbrado</option>
+    <option>Técnico en Iluminación</option>
+    <option>Otra profesión</option>
+  </select>
+</label>
+
+
+          <label>
+            <span>Ciudad</span>
+            <input name="city" type="text" required placeholder="Medellín, Bogotá…">
+          </label>
+
+          <div class="lead-actions">
+            <button type="submit" class="lead-submit">Enviar</button>
+          </div>
+          <div class="lead-hint">Tus datos se guardan de forma segura para seguimiento comercial.</div>
+        </form>
+      </div>
+
+      <div class="cb-stream" id="cbStream"></div>
+
+      <!-- Escribiendo... -->
+      <div id="typing" class="msg is-hidden">
+        <div class="bubble">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="label">Escribiendo…</span>
+        </div>
+      </div>
+
+      <footer class="cb-footer">
+        <input id="cbInput" class="cb-input" placeholder="Escribe tu mensaje…" />
+        <button id="cbSend" class="cb-send">Enviar</button>
+      </footer>
+    </div>
+  </section>
+
+  <template id="tplShowMore">
+    <div class="msg">
+      <button class="cb-cta" type="button" aria-label="Ver más resultados">Ver más</button>
+    </div>
+  </template>
+
+  <script src="/static/chatbox.js"></script>
+</body>
+
+</html>

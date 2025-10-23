@@ -1,0 +1,540 @@
+/* =========================
+   Tema CLARO – Ecolite Chat
+   ========================= */
+:root {
+    /* Paleta clara */
+    --brand: #2563eb;
+    /* Azul principal */
+    --brand-600: #1d4ed8;
+    --brand-50: #eff6ff;
+    --bg: #f8fafc;
+    /* Fondo página */
+    --panel: #ffffff;
+    /* Paneles / burbujas */
+    --line: #e5e7eb;
+    /* Bordes suaves */
+    --text: #0f172a;
+    /* Texto principal */
+    --muted: #6b7280;
+    /* Texto secundario */
+    --success: #10b981;
+
+    /* Elevación y radios */
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --radius-sm: 10px;
+    --shadow-1: 0 6px 18px rgba(2, 6, 23, .06);
+    --shadow-2: 0 14px 34px rgba(2, 6, 23, .10);
+}
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    background: linear-gradient(180deg, #f9fbff 0%, var(--bg) 40%, #f5f7fb 100%);
+    color: var(--text);
+}
+
+/* =========================
+   FAB (botón flotante)
+   ========================= */
+.cb-fab {
+    position: fixed;
+    right: 22px;
+    bottom: 26px;
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    padding: 12px 14px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--brand), var(--brand-600));
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .6);
+    box-shadow: var(--shadow-2);
+    cursor: pointer;
+    z-index: 10;
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.cb-fab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 46px rgba(29, 78, 216, .22);
+}
+
+.cb-fab .pulse {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--success);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, .20);
+}
+
+/* =========================
+   Panel de chat
+   ========================= */
+.cb-panel {
+    position: fixed;
+    right: 22px;
+    bottom: 92px;
+    width: 390px;
+    max-width: 96vw;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 20;
+}
+
+/* Header */
+.cb-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: linear-gradient(180deg, var(--brand-50), #ffffff);
+    border-bottom: 1px solid var(--line);
+}
+
+.cb-logo {
+    background-image: url(https://ecolite.com.co/wp-content/uploads/2023/04/logo-ecolite.png);
+}
+
+
+.cb-title {
+    margin: 0;
+    font-weight: 800;
+    font-size: 14px;
+    color: #0b1220;
+    letter-spacing: .1px;
+}
+
+.cb-sub {
+    margin: 0;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.cb-close {
+    margin-left: auto;
+    background: #fff;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    transition: background .12s ease, color .12s ease;
+}
+
+.cb-close:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+/* Cuerpo */
+.cb-body {
+    display: flex;
+    flex-direction: column;
+    height: 520px;
+    max-height: 70vh;
+}
+
+.cb-stream {
+    flex: 1;
+    overflow: auto;
+    padding: 14px;
+    background: linear-gradient(180deg, #fff, #fafbff);
+}
+
+/* Footer (input) */
+.cb-footer {
+    border-top: 1px solid var(--line);
+    padding: 10px;
+    background: #fff;
+    display: flex;
+    gap: 8px;
+}
+
+.cb-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: #fff;
+    color: var(--text);
+    outline: none;
+    transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+.cb-input:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+}
+
+.cb-send {
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--brand);
+    background: linear-gradient(180deg, var(--brand), var(--brand-600));
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.cb-send:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(29, 78, 216, .24);
+}
+
+/* =========================
+   Mensajes
+   ========================= */
+.msg {
+    display: flex;
+    margin: 10px 0;
+    gap: 8px;
+    align-items: flex-end;
+    padding: 0 4px;
+}
+
+.msg .bubble {
+    max-width: 78%;
+    padding: 11px 13px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: #ffffff;
+    box-shadow: var(--shadow-1);
+    line-height: 1.4;
+}
+
+.msg.me {
+    justify-content: flex-end;
+}
+
+.msg.me .bubble {
+    background: linear-gradient(180deg, var(--brand-50), #fff);
+    border-color: #dbeafe;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, .12);
+}
+
+/* “Escribiendo…” */
+#typing .bubble {
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* =========================
+   Cards de productos
+   ========================= */
+.prod-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 4px 4px;
+}
+
+.prod-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: var(--shadow-1);
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+
+.prod-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(2, 6, 23, .12);
+    border-color: #d1d5db;
+}
+
+.prod-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: #f3f6fb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.prod-info {
+    display: grid;
+    gap: 4px;
+}
+
+.prod-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.prod-price {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--success);
+}
+
+.prod-link {
+    width: max-content;
+    margin-top: 2px;
+    font-size: 12.5px;
+    text-decoration: none;
+    color: #1d4ed8;
+    border: 1px solid #dbeafe;
+    background: #eff6ff;
+    padding: 6px 10px;
+    border-radius: 999px;
+    transition: background .12s ease, border-color .12s ease, color .12s ease;
+}
+
+.prod-link:hover {
+    background: #dbeafe;
+    border-color: #bfdbfe;
+    color: #1e40af;
+}
+
+/* CTA “Ver más” */
+.cb-cta {
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid #dbeafe;
+    background: #eff6ff;
+    color: #1e40af;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+
+.cb-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(29, 78, 216, .12);
+    background: #e0efff;
+}
+
+.cb-cta:focus {
+    outline: 3px solid rgba(37, 99, 235, .18);
+    outline-offset: 2px;
+}
+
+/* =========================
+   Responsivo
+   ========================= */
+@media (max-width:480px) {
+    .cb-panel {
+        right: 50%;
+        transform: translateX(50%);
+        width: 96vw;
+        bottom: 90px;
+    }
+
+    .msg .bubble {
+        max-width: 86%;
+    }
+
+    .prod-item {
+        align-items: flex-start;
+    }
+}
+
+/* Escribiendo */
+#typing {
+    display: flex;
+    justify-content: flex-start;
+    padding: 4px 8px;
+    background: linear-gradient(180deg, #f9fbff 0%, var(--bg) 40%, #f5f7fb 100%);
+}
+
+#typing.is-hidden {
+    display: none !important;
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+#typing .bubble {
+    color: var(--subtext);
+    font-style: italic;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#typing .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .35;
+    animation: cb-bounce 1.2s infinite ease-in-out;
+}
+
+#typing .dot:nth-child(2) {
+    animation-delay: .15s;
+}
+
+#typing .dot:nth-child(3) {
+    animation-delay: .30s;
+}
+
+@keyframes cb-bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(.8);
+        opacity: .35;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.prod-body {
+    margin: 0;
+}
+
+/* ==== Overlay del formulario (pantalla completa dentro del chat) – TEMA CLARO ==== */
+.cb-body { position: relative; }
+
+.lead-overlay[hidden] { display: none !important; }
+
+.lead-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  animation: fadeIn .25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.lead-form {
+  width: min(390px, 92vw);
+  background: #ffffff;
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: 22px 20px;
+  display: grid;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, .10);
+}
+
+.lead-form .lead-title {
+  color: #0b1220;
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.lead-form label {
+  display: grid;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.lead-form input {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+  background: #f9fafb;
+  color: var(--text);
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+.lead-form input:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+}
+
+.lead-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.lead-submit, .lead-skip {
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s ease, box-shadow .15s ease, transform .1s ease;
+}
+
+.lead-submit {
+  border: 1px solid var(--brand);
+  background: linear-gradient(180deg, var(--brand), var(--brand-600));
+  color: #fff;
+}
+
+.lead-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(29, 78, 216, .18);
+}
+
+.lead-skip {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+}
+
+.lead-skip:hover {
+  border-color: var(--brand);
+  color: var(--brand-600);
+}
+
+.lead-hint {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 4px;
+}
+
+
+.lead-form input,
+.lead-form select {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+  background: #f9fafb;
+  color: var(--text);
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+.lead-form input:focus,
+.lead-form select:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+}
