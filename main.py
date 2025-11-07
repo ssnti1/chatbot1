@@ -2,12 +2,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+try:
+    from backend.routers import faq as faq_router
+except Exception:
+    import faq as faq_router
 
 from backend.routers import chat
 from backend.routers import leads  # ← NUEVO
 
+
 app = FastAPI(title="Ecolite Assistant", version="3.3")
 
+app.include_router(faq_router.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

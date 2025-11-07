@@ -290,6 +290,7 @@ body {
     font-size: 13px;
     font-weight: 800;
     color: var(--success);
+    margin-bottom: 7px;
 }
 
 .prod-link {
@@ -537,5 +538,9 @@ body {
 .lead-form select:focus {
   border-color: var(--brand);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+}
+
+.prod-body h4{
+    margin: 10px 0px;
 }
 

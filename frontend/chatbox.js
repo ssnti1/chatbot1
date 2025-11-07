@@ -259,12 +259,7 @@
     try { return (localStorage.getItem("ecolite_lead_name") || "").trim(); }
     catch (_) { return ""; }
   }
-  function buildQuoteMessage() {
-    var name = getLeadName();
-    var base = name ? ("Hola, soy " + name + ", quiero cotizar") : "Hola, quiero cotizar";
-    // if (window.__ecoliteLastQuery) base += " sobre: " + window.__ecoliteLastQuery;
-    return base;
-  }
+
   function normalizePhone(raw) {
     return String(raw || "").replace(/[^\d]/g, ""); // deja solo dígitos
   }
@@ -289,35 +284,51 @@
   // =======================
   // Decorador de URLs → WA con nombre + mensaje
   // =======================
-  function maybeDecorateWhatsApp(url) {
-    try {
-      var u = new URL(url);
-      if (!isWhatsAppHost(u.hostname)) return url;
+function maybeDecorateWhatsApp(link) {
+  const name = getLeadName();
+  // último texto que escribió el usuario (ya lo guardas aquí):
+  // window.__ecoliteLastQuery se setea después de cada respuesta del backend
+  // (no toques eso)
+  let last = (window.__ecoliteLastQuery || "").trim().toLowerCase();
 
-      var phone = extractPhoneFromUrl(u);
-      var params = new URLSearchParams(u.search);
-      var existing = (params.get("text") || "").trim();
-      var name = (getLeadName() || "").trim();
+  // 1) Limpia saludos/política al inicio
+  //    ej: "hola,", "buenas tardes:", "por favor ..."
+  last = last
+    .replace(/^\s*(hola|buenas(?:\s+(tardes|noches|d[ií]as))?|buenos\s+d[ií]as)\s*[,;:\-]?\s*/i, "")
+    .replace(/^\s*(por\s+favor|porfa|porfis)\s*[,;:\-]?\s*/i, "")
+    .trim();
 
-      // Construye el mensaje final
-      var text;
-      if (name) {
-        text = existing ? ("Hola, soy " + name + ". " + existing) : ("Hola, soy " + name + ", quiero cotizar");
-      } else {
-        text = existing || "Hola, quiero cotizar";
-      }
+  // 2) Si arranca con "sugiereme / recomiéndame", quítalo
+  last = last
+    .replace(/^\s*(sugiereme|sugiéreme|recomiendame|recomiéndame)\b\s*/i, "")
+    .trim();
 
-      if (phone) {
-        return "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
-      }
-
-      params.set("text", text);
-      var q = params.toString().replace(/\+/g, "%20");
-      return u.origin + u.pathname + (q ? ("?" + q) : "");
-    } catch (e) {
-      return url; // ante cualquier error, deja el link intacto
-    }
+  // 3) Decide la forma natural del "topic"
+  let topic;
+  if (!last) {
+    topic = "quiero cotizar";
+  } else if (/^(quiero|necesito|busco|me\s+gustar[ií]a|deseo|quisiera)\b/i.test(last)) {
+    // El usuario ya dijo "quiero/necesito/busco..."
+    topic = last;
+  } else if (/^(estoy|soy)\s+interesad[ao]\s+en\b/i.test(last)) {
+    // Ya viene con "estoy interesado en ..."
+    topic = last;
+  } else {
+    topic = "estoy interesado en " + last;
   }
+
+  // 4) Mensaje final (evita dobles "Hola")
+  let text = name ? ("Hola, soy " + name + ". " + topic) : ("Hola, " + topic);
+
+  // 5) Adjunta el ?text= al link (base debe ser wa.me/NUMERO)
+  const encoded = encodeURIComponent(text);
+  if (link.includes("?")) link += "&text=" + encoded;
+  else link += "?text=" + encoded;
+  return link;
+}
+
+
+
 
   // =======================
   // Linkify + anchors enriquecidos
@@ -326,11 +337,7 @@
     return (s || "").replace(/(https?:\/\/[^\s)]+)|(\bwww\.[^\s)]+)/gi, function (m) {
       var url = m.startsWith("http") ? m : ("https://" + m);
       url = maybeDecorateWhatsApp(url); // ← decoración WA
-      var target = "_blank";
-      try {
-        var H = new URL(url).hostname;
-        if (isWhatsAppHost(H)) target = "_self"; // abre en la misma pestaña para conservar el text
-      } catch (_) {}
+var target = "_blank";  // abrir siempre en nueva pestaña
       return '<a class="cb-link" href="' + url + '" target="' + target + '" rel="noopener">' + m + '</a>';
     });
   }
@@ -348,7 +355,7 @@
       var target = "_blank";
       try {
         var H = new URL(cleanUrl).hostname;
-        if (isWhatsAppHost(H)) target = "_self";
+        var target = "_blank"; // abrir siempre en nueva pestaña
       } catch (_) {}
 
       var html = '<a class="cb-link" href="' + escapeHtml(cleanUrl) + '" target="' + target + '" rel="noopener">' +
@@ -412,16 +419,17 @@
     window.addEventListener("pagehide", onVis);
     window.addEventListener("blur", onVis);
 
-    if (isAndroid()) {
-      window.location.href = links.intent; // INTENT primero
-    } else if (isIOS()) {
-      window.location.href = links.web;    // iOS: wa.me conserva mejor el text
-    } else {
-      window.location.href = links.deep;   // Otros: intenta deep
-    }
+  if (isAndroid()) {
+    window.location.href = links.intent; // Android: app
+  } else if (isIOS()) {
+    window.open(links.web, "_blank");    // iOS: wa.me conserva mejor el text
+  } else {
+    window.open(links.web, "_blank");    // Desktop: usa wa.me directo (evita perder el texto)
+  }
+
 
     var tid = setTimeout(function () {
-      if (!opened) window.location.href = links.web; // Fallback a wa.me
+      if (!opened) window.open(links.web, "_blank"); // Fallback a wa.me
       cleanup();
     }, 1200);
   }
@@ -667,7 +675,7 @@ if (city) {
       body: JSON.stringify(data),
     }).then(function (r) { return r.json(); })
       .then(function () {
-        appendBot("✅ Gracias, tus datos fueron guardados. ¿Qué necesitas iluminar hoy?");
+        appendBot("✅ Gracias, tus datos fueron guardados.");
         hideLeadOverlay();
       })
       .catch(function (err) {

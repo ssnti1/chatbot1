@@ -261,15 +261,15 @@
     "category": "Riel Magnético",
     "categories": [
       "Riel magnético",
+      "Magnetico",
       "Sistema magnético",
-      "Locales comerciales",
       "Magnetic track"
     ],
     "tags": [
       "TLCT",
-      "Locales comerciales",
       "Retail",
       "Tienda",
+      "Magnetico",
       "Showroom",
       "Oficina"
     ],
@@ -285,15 +285,15 @@
     "category": "Riel Magnético",
     "categories": [
       "Riel magnético",
-      "Locales comerciales",
+      "Magnetico",
       "Sistema magnético",
       "Magnetic track"
     ],
     "tags": [
       "TLCX",
       "Retail",
-      "Locales comerciales",
       "Tienda",
+      "Magnetico",
       "Showroom",
       "Oficina"
     ],
@@ -608,6 +608,7 @@
     "category": "Riel Magnético",
     "categories": [
       "Riel magnético",
+      "Magnetico",
       "Sistema magnético",
       "Magnetic track"
     ],
@@ -615,6 +616,7 @@
       "12W",
       "TLMB8",
       "Retail",
+      "Magnetico",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -688,11 +690,13 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
       "9W",
       "TLMC1",
+      "Magnetico",
       "Retail",
       "Tienda",
       "Showroom",
@@ -741,11 +745,13 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
       "TLMCR-B",
       "Retail",
+      "Magnetico",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -792,12 +798,14 @@
     "category": "Riel Magnético",
     "categories": [
       "Riel magnético",
+      "Magnetico",
       "Sistema magnético",
       "Magnetic track"
     ],
     "tags": [
       "100W",
       "TLMF100-B",
+      "Magnetico",
       "Retail",
       "Tienda",
       "Showroom",
@@ -816,6 +824,8 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
+      "Comercial",
       "Locales comerciales",
       "Magnetic track"
     ],
@@ -823,8 +833,9 @@
       "TLCR3V",
       "Retail",
       "Tienda",
-      "Locales comerciales",
+      "Magnetico",
       "Showroom",
+      "Comercial",
       "Oficina"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2025/02/TLCR3V_2.webp",
@@ -840,14 +851,14 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
-      "Locales comerciales",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
       "TLCL3V",
-      "Locales comerciales",
       "Retail",
       "Tienda",
+      "Magnetico",
       "Showroom",
       "Oficina"
     ],
@@ -886,9 +897,11 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
+      "Magnetico",
       "TLM3M-INC",
       "Retail",
       "Tienda",
@@ -1112,12 +1125,16 @@
       "Riel magnético",
       "Sistema magnético",
       "Locales comerciales",
+      "Comercial",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
       "20W",
       "TL20W",
       "Retail",
+      "Magnetico",
+      "Comercial",
       "Locales comerciales",
       "Tienda",
       "Showroom",
@@ -1933,12 +1950,14 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
       "interior",
       "Magnetic track"
     ],
     "tags": [
       "TLM3M",
       "Retail",
+      "Magnetico",
       "interior",
       "Tienda",
       "Showroom",
@@ -1979,12 +1998,14 @@
     "category": "Riel Magnético",
     "categories": [
       "Riel magnético",
+      "Magnetico",
       "Sistema magnético",
       "interior",
       "Magnetic track"
     ],
     "tags": [
       "12W",
+      "Magnetico",
       "TLML0",
       "interior",
       "Retail",
@@ -2071,6 +2092,7 @@
       "Riel magnético",
       "Sistema magnético",
       "interior",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
@@ -2078,6 +2100,7 @@
       "TLMCOL",
       "interior",
       "Retail",
+      "Magnetico",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -2095,12 +2118,14 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
       "interior",
       "Magnetic track"
     ],
     "tags": [
       "24W",
       "TLMP1",
+      "Magnetico",
       "interior",
       "Retail",
       "Tienda",
@@ -2121,14 +2146,18 @@
       "Riel magnético",
       "Sistema magnético",
       "Locales comerciales",
+      "Magnetico",
       "interior",
+      "Comercial",
       "Magnetic track"
     ],
     "tags": [
       "12W",
       "TLMPG0",
       "Locales comerciales",
+      "Magnetico",
       "Retail",
+      "Comercial",
       "interior",
       "Tienda",
       "Showroom",
@@ -2147,6 +2176,8 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Comercial",
+      "Magnetico",
       "Locales comerciales",
       "interior",
       "Magnetic track"
@@ -2156,7 +2187,9 @@
       "TLMSP1",
       "Locales comerciales",
       "interior",
+      "Magnetico",
       "Retail",
+      "Comercial",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -2174,6 +2207,7 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
       "interior",
       "Magnetic track"
     ],
@@ -2182,6 +2216,7 @@
       "TLMCOL1",
       "Retail",
       "interior",
+      "Magnetico",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -2199,13 +2234,15 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
       "interior",
-      "Magnetic track"
+      "Magnetica"
     ],
     "tags": [
       "TLMCEL",
       "Retail",
       "interior",
+      "Magnetico",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -2223,11 +2260,12 @@
     "categories": [
       "Riel magnético",
       "interior",
-      "Sistema magnético",
-      "Magnetic track"
+      "Magnetico",
+      "Sistema magnético"
     ],
     "tags": [
       "interior",
+      "Magnetico",
       "TLMINT",
       "Retail",
       "Tienda",
@@ -2248,11 +2286,12 @@
       "Riel magnético",
       "interior",
       "Sistema magnético",
-      "Magnetic track"
+      "Magnetico"
     ],
     "tags": [
       "TLMCEC",
       "Retail",
+      "Magnetico",
       "interior",
       "Tienda",
       "Showroom",
@@ -2272,12 +2311,13 @@
       "Riel magnético",
       "Sistema magnético",
       "interior",
-      "Magnetic track"
+      "Magnetico"
     ],
     "tags": [
       "6W",
       "TLMSP0",
       "interior",
+      "Magnetico",
       "Retail",
       "Tienda",
       "Showroom",
@@ -2296,12 +2336,14 @@
     "categories": [
       "Riel magnético",
       "interior",
+      "Magnetico",
       "Sistema magnético",
       "Magnetic track"
     ],
     "tags": [
       "TLMCR",
       "Retail",
+      "Magnetico",
       "interior",
       "Tienda",
       "Showroom",
@@ -2320,15 +2362,19 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Magnetico",
       "interior",
       "Locales comerciales",
+      "Comercial",
       "Magnetic track"
     ],
     "tags": [
       "24W",
       "TLMSP2",
       "Locales comerciales",
+      "Magnetico",
       "Retail",
+      "Comercial",
       "interior",
       "Tienda",
       "Showroom",
@@ -2856,12 +2902,16 @@
       "Riel magnético",
       "Sistema magnético",
       "Locales comerciales",
+      "Magnetico",
+      "Comercial",
       "Magnetic track"
     ],
     "tags": [
       "20W",
       "TL20SP",
+      "Comercial",
       "Locales comerciales",
+      "Magnetico",
       "Retail",
       "Tienda",
       "Showroom",
@@ -4390,6 +4440,7 @@
       "Gu10",
       "Locales comerciales",
       "Spot gu10",
+      "Comercial",
       "Bombillo gu10",
       "Bala gu10",
       "Cilindro gu10"
@@ -4397,6 +4448,7 @@
     "tags": [
       "Locales comerciales",
       "GU10",
+      "Comercial",
       "TLGU10SP",
       "Retail"
     ],
@@ -4475,12 +4527,14 @@
     "categories": [
       "Riel magnético",
       "interior",
+      "Magnetico",
       "Sistema magnético",
       "Magnetic track"
     ],
     "tags": [
       "TLM1M",
       "Retail",
+      "Magnetico",
       "interior",
       "Tienda",
       "Showroom",
@@ -4499,6 +4553,7 @@
     "categories": [
       "Riel magnético",
       "interior",
+      "Magnetico",
       "Sistema magnético",
       "Magnetic track"
     ],
@@ -4506,6 +4561,7 @@
       "TLM2M",
       "Retail",
       "interior",
+      "Magnetico",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -4522,6 +4578,7 @@
     "category": "Riel Magnético",
     "categories": [
       "Riel magnético",
+      "Magnetico",
       "Sistema magnético",
       "interior",
       "Magnetic track"
@@ -4530,6 +4587,7 @@
       "24W",
       "TLML1",
       "Retail",
+      "Magnetico",
       "Tienda",
       "interior",
       "Showroom",
@@ -4952,7 +5010,7 @@
   },
   "STR600PLUG-ENT": {
     "code": "STR600PLUG-ENT",
-    "name": "Conector perfil de aluminio con cinta LED para Entrepaño STR600PLUG",
+    "name": "Conector perfil de aluminio con cinta LED para Ent repaño STR600PLUG",
     "price": "$9.145",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2025/08/STR600PLUG-ENT.jpg",
     "url": "https://ecolite.com.co/producto/conector-perfil-de-aluminio-con-cinta-led-para-entrepano-str600plug/",
@@ -5872,10 +5930,12 @@
     "category": "Poste",
     "categories": [
       "Solar",
+      "Jardin",
       "Poste"
     ],
     "tags": [
       "Solar",
+      "Jardin",
       "10W",
       "PST11LED-C"
     ],
@@ -5892,10 +5952,12 @@
     "categories": [
       "Poste",
       "Solar",
+      "Jardin",
       "E27"
     ],
     "tags": [
       "E27",
+      "Jardin",
       "Solar",
       "Exterior",
       "Sobreponer",
@@ -5914,10 +5976,12 @@
     "categories": [
       "Poste",
       "Solar",
+      "Jardin",
       "GU10"
     ],
     "tags": [
       "GU10",
+      "Jardin",
       "Solar",
       "Exterior",
       "PST11D"
@@ -5936,12 +6000,14 @@
       "Poste",
       "LED",
       "Solar",
+      "Jardin",
       "10W",
       "Sobreponer"
     ],
     "tags": [
       "LED",
       "Solar",
+      "Jardin",
       "10W",
       "Exterior",
       "PST11LEDB"
@@ -6006,6 +6072,7 @@
       "Poste",
       "LED",
       "Solar",
+      "Jardin",
       "10W",
       "Sobreponer"
     ],
@@ -6014,6 +6081,7 @@
       "10W",
       "Solar",
       "Exterior",
+      "Jardin",
       "Sobreponer",
       "PST11LED"
     ],
@@ -6077,6 +6145,7 @@
       "Poste",
       "LED",
       "10W",
+      "Jardin",
       "Solar",
       "Sobreponer"
     ],
@@ -6086,6 +6155,7 @@
       "Exterior",
       "Solar",
       "Sobreponer",
+      "Jardin",
       "PST11LEDA-C"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2023/05/PST11LEDA_1.jpg",
@@ -6101,11 +6171,13 @@
     "categories": [
       "Poste",
       "Solar",
+      "Jardin",
       "E27"
     ],
     "tags": [
       "E27",
       "Solar",
+      "Jardin",
       "Exterior",
       "PST11B"
     ],
@@ -6122,11 +6194,13 @@
     "categories": [
       "Poste",
       "Solar",
+      "Jardin",
       "E27"
     ],
     "tags": [
       "E27",
       "Solar",
+      "Jardin",
       "Exterior",
       "PST11C"
     ],
@@ -6142,11 +6216,13 @@
     "category": "Bombillo",
     "categories": [
       "Solar",
+      "Jardin",
       "Poste"
     ],
     "tags": [
       "Solar",
       "E27",
+      "Jardin",
       "PST11"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2023/09/PST11.jpg",
@@ -6735,6 +6811,8 @@
       "Riel magnético",
       "Locales comerciales",
       "Sistema magnético",
+      "Comercial",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
@@ -6742,6 +6820,8 @@
       "Retail",
       "Locales comerciales",
       "Tienda",
+      "Magnetico",
+      "Comercial",
       "Showroom",
       "Oficina"
     ],
@@ -6758,7 +6838,12 @@
     "categories": [
       "Riel magnético",
       "Locales comerciales",
+      "Comercial",
       "Sistema magnético",
+      "IRC 95",
+      "Riel 3 vías",
+      "Magnetico",
+      "Mayor IRC",
       "Magnetic track"
     ],
     "tags": [
@@ -6766,8 +6851,12 @@
       "TLWD",
       "Retail",
       "Tienda",
+      "Magnetico",
       "Locales comerciales",
       "Showroom",
+      "Comercial",
+      "IRC 95",
+      "Mayor IRC",
       "Oficina"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2025/02/TLWD_PAGWEB-1.webp",
@@ -6803,13 +6892,17 @@
     "categories": [
       "Riel magnético",
       "Locales comerciales",
+      "Comercial",
+      "Magnetico",
       "Sistema magnético",
       "Magnetic track"
     ],
     "tags": [
       "TS1M",
       "Retail",
+      "Magnetico",
       "Locales comerciales",
+      "Comercial",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -6827,13 +6920,17 @@
     "categories": [
       "Riel magnético",
       "Sistema magnético",
+      "Comercial",
       "Locales comerciales",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
       "TS2M",
       "Retail",
       "Locales comerciales",
+      "Magnetico",
+      "Comercial",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -6853,12 +6950,14 @@
       "Gu10",
       "Locales comerciales",
       "Spot gu10",
+      "Comercial",
       "Bombillo gu10",
       "Bala gu10",
       "Cilindro gu10"
     ],
     "tags": [
       "GU10",
+      "Comercial",
       "Locales comerciales",
       "TLGU10",
       "Retail"
@@ -6876,14 +6975,18 @@
     "categories": [
       "Riel magnético",
       "Locales comerciales",
+      "Comercial",
       "Sistema magnético",
+      "Magnetico",
       "Magnetic track"
     ],
     "tags": [
       "30W",
       "TL30W",
+      "Magnetico",
       "Retail",
       "Locales comerciales",
+      "Comercial",
       "Tienda",
       "Showroom",
       "Oficina"
@@ -7868,7 +7971,7 @@
   },
   "SLSUN80PRO-F": {
     "code": "SLSUN80PRO-F",
-    "name": "Luminaria Solar LED 80W SLSUN80PRO Lampara Solar",
+    "name": "Luminaria Solar LED 80W SLSUN80PRO",
     "price": "$4.946.666",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2024/08/SLSUN80PRO.webp",
     "url": "https://ecolite.com.co/producto/luminaria-led-solar-pro-80w-slsun80pro/",
@@ -7879,8 +7982,7 @@
       "Colgante",
       "Lineal",
       "Sobreponer",
-      "Suspendida",
-      "Lampara"
+      "Suspendida"
     ],
     "tags": [
       "80W",
@@ -8087,9 +8189,7 @@
       "Alumbrado público",
       "Lineal",
       "Sobreponer",
-      "Suspendida",
-      "Lámpara decorativa",
-      "Lampara decorativa"
+      "Suspendida"
     ],
     "tags": [
       "80W",
@@ -8378,11 +8478,11 @@
   },
   "SLSUN80PRO": {
     "code": "SLSUN80PRO",
-    "name": "Lámpara Solar LED Alumbrado Público 80W SLSUN80PRO",
+    "name": "Solar LED Alumbrado Público 80W SLSUN80PRO",
     "price": "$1.590.000",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2024/08/SLSUN80PRO.webp",
     "url": "https://ecolite.com.co/producto/lampara-solar-led-alumbrado-publico-80w-slsun80pro/",
-    "category": "Lámpara",
+    "category": "Alumbrado Publico",
     "categories": [
       "Alumbrado público",
       "Calle",

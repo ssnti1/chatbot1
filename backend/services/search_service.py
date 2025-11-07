@@ -44,30 +44,23 @@ def singularize_es(token: str) -> str:
     """
     t = (token or "").strip().lower()
 
-    # Excepciones frecuentes
     EXC = {"leds": "led"}
     if t in EXC:
         return EXC[t]
 
-    # Evitar falsos positivos en tokens muy cortos
     if len(t) <= 4:
         return t
 
     vowels = set("aeiou")
 
-    # luces -> luz (ces -> z)
     if t.endswith("ces") and len(t) > 3:
         return t[:-3] + "z"
 
-    # Caso 1: plural tipo 'paneles' -> 'panel' (consonante + 'es')
-    # Solo si el stem termina en consonantes naturales en español
     if t.endswith("es") and len(t) > 3:
         stem = t[:-2]
         if stem and stem[-1] in {"l", "r", "n", "d", "z"}:
             return stem
-        # Si no cumple, probamos con regla de vocal + 's' (p.ej. 'postes' -> 'poste')
 
-    # Caso 2: plural tipo 'postes', 'nichos', 'muebles' -> quitar la 's' si hay vocal antes
     if t.endswith("s") and len(t) > 3:
         if t[-2] in vowels:
             return t[:-1]
@@ -125,7 +118,10 @@ def _jaro_winkler(s1: str, s2: str, p: float = 0.1, max_l: int = 4) -> float:
 # -------- Índice data-driven --------
 _VOCAB: Set[str] = set()
 _INDEX: List[Dict] = []
+_DF: Dict[str, int] = {}    # <--- NUEVO: frecuencia documental de cada token
+_DOCS: int = 0              # <--- NUEVO: cantidad de documentos
 _BUILT = False
+
 
 def _ensure_index(products: List[Dict]) -> None:
     """Índice y vocabulario derivados 100% del catálogo (sin sinónimos fijos)."""
@@ -139,6 +135,9 @@ def _ensure_index(products: List[Dict]) -> None:
         name = _norm(p.get("name", ""))
         category = _norm(p.get("category", ""))
         tags = " ".join(_norm(t) for t in p.get("tags", []) if t)
+
+        name = " ".join(t for t in name.split() if t not in {"luminaria", "luminarias"})
+
         desc = _norm(p.get("description", ""))
         blob = " ".join([name, category, tags, desc]).strip()
 
@@ -160,9 +159,20 @@ def _ensure_index(products: List[Dict]) -> None:
         vocab.update(row["tags_tok"])
         vocab.update(row["desc_tok"])
 
+    df: Dict[str, int] = {}
+    for row in idx:
+        # conjunto de tokens del documento (no repitas dentro del mismo doc)
+        doc_tokens = set(row["name_tok"]) | set(row["cat_tok"]) | set(row["tags_tok"]) | set(row["desc_tok"])
+        for t in doc_tokens:
+            if len(t) >= 2:
+                df[t] = df.get(t, 0) + 1
+
     _VOCAB = {t for t in vocab if len(t) >= 3}
     _INDEX = idx
+    _DF = df              # <--- NUEVO
+    _DOCS = len(idx)      # <--- NUEVO
     _BUILT = True
+
 
 def _nearest_vocab_tokens(token: str, top_k: int = 4, min_sim: float = 0.90) -> List[Tuple[str, float]]:
     """Vecinos de vocabulario por similitud JW (más estricto para evitar falsos positivos como 'hola'→'solar')."""
@@ -181,6 +191,18 @@ def _expand_query(query: str) -> List[str]:
     Evitamos expansión por vecinos para que no entren términos ajenos.
     """
     return _tok(query)
+
+
+# --- FILTROS ESTRICTOS (añadir junto a otros helpers) ---
+STRICT_TERMS = {"profesional"}  # puedes ampliar: {"profesional", "industrial", "decorativa", "solar"}
+
+def _requires_strict(q_terms: List[str]) -> bool:
+    return any(t in STRICT_TERMS for t in q_terms)
+
+def _has_all_tokens_in_blob(blob: str, q_terms: List[str]) -> bool:
+    # exige que cada token normalizado esté presente como substring en el blob ya normalizado
+    return all(t in blob for t in q_terms)
+
 
 
 def _best_token_sim(q: str, toks: List[str]) -> float:
@@ -219,16 +241,57 @@ def _score(row: Dict, q_terms: List[str]) -> float:
     score += matched * 0.2
     return score
 
+
 def search_candidates(products: List[Dict], query: str, limit: int = 12) -> List[Dict]:
-    """Top-N por similitud global (sin offset). La paginación la hace el router."""
+    """
+    Recuperación exacta pero 100% data-driven:
+    - Filtra tokens del usuario por vocabulario del catálogo.
+    - Exige SOLO los tokens 'informativos' (no ultra-frecuentes) según DF.
+    - Los tokens muy comunes NO son obligatorios (pero sí cuentan al score).
+    - Sin reglas fijas ni listas manuales.
+    """
     _ensure_index(products)
-    terms = _expand_query(query)
-    if not terms:
+
+    raw_terms = _expand_query(query)
+    if not raw_terms:
         return []
+
+    # tokens del query que existen en el vocabulario del catálogo
+    q_terms = [t for t in raw_terms if t in _VOCAB]
+
+    # Si no hubo cruce con catálogo, intenta recuperar con scoring libre
+    if not q_terms:
+        scored: List[Tuple[float, Dict]] = []
+        for row in _INDEX:
+            s = _score(row, raw_terms)
+            if s > 0:
+                scored.append((s, row["ref"]))
+        scored.sort(key=lambda x: (-x[0], _norm(x[1].get("name",""))))
+        return [p for _, p in scored[:limit * 5]]
+
+    # --- Núcleo: decidir qué tokens son 'requeridos' con DF dinámico ---
+    # ratio de frecuencia documental (0..1)
+    def df_ratio(t: str) -> float:
+        if _DOCS <= 0:
+            return 1.0
+        return _DF.get(t, 0) / float(_DOCS)
+
+
+    REQUIRED = [t for t in q_terms if df_ratio(t) <= 0.60]
+    OPTIONAL = [t for t in q_terms if t not in REQUIRED]
+
     scored: List[Tuple[float, Dict]] = []
     for row in _INDEX:
-        s = _score(row, terms)
+        blob = row["blob"]
+
+        if REQUIRED and not all(t in blob for t in REQUIRED):
+            continue
+
+        s = _score(row, q_terms)
         if s > 0:
             scored.append((s, row["ref"]))
-    scored.sort(key=lambda x: (-x[0], _norm(x[1].get("name", ""))))
-    return [p for _, p in scored[:limit * 5]] 
+
+    scored.sort(key=lambda x: (-x[0], _norm(x[1].get("name",""))))
+    return [p for _, p in scored[:limit * 5]]
+
+

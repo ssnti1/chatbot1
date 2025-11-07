@@ -2,10 +2,22 @@ from __future__ import annotations
 import sqlite3, datetime
 from pathlib import Path
 from typing import Any, Mapping
-
+from backend.routers import chat  
+from pydantic import BaseModel
 from fastapi import APIRouter, Request, Body, HTTPException
 
 router = APIRouter(prefix="/leads", tags=["leads"])
+
+
+class LeadForm(BaseModel):
+    session_id: str
+    name: str
+
+@router.post("/save")
+def save_lead(form: LeadForm):
+    st = chat._SESS.setdefault(form.session_id, {})
+    st["lead_name"] = (form.name or "").strip()
+    return {"ok": True}
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -46,6 +58,8 @@ def _normalize_payload(obj: Mapping[str, Any]) -> dict[str, Any]:
         if isinstance(v, str): v = v.strip()
         out[mapped] = v
     return out
+
+
 
 @router.post("/")
 async def save_lead(request: Request, payload: dict = Body(default=None)):

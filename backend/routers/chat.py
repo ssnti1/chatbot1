@@ -6,12 +6,16 @@ from collections import Counter
 import os
 import re
 import difflib
+from urllib.parse import quote_plus
+
 
 from backend.services.product_loader import load_products
 from backend.services.search_service import search_candidates, singularize_es
 from backend.services.openai_client import chat as llm_chat
 
 router = APIRouter(prefix="/chat", tags=["chat"])
+
+
 
 # --- Catálogo / Portafolio (no altera el resto del flujo) ---
 CATALOG_URL = os.getenv("ECOLITE_CATALOG_URL", "https://ecolite.com.co/")
@@ -24,7 +28,7 @@ CATALOG_KEYWORDS = {
 
 QUOTE_WHATSAPP_URL = os.getenv(
     "ECOLITE_QUOTE_WHATSAPP_URL",
-    "https://wa.me/573168759639?text=Hola%20quiero%20cotizar" 
+    "https://wa.me/573168759639"
 )
 
 COTIZAR_KEYWORDS = {
@@ -82,6 +86,17 @@ QUESTION_RE = re.compile(
     re.I
 )
 
+# === FAQ: import robusto (soporta distintas estructuras del proyecto) ===
+try:
+    from backend.routers.faq import faq_try_answer
+except Exception:
+    try:
+        from backend.routers.faq import faq_try_answer
+
+    except Exception:
+        from backend.routers.faq import faq_try_answer
+
+
 def _is_question(msg: str) -> bool:
     m = (msg or "").strip()
     if not m:
@@ -100,9 +115,30 @@ def _st(sid: str) -> Dict[str, Any]:
             "had_evidence": False,
             "topic_tokens": [],
             "seen_by_query": {},
+            "lead_name": "",
         }
     _SESS[sid].setdefault("seen_by_query", {})
     return _SESS[sid]
+
+def _clean_topic(q: str) -> str:
+    q = (q or "").strip()
+    low = q.lower()
+    for p in ("sugiereme", "sugiéreme", "recomiendame", "recomiéndame", "quiero", "necesito", "busco"):
+        if low.startswith(p):
+            return q[len(p):].strip(" :,-.")
+    return q
+
+def _make_quote_text(st: Dict[str, Any]) -> str:
+    topic = _clean_topic(st.get("last_query") or "") or "iluminación LED"
+    return f"estoy interesado en {topic}"
+
+
+
+
+def _wa_url(base: str, text: str) -> str:
+    sep = "&" if "?" in base else "?"
+    return f"{base}{sep}text={quote_plus(text)}"
+
 
 # ===== Utils texto =====
 def _norm(s: str) -> str:
@@ -131,7 +167,24 @@ def _product_blob(p: Dict[str, Any]) -> str:
     category = str(p.get("category") or "")
     tags = " ".join(map(str, p.get("tags", [])))
     desc = str(p.get("description") or "")
-    return _norm(" ".join([name, category, tags, desc]))
+
+    blob = _norm(" ".join([name, category, tags, desc]))
+    blob = " ".join(t for t in blob.split() if t not in {"luminaria", "luminarias", "para", "de"})
+    return blob
+
+def _any_token_in_vocab(msg: str, vocab: set) -> bool:
+    """
+    Devuelve True si al menos un token del mensaje (o su singular)
+    existe en el vocabulario derivado del catálogo.
+    No usa listas de stop-words ni _STOP_TOKENS.
+    """
+    toks = _parts(msg)
+    for t in toks:
+        sg = singularize_es(t)
+        if t in vocab or sg in vocab:
+            return True
+    return False
+
 
 # ===== Vocabularios data-driven (sin señales técnicas) =====
 def _cat_tag_vocab(products: List[Dict[str, Any]]) -> set:
@@ -266,6 +319,8 @@ def _phrase_tokens(q: str, phrase_vocab: set) -> List[str]:
 
     return bi_hits + uni_hits
 
+
+
 # ===== Empaque al frontend =====
 def _pick_image(p: Dict[str, Any]) -> Optional[str]:
     return (
@@ -390,21 +445,20 @@ def _catalog_context(products: List[Dict[str, Any]], vocab: set, top_k: int = 10
 def _build_system_prompt(kind: str, ctx: str) -> str:
     style = os.getenv("ECOLITE_STYLE_GUIDE", "Asesor de iluminación Ecolite (CO), respuestas breves y claras.")
     tone = os.getenv("ECOLITE_TONE", "cercano y profesional")
-    base = f"{style} Tono: {tone}. No inventes especificaciones. Si faltan datos, pide 1 dato concreto."
+    base = f"{style} Tono: {tone}. No inventes especificaciones. Evita hacer preguntas; responde enunciativamente."
     rules = []
     if kind == "faq":
-        rules.append("Modo FAQ: responde a la duda en 2–4 líneas, sin listar productos ni enlaces.")
-        rules.append("Termina con 1 pregunta corta para avanzar (ej. uso, espacio, presupuesto).")
+        rules.append("Modo FAQ: responde la duda en 2–4 líneas, sin listar productos ni enlaces, sin preguntas.")
     elif kind == "offtopic":
-        rules.append("Tema fuera de iluminación: redirige en 1 frase y termina con 1 pregunta para retomar iluminación.")
+        rules.append("Tema fuera de iluminación: redirige en 1 frase, sin preguntas.")
     elif kind == "inscope":
-        rules.append("En tema de productos: da una micro-orientación (1 frase) y ofrece 1 pregunta de seguimiento (espacio de uso o presupuesto).")
+        rules.append("En tema de productos: da una micro-orientación breve, sin preguntas.")
     else:
-        rules.append("Charla breve (1 frase) y conduce a la asesoría de iluminación con 1 pregunta simple.")
+        rules.append("Charla breve y conduce a la asesoría sin preguntas.")
     return "\n".join([base, ctx, "REGLAS:"] + [f"- {r}" for r in rules])
 
 def _fallback_dynamic(msg: str, products: List[Dict[str, Any]], vocab: set) -> str:
-    # Sin mencionar W/IP/K. Mantén guía mínima.
+
     return "Para ayudarte mejor, cuéntame el espacio a iluminar y si tienes un presupuesto aproximado."
 
 # ===== Endpoint =====
@@ -415,6 +469,9 @@ def chat(in_: ChatIn) -> ChatOut:
         if not msg_raw:
             raise HTTPException(status_code=400, detail="message is required")
 
+
+        st = _st(in_.session_id)
+        
         msg_norm = _norm(msg_raw)
         if any(k in msg_norm for k in CATALOG_KEYWORDS):
             text = f"Puedes ver el catálogo y portafolio aquí: {CATALOG_URL}"
@@ -422,11 +479,16 @@ def chat(in_: ChatIn) -> ChatOut:
         
         msg_norm = _norm(msg_raw)
         if any(k in msg_norm for k in COTIZAR_KEYWORDS):
-            text = f"Para cotizaciones y presupuestos, escríbenos por [[a|WhatsApp|{QUOTE_WHATSAPP_URL}]]"
-            return ChatOut(content=text, products=[], page=0, last_query="", has_more=False)
+            url = QUOTE_WHATSAPP_URL
 
 
-        st = _st(in_.session_id)
+            return ChatOut(
+                content=f"Abrir [[a|WhatsApp|{url}]] para continuar 👌",
+                products=[], page=0, last_query=st.get("last_query") or "", has_more=False
+            )
+
+
+
 
         # Cargar catálogo y vocab/datos dinámicos
         catalog, _path = load_products()
@@ -448,8 +510,21 @@ def chat(in_: ChatIn) -> ChatOut:
 
         # FAQ: solo texto, sin productos
         if not is_more and _is_question(msg_raw) and not abused:
-            sys_prompt = _build_system_prompt("faq", ctx)
-            ai = llm_chat(sys_prompt, msg_raw) or _fallback_dynamic(msg_raw, products, vocab)
+            # 1) Intento con FAQ curado
+            try:
+                faq_text = faq_try_answer(msg_raw)
+            except Exception:
+                faq_text = None
+
+            if faq_text:
+                return ChatOut(content=faq_text, products=[], page=0, last_query="", has_more=False)
+
+            # 2) IA breve sin preguntas
+            sys_prompt = (
+                "Eres el asistente de Ecolite. Responde en 2–4 líneas una duda general del usuario sin listar productos. "
+                "Sé claro y conciso. Si la pregunta es sobre políticas (garantía, envíos, contacto), da una guía corta, sin preguntas."
+            )
+            ai = llm_chat(sys_prompt, msg_raw) or "Estoy disponible para ayudarte con temas de empresa, garantía o envíos."
             return ChatOut(content=ai, products=[], page=0, last_query="", has_more=False)
 
         # Smalltalk / offtopic sin “más”
@@ -488,6 +563,19 @@ def chat(in_: ChatIn) -> ChatOut:
                 has_more=False
             )
 
+        # ✅ GARANTÍA DE EVIDENCIA MÍNIMA (data-driven, sin stopwords):
+        #    Solo listamos productos si al menos un token del mensaje (o su singular)
+        #    existe en el vocabulario derivado del catálogo (que ya excluye “de/para”, etc.)
+        if not _any_token_in_vocab(q, vocab):
+            st["had_evidence"] = False
+            st["topic_tokens"] = []
+            st["last_query"] = ""
+            respuesta = (
+                "No encontré productos que coincidan con lo que buscas. "
+                "Cuéntame qué espacio quieres iluminar o qué tipo de producto necesitas 😊"
+            )
+            return ChatOut(content=respuesta, products=[], page=0, last_query="", has_more=False)
+
         # Filtros derivados solo de categorías/frases (SIN técnicos)
         filter_tokens = list(dict.fromkeys(phr + cats))
 
@@ -522,11 +610,22 @@ def chat(in_: ChatIn) -> ChatOut:
                 has_more=has_more
             )
 
-        # Sin resultados
-        if st.get("had_evidence") and (is_more or page > 0):
-            sys_prompt = _build_system_prompt("inscope", ctx)
-            msg = llm_chat(sys_prompt, f"{msg_raw}\nNo hubo más resultados para la consulta anterior.") or _fallback_dynamic(msg_raw, products, vocab)
-            return ChatOut(content=msg, products=[], page=page, last_query=q, has_more=False)
+        # Sin resultados reales → NO recomendar productos por coincidencias débiles
+        if not page_items:
+            st["had_evidence"] = False
+            st["topic_tokens"] = []
+            st["last_query"] = ""
+            respuesta = (
+                "No encontré productos que coincidan con lo que buscas. "
+                "Cuéntame qué espacio quieres iluminar o qué tipo de producto necesitas 😊"
+            )
+            return ChatOut(
+                content=respuesta,
+                products=[],
+                page=0,
+                last_query="",
+                has_more=False
+            )
 
         # Último recurso
         sys_prompt = _build_system_prompt(kind, ctx)
