@@ -725,14 +725,22 @@ def _norm_code(s: str) -> str:
     return re.sub(r"[^A-Z0-9]", "", (s or "").upper())
 
 def _single_code_token_raw(msg: str) -> Optional[Tuple[str, str]]:
-    """
-    Si el usuario mencionó EXACTAMENTE UN token con pinta de código (≥3, con dígito),
-    devuelve (original, normalizado). Si hay 0 o >1 tokens, devuelve None.
-    """
     toks = re.findall(r"[A-Z0-9-]{3,}", (msg or "").upper())
+
+    # ❌ EXCLUIR vatios tipo “35W”, “50W”, “20W”
+    watt_like = set()
+    for t in toks:
+        if re.fullmatch(r"\d{2,3}W", t):  # 35W / 100W / 50W
+            watt_like.add(t)
+
+    toks = [t for t in toks if t not in watt_like]
+
+    # Reglas normales
     toks = [t for t in toks if any(ch.isdigit() for ch in t)]
     uniq = list(dict.fromkeys(toks))
+
     return (uniq[0], _norm_code(uniq[0])) if len(uniq) == 1 else None
+
 
 def _find_exact_code_product(code_norm: str, products: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """

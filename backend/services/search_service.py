@@ -179,13 +179,29 @@ def _nearest_vocab_tokens(token: str, top_k: int = 4, min_sim: float = 0.90) -> 
     cands.sort(key=lambda x: (-x[1], x[0]))
     return cands[:top_k]
 
+def is_watt_token(tok: str):
+    return tok.lower().endswith("w") or tok.isdigit()
+
 
 def _expand_query(query: str) -> List[str]:
-    """
-    Conservador: solo tokens + sus singulares (vía _tok).
-    Evitamos expansión por vecinos para que no entren términos ajenos.
-    """
-    return _tok(query)
+    toks = _tok(query)
+    out = []
+
+    for t in toks:
+        # Detecta potencia tipo "35w", "50w", "20w"
+        if t.endswith("w") and t[:-1].isdigit():
+            out.append(t)              # token normal
+            out.append("watt_" + t[:-1])  # token especial para filtrar
+            continue
+
+        # Detecta números sueltos usados como vatios
+        if t.isdigit():
+            out.append("watt_" + t)
+            continue
+
+        out.append(t)
+
+    return out
 
 
 # --- FILTROS ESTRICTOS (añadir junto a otros helpers) ---
@@ -251,6 +267,16 @@ def search_candidates(products: List[Dict], query: str, limit: int = 12) -> List
     if not raw_terms:
         return []
 
+        # Extraer watt_X de los tokens
+    watt_value = None
+    for t in raw_terms:
+        if t.startswith("watt_"):
+            try:
+                watt_value = int(t.split("_")[1])
+            except:
+                pass
+
+
     q_terms = [t for t in raw_terms if t in _VOCAB]
 
     if not q_terms:
@@ -259,8 +285,31 @@ def search_candidates(products: List[Dict], query: str, limit: int = 12) -> List
             s = _score(row, raw_terms)
             if s > 0:
                 scored.append((s, row["ref"]))
+
+
+        # -------------------------------
+        # FILTRO POR VATIOS (watt)
+        # -------------------------------
+        if watt_value is not None:
+            filtered = []
+            for score, prod in scored:
+                name = _norm(prod.get("name", ""))
+                name_tokens = name.split()
+
+                if (
+                    str(watt_value) in name_tokens
+                    or f"{watt_value}w" in name
+                    or f"{watt_value} w" in name
+                ):
+                    filtered.append((score + 0.5, prod))
+
+            if filtered:
+                scored = filtered
+        # -------------------------------
+
         scored.sort(key=lambda x: (-x[0], _norm(x[1].get("name",""))))
         return [p for _, p in scored[:limit * 5]]
+
 
 
     def df_ratio(t: str) -> float:
