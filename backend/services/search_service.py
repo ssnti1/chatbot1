@@ -30,18 +30,7 @@ def _tok(s: str) -> List[str]:
     return out
 
 
-# --- Morfología simple (plural → singular, conservadora y data-friendly) ---
 def singularize_es(token: str) -> str:
-    """
-    Reglas seguras para pasar de plural a singular:
-      - luces      -> luz        (ces -> z)
-      - paneles    -> panel      (consonante + 'es' -> ∅ si el resultado termina en l/r/n/d/z)
-      - reflectores-> reflector
-      - postes     -> poste      (vocal + 's' -> ∅)   [evita 'postes'->'post']
-      - nichos     -> nicho
-      - muebles    -> mueble
-      - leds       -> led        (excepción)
-    """
     t = (token or "").strip().lower()
 
     EXC = {"leds": "led"}
@@ -53,17 +42,23 @@ def singularize_es(token: str) -> str:
 
     vowels = set("aeiou")
 
+    # luces -> luz
     if t.endswith("ces") and len(t) > 3:
         return t[:-3] + "z"
 
+    # NUEVO: adjetivos/nombres en -ble/-ible: amables->amable, sumergibles->sumergible
+    if t.endswith("ables") or t.endswith("ibles") or t.endswith("bles"):
+        return t[:-1]
+
+    # consonante + 'es' -> quitar 'es' cuando termina en l/r/n/d/z (papeles->papel, reflectores->reflector)
     if t.endswith("es") and len(t) > 3:
         stem = t[:-2]
         if stem and stem[-1] in {"l", "r", "n", "d", "z"}:
             return stem
 
-    if t.endswith("s") and len(t) > 3:
-        if t[-2] in vowels:
-            return t[:-1]
+    # vocal + 's' -> quitar 's' (postes->poste, nichos->nicho)
+    if t.endswith("s") and len(t) > 3 and t[-2] in vowels:
+        return t[:-1]
 
     return t
 
@@ -194,7 +189,7 @@ def _expand_query(query: str) -> List[str]:
 
 
 # --- FILTROS ESTRICTOS (añadir junto a otros helpers) ---
-STRICT_TERMS = {"profesional"}  # puedes ampliar: {"profesional", "industrial", "decorativa", "solar"}
+STRICT_TERMS = {"profesional", "sumergible"}  # puedes ampliar: {"profesional", "industrial", "decorativa", "solar"}
 
 def _requires_strict(q_terms: List[str]) -> bool:
     return any(t in STRICT_TERMS for t in q_terms)
@@ -269,16 +264,20 @@ def search_candidates(products: List[Dict], query: str, limit: int = 12) -> List
         scored.sort(key=lambda x: (-x[0], _norm(x[1].get("name",""))))
         return [p for _, p in scored[:limit * 5]]
 
-    # --- Núcleo: decidir qué tokens son 'requeridos' con DF dinámico ---
-    # ratio de frecuencia documental (0..1)
+
     def df_ratio(t: str) -> float:
         if _DOCS <= 0:
             return 1.0
         return _DF.get(t, 0) / float(_DOCS)
 
-
     REQUIRED = [t for t in q_terms if df_ratio(t) <= 0.60]
     OPTIONAL = [t for t in q_terms if t not in REQUIRED]
+
+    # Fuerza a que términos "estrictos" (p.ej. sumergible) sean obligatorios
+    for t in q_terms:
+        if t in STRICT_TERMS and t not in REQUIRED:
+            REQUIRED.append(t)
+
 
     scored: List[Tuple[float, Dict]] = []
     for row in _INDEX:

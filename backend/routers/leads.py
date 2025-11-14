@@ -2,9 +2,14 @@ from __future__ import annotations
 import sqlite3, datetime
 from pathlib import Path
 from typing import Any, Mapping
-from backend.routers import chat  
+try:
+    from backend.routers import chat as chat_mod
+except Exception:
+    import chat as chat_mod
+
 from pydantic import BaseModel
 from fastapi import APIRouter, Request, Body, HTTPException
+
 
 router = APIRouter(prefix="/leads", tags=["leads"])
 
@@ -15,7 +20,7 @@ class LeadForm(BaseModel):
 
 @router.post("/save")
 def save_lead(form: LeadForm):
-    st = chat._SESS.setdefault(form.session_id, {})
+    st = chat_mod._SESS.setdefault(form.session_id, {})
     st["lead_name"] = (form.name or "").strip()
     return {"ok": True}
 
@@ -25,7 +30,7 @@ DB_PATH = DATA_DIR / "leads.db"
 
 def _conn():
     con = sqlite3.connect(DB_PATH, timeout=10, check_same_thread=False)
-    con.execute("PRAGMA journal_mode=WAL;")  # Modo concurrente seguro
+    con.execute("PRAGMA journal_mode=WAL;")
     con.execute("""
         CREATE TABLE IF NOT EXISTS leads (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -62,7 +67,7 @@ def _normalize_payload(obj: Mapping[str, Any]) -> dict[str, Any]:
 
 
 @router.post("/")
-async def save_lead(request: Request, payload: dict = Body(default=None)):
+async def save_lead_form(request: Request, payload: dict = Body(default=None)):
     raw: dict[str, Any] = {}
     if isinstance(payload, dict) and payload:
         raw = _normalize_payload(payload)

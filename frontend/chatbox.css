@@ -220,6 +220,7 @@ body {
     background: #ffffff;
     box-shadow: var(--shadow-1);
     line-height: 1.4;
+    white-space: pre-line;  /* respeta \n como saltos de línea */
 }
 
 .msg.me {

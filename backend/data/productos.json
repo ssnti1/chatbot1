@@ -11,6 +11,7 @@
       "Foco",
       "Bulbo",
       "Rosca e27",
+      "vintage",
       "e27",
       "par",
       "g9",
@@ -20,6 +21,7 @@
     "tags": [
       "4W",
       "E27",
+      "vintage",
       "VING125-C",
       "Hogar",
       "Sala",
@@ -124,6 +126,7 @@
       "Bulbo",
       "Rosca e27",
       "e27",
+      "vintage",
       "par",
       "g9",
       "g13",
@@ -133,6 +136,7 @@
       "5W",
       "E27",
       "VINFA-C",
+      "vintage",
       "Hogar",
       "Sala",
       "Habitación"
@@ -653,6 +657,102 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2025/07/LBVAR2.webp",
     "family": "Bombillo"
   },
+  "ECO10120D-B": {
+    "code": "ECO10120D-B",
+    "name": "Luminaria LED + Ventilador ECO10120D",
+    "price": "$464.800",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/ECO10120D.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-ventilador-eco10120d/",
+    "category": "Luminaria",
+    "categories": [
+      "Luminarias LED Interiores",
+      "Lámparas de Techo",
+      "Ventilador"
+    ],
+    "tags": [
+      "ECO10120D",
+      "Ventilador",
+      "Interior",
+      "Hogar",
+      "Sala",
+      "Comedor",
+      "Habitación"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/ECO10120D.webp",
+    "family": "Luminaria"
+  },
+  "ECO10120C": {
+    "code": "ECO10120C",
+    "name": "Luminaria LED + Ventilador ECO10120C",
+    "price": "$632.800",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/06/ECO10120C__Blanco.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-ventilador-eco10120c/",
+    "category": "Luminaria",
+    "categories": [
+      "Luminarias LED Interiores",
+      "Lámparas de Techo",
+      "Ventilador"
+    ],
+    "tags": [
+      "ECO10120C",
+      "Ventilador",
+      "Interior",
+      "Hogar",
+      "Sala",
+      "Comedor",
+      "Habitación"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/06/ECO10120C__Blanco.webp",
+    "family": "Luminaria"
+  },
+  "ECO10120B": {
+    "code": "ECO10120B",
+    "name": "Luminaria LED + Ventilador ECO10120B",
+    "price": "$ 688.801",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/06/ECO10120B-150x150.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-ventilador-eco10120b/",
+    "category": "Luminaria",
+    "categories": [
+      "Luminarias LED Interiores",
+      "Lámparas de Techo",
+      "Ventilador"
+    ],
+    "tags": [
+      "ECO10120B",
+      "Ventilador",
+      "Interior",
+      "Hogar",
+      "Sala",
+      "Comedor",
+      "Habitación"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/06/ECO10120B-150x150.webp",
+    "family": "Luminaria"
+  },
+  "ECO10120A": {
+    "code": "ECO10120A",
+    "name": "Luminaria LED + Ventilador ECO10120A",
+    "price": "$ 658.560 - $ 744.800",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/06/ECO10120A.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-ventilador-eco10120a/",
+    "category": "Luminaria",
+    "categories": [
+      "Luminarias LED Interiores",
+      "Lámparas de Techo",
+      "Ventilador"
+    ],
+    "tags": [
+      "ECO10120A",
+      "Ventilador",
+      "Interior",
+      "Hogar",
+      "Sala",
+      "Comedor",
+      "Habitación"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/06/ECO10120A.webp",
+    "family": "Luminaria"
+  },
   "NICHA": {
     "code": "NICHA",
     "name": "Aplique nicho LED 3W de incrustar NICHA",
@@ -955,6 +1055,7 @@
       "Rosca e27",
       "e27",
       "par",
+      "vintage",
       "g9",
       "g13",
       "r7s"
@@ -962,6 +1063,7 @@
     "tags": [
       "4W",
       "E27",
+      "vintage",
       "VING2-C",
       "Hogar",
       "Sala",
@@ -982,6 +1084,7 @@
       "Foco",
       "Bulbo",
       "Rosca e27",
+      "vintage",
       "e27",
       "par",
       "g9",
@@ -991,6 +1094,7 @@
     "tags": [
       "4W",
       "E27",
+      "vintage",
       "VING1-C",
       "Hogar",
       "Sala",
@@ -1011,6 +1115,7 @@
       "Foco",
       "Bulbo",
       "Rosca e27",
+      "vintage",
       "e27",
       "par",
       "g9",
@@ -1021,6 +1126,7 @@
       "4W",
       "E27",
       "VING4-C",
+      "vintage",
       "Hogar",
       "Sala",
       "Habitación"
@@ -1040,6 +1146,7 @@
       "Foco",
       "Bulbo",
       "Rosca e27",
+      "vintage",
       "e27",
       "par",
       "g9",
@@ -1050,6 +1157,7 @@
       "4W",
       "E27",
       "VING3-C",
+      "vintage",
       "Hogar",
       "Sala",
       "Habitación"
@@ -1328,9 +1436,9 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2024/07/ECOSHB.webp",
     "family": "Accesorio"
   },
-  "STR2835-120P-3": {
-    "code": "STR2835-120P-3",
-    "name": "Cinta LED 8W/M DC24V STR2835-120P",
+  "STR2835-120P-24V5N": {
+    "code": "STR2835-120P-24V5N",
+    "name": "Cinta LED 8W/M DC24V STR2835-120P-24V5N",
     "price": "$63.279",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-24V8N-1.png",
     "url": "https://ecolite.com.co/producto/cinta-led-8cinta-led-para-techow-m-dc24v-str2835-120p/",
@@ -1345,7 +1453,7 @@
     ],
     "tags": [
       "8W",
-      "STR2835-120P-3",
+      "STR2835-120P-24V5N",
       "Indirecta",
       "Decoración"
     ],
@@ -1664,6 +1772,60 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-24V8N-1.png",
     "family": "Cinta LED"
   },
+  "STR283512V8": {
+  "code": "STR283512V8",
+  "name": "Cinta LED 10W/M DC12V STR283512V8",
+  "price": "$ 35.280",
+  "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-24V8N-1.png",
+  "url": "https://ecolite.com.co/producto/cinta-iluminacion-interior-10w-m-str2835-120p/",
+  "category": "Cinta LED",
+  "categories": [
+    "Cinta Led",
+    "Cintas Led",
+    "Tira Led",
+    "Led Strip",
+    "Interior",
+    "Flexible Led",
+    "Cintas"
+  ],
+  "tags": [
+    "10W/M",
+    "STR2835-120P",
+    "DC12V",
+    "Interior",
+    "Decoración"
+  ],
+  "image": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-24V8N-1.png",
+  "family": "Cinta LED"
+},
+
+  "STR283524V5": { 
+  "code": "STR283524V5",
+  "name": "Cinta LED 8W/M DC24V STR283524V5",
+  "price": "$63.279",
+  "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-24V8N-1.png",
+  "url": "https://ecolite.com.co/producto/cinta-led-8cinta-led-para-techow-m-dc24v-str2835-120p/",
+  "category": "Cinta LED",
+  "categories": [
+    "Cinta led",
+    "Cintas led",
+    "Tira led",
+    "Led strip",
+    "interior",
+    "Flexible led",
+    "Cintas"
+  ],
+  "tags": [
+    "8W",
+    "STR2835-120P-24V",
+    "Indirecta",
+    "interior",
+    "Decoración"
+  ],
+  "image": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-24V8N-1.png",
+  "family": "Cinta LED"
+}
+,
   "STR2835120V": {
     "code": "STR2835120V",
     "name": "Cinta LED 9W/M STR2835120V",
@@ -2958,7 +3120,8 @@
       "Downlight",
       "Bala led downlight",
       "Bala downlight",
-      "Empotrable"
+      "Empotrable",
+      "Todo en uno"
     ],
     "tags": [
       "24W",
@@ -2983,6 +3146,7 @@
       "Foco",
       "Bulbo",
       "Rosca e27",
+      "vintage",
       "e27",
       "par",
       "g9",
@@ -2991,6 +3155,7 @@
     ],
     "tags": [
       "4W",
+      "vintage",
       "E27",
       "VINST64DIM-C",
       "Hogar",
@@ -3035,6 +3200,7 @@
       "Bombillo",
       "Foco",
       "Bulbo",
+      "vintage",
       "Rosca e27",
       "e27",
       "par",
@@ -3045,6 +3211,7 @@
     "tags": [
       "4W",
       "644W",
+      "vintage",
       "E27",
       "VINST644W-C",
       "Hogar",
@@ -3090,6 +3257,7 @@
       "Foco",
       "Bulbo",
       "Rosca e27",
+      "vintage",
       "e27",
       "par",
       "g9",
@@ -3101,6 +3269,7 @@
       "E27",
       "VING45DIM-C",
       "Hogar",
+      "vintage",
       "Sala",
       "Habitación"
     ],
@@ -3119,6 +3288,7 @@
       "Foco",
       "Bulbo",
       "Rosca e27",
+      "vintage",
       "e27",
       "par",
       "g9",
@@ -3128,6 +3298,7 @@
     "tags": [
       "4W",
       "454W",
+      "vintage",
       "E27",
       "VING454W-C",
       "Hogar",
@@ -4596,7 +4767,7 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2024/05/TLML1-1-e1716048135984.png",
     "family": "Riel magnético"
   },
-  "DR24": {
+  "DR24W": {
     "code": "DR24",
     "name": "Fuente de poder DR24W",
     "price": "$54.134",
@@ -4995,12 +5166,14 @@
       "Accesorio",
       "Controlador",
       "Control remoto",
+      "caperuza de vidrio",
       "Driver",
       "Fuente",
       "Soporte"
     ],
     "tags": [
       "VN110",
+      "caperuza de vidrio",
       "Instalación",
       "Driver",
       "Sistema"
@@ -5045,12 +5218,14 @@
       "Controlador",
       "Control remoto",
       "Driver",
+      "caperuza de vidrio",
       "Fuente",
       "Soporte"
     ],
     "tags": [
       "VA101",
       "Instalación",
+      "caperuza de vidrio",
       "Driver",
       "Sistema"
     ],
@@ -5117,6 +5292,7 @@
     "categories": [
       "Luminaria colgante / lineal",
       "Luminarias lineales",
+      "caperuza de fibra",
       "Colgante",
       "Lineal",
       "Sobreponer",
@@ -5127,6 +5303,7 @@
     "tags": [
       "E27",
       "CHL42",
+      "caperuza de fibra",
       "Sala",
       "Comedor",
       "Habitación"
@@ -5143,6 +5320,7 @@
     "category": "Lampara",
     "categories": [
       "Accesorio",
+      "caperuza de vidrio",
       "Controlador",
       "Control remoto",
       "Driver",
@@ -5151,6 +5329,7 @@
     ],
     "tags": [
       "VP100",
+      "caperuza de vidrio",
       "Instalación",
       "Driver",
       "Sistema"
@@ -5195,11 +5374,13 @@
     "categories": [
       "Highbay",
       "Campana",
+      "caperuza de vidrio",
       "ufo",
       "Campana"
     ],
     "tags": [
       "VG109",
+      "caperuza de vidrio",
       "Nave",
       "Planta"
     ],
@@ -5218,12 +5399,14 @@
       "Controlador",
       "Control remoto",
       "Driver",
+      "caperuza de vidrio",
       "Fuente",
       "Soporte"
     ],
     "tags": [
       "VT108",
       "Driver",
+      "caperuza de vidrio",
       "Instalación",
       "Sistema"
     ],
@@ -5242,6 +5425,7 @@
       "Controlador",
       "Control remoto",
       "Driver",
+      "caperuza de vidrio",
       "Fuente",
       "Soporte"
     ],
@@ -5249,6 +5433,7 @@
       "VT103",
       "Instalación",
       "Driver",
+      "caperuza de vidrio",
       "Sistema"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2025/08/VT103-1.webp",
@@ -5264,11 +5449,13 @@
     "categories": [
       "Highbay",
       "Campana industrial",
+      "caperuza de vidrio",
       "ufo",
       "Campana"
     ],
     "tags": [
       "VA104",
+      "caperuza de vidrio",
       "Nave",
       "Planta"
     ],
@@ -5284,6 +5471,7 @@
     "category": "Lampara",
     "categories": [
       "Accesorio",
+      "caperuza de vidrio",
       "Controlador",
       "Control remoto",
       "Driver",
@@ -5293,6 +5481,7 @@
     "tags": [
       "VO106",
       "Driver",
+      "caperuza de vidrio",
       "Instalación",
       "Sistema"
     ],
@@ -5310,6 +5499,7 @@
       "Accesorio",
       "Controlador",
       "Control remoto",
+      "caperuza de vidrio",
       "Driver",
       "Fuente",
       "Soporte"
@@ -5317,6 +5507,7 @@
     "tags": [
       "VT102",
       "Driver",
+      "caperuza de vidrio",
       "Instalación",
       "Sistema"
     ],
@@ -5333,6 +5524,7 @@
     "categories": [
       "Accesorio",
       "Controlador",
+      "caperuza de vidrio",
       "Control remoto",
       "Driver",
       "Fuente",
@@ -5341,13 +5533,13 @@
     "tags": [
       "VC107",
       "Driver",
+      "caperuza de vidrio",
       "Instalación",
       "Sistema"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2025/08/VC107.webp",
     "family": "Accesorio"
   },
-
   "SOLDIER": {
     "code": "SOLDIER",
     "name": "Luminaria LED portátil y recargable 1W SOLDIER",
@@ -5387,6 +5579,7 @@
       "Baliza / bala de piso",
       "Bala de piso",
       "Antireflejo",
+      "antideslumbramiento",
       "Baliza",
       "Empotrable piso"
     ],
@@ -5394,11 +5587,37 @@
       "15W",
       "ECOBP15W-C",
       "Antireflejo",
+      "antideslumbramiento",
       "Sendero",
       "Exterior"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2024/09/ECOBP15W-1.webp",
     "family": "Baliza / Bala de piso"
+  },
+  "KNPA-F": {
+    "code": "KNPA-F",
+    "name": "Luminaria LED para parques 60W KNPA",
+    "price": "$ 856.800",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/10/KNPA_PAG.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-para-parques-60w-knpa/",
+    "category": "Farol LED",
+    "categories": [
+      "Lámparas LED Para Exteriores",
+      "Farol LED",
+      "Lámparas LED Para Parque"
+    ],
+    "tags": [
+      "Exterior",
+      "Iluminacion Exterior",
+      "Luminaria",
+      "60W",
+      "IP66",
+      "Base fotocelda 7 pines",
+      "10kV",
+      "Parque"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/10/KNPA_PAG.webp",
+    "family": "Farol"
   },
   "ECOBP10W-C": {
     "code": "ECOBP10W-C",
@@ -5452,9 +5671,9 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2023/07/DESK5.jpg",
     "family": "Luminaria colgante / lineal"
   },
-  "STR2835-120P-1": {
-    "code": "STR2835-120P-1",
-    "name": "Cinta LED 10W/M DC24V STR2835-120P",
+  "STR2835-120P-24V8C": {
+    "code": "STR2835-120P-24V8C",
+    "name": "Cinta LED 10W/M DC24V STR2835-120P-24V8C",
     "price": "$29.867",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-12V8C-1.png",
     "url": "https://ecolite.com.co/producto/cinta-led-10w-m-dc24v-str2835-120p/",
@@ -5469,16 +5688,16 @@
     ],
     "tags": [
       "10W",
-      "STR2835-120P-1",
+      "STR2835-120P-24V8C",
       "Indirecta",
       "Decoración"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-12V8C-1.png",
     "family": "Cinta LED"
   },
-  "STR2835-120P-4": {
-    "code": "STR2835-120P-4",
-    "name": "Cinta LED 10W/M DC12V STR2835-120P",
+  "STR2835-120P-12V8C": {
+    "code": "STR2835-120P-12V8C",
+    "name": "Cinta LED 10W/M DC12V STR2835-120P-12V8C",
     "price": "$35.280",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/STR2835-120P-12V8C-1.png",
     "url": "https://ecolite.com.co/producto/cinta-iluminacion-interior-10w-m-str2835-120p/",
@@ -5495,7 +5714,7 @@
     "tags": [
       "10W",
       "interior",
-      "STR2835-120P-4",
+      "STR2835-120P-12V8C",
       "Indirecta",
       "Decoración"
     ],
@@ -6637,7 +6856,7 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2023/05/KNP60W-1.jpg",
     "family": "Luminaria colgante / lineal"
   },
-    "KNP100W": {
+  "KNP100W": {
     "code": "KNP100W",
     "name": "Luminaria Exterior LED 100W KNP100W",
     "price": "$1.024.799",
@@ -7932,12 +8151,18 @@
       "Reflector",
       "Reflectores led",
       "Proyector",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
       "Proyectores led",
       "Flood light"
     ],
     "tags": [
       "25W",
       "Solar",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
       "FLOSUN25-3CCT",
       "Exterior",
       "Patio"
@@ -8229,45 +8454,12 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2024/01/FLOSUN50.jpg",
     "family": "Reflector"
   },
-  "ECO-SL-12": {
-    "code": "ECO-SL-12",
-    "name": "Luminaria LED Alumbrado Público 200W ECO-SL-12",
-    "price": "$2.390.000",
-    "img_url": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
-    "url": "https://ecolite.com.co/producto/luminaria-led-alumbrado-publico-200w-eco-sl-12/",
-    "category": "Luminaria",
-    "categories": [
-      "Alumbrado público",
-      "Alumbrado publico",
-      "Calle",
-      "Parqueadero",
-      "Calles",
-      "Vias",
-      "Vías",
-      "Vía pública",
-      "Via publica",
-      "Vial"
-    ],
-    "tags": [
-      "200W",
-      "Calle",
-      "Parqueadero",
-      "Calles",
-      "Vias",
-      "Vías",
-      "ECO-SL-12",
-      "Alumbrado publico",
-      "Alumbrado público"
-    ],
-    "image": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
-    "family": "Alumbrado público"
-  },
   "ECO-SL-06": {
     "code": "ECO-SL-06",
-    "name": "Luminaria LED Alumbrado Público 150W ECO-SL-06",
-    "price": "$1.890.000",
-    "img_url": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
-    "url": "https://ecolite.com.co/producto/luminaria-alumbrado-publico-con-fuente-led-de-150w-con-brazo-metalico-eco-sl-06/",
+    "name": "Luminaria LED alumbrado público IP66 150W ECO-SL-06",
+    "price": "$401.333",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-06.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-alumbrado-publico-ip66-150w-eco-sl-06/",
     "category": "Luminaria",
     "categories": [
       "Alumbrado público",
@@ -8291,15 +8483,15 @@
       "Vías",
       "Alumbrado publico"
     ],
-    "image": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-06.webp",
     "family": "Alumbrado público"
   },
   "ECO-SL-05": {
     "code": "ECO-SL-05",
-    "name": "Luminaria LED Alumbrado Público 120W ECO-SL-05",
-    "price": "$1.690.000",
-    "img_url": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
-    "url": "https://ecolite.com.co/producto/luminaria-alumbrado-publico-con-fuente-led-de-120w-con-brazo-metalico-eco-sl-05/",
+    "name": "Luminaria LED alumbrado público IP66 120W ECO-SL-05",
+    "price": "$345.333",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-04_1.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-alumbrado-publico-ip66-120w-eco-sl-05/",
     "category": "Luminaria",
     "categories": [
       "Alumbrado público",
@@ -8323,15 +8515,15 @@
       "ECO-SL-05",
       "Alumbrado publico"
     ],
-    "image": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-04_1.webp",
     "family": "Alumbrado público"
   },
   "ECO-SL-04": {
     "code": "ECO-SL-04",
-    "name": "Luminaria LED Alumbrado Público 90W ECO-SL-04",
-    "price": "$1.490.000",
-    "img_url": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
-    "url": "https://ecolite.com.co/producto/luminaria-alumbrado-publico-con-fuente-led-de-90w-con-brazo-metalico-eco-sl-04/",
+    "name": "Luminaria LED alumbrado público IP66 90W ECO-SL-04",
+    "price": "$289.334",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-04_1.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-alumbrado-publico-ip66-90w-eco-sl-04/",
     "category": "Luminaria",
     "categories": [
       "Alumbrado público",
@@ -8355,15 +8547,15 @@
       "ECO-SL-04",
       "Alumbrado publico"
     ],
-    "image": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-04_1.webp",
     "family": "Alumbrado público"
   },
   "ECO-SL-03": {
     "code": "ECO-SL-03",
-    "name": "Luminaria LED Alumbrado Público 60W ECO-SL-03",
-    "price": "$1.290.000",
-    "img_url": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
-    "url": "https://ecolite.com.co/producto/luminaria-alumbrado-publico-con-fuente-led-de-60w-con-brazo-metalico-eco-sl-03/",
+    "name": "Luminaria LED alumbrado público IP66 60W ECO-SL-03",
+    "price": "$233.334",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-02.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-alumbrado-publico-ip66-60w-eco-sl-03/",
     "category": "Luminaria",
     "categories": [
       "Alumbrado público",
@@ -8387,15 +8579,15 @@
       "Vías",
       "Alumbrado publico"
     ],
-    "image": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-02.webp",
     "family": "Alumbrado público"
   },
   "ECO-SL-02": {
     "code": "ECO-SL-02",
-    "name": "Luminaria LED Alumbrado Público 40W ECO-SL-02",
-    "price": "$1.090.000",
-    "img_url": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
-    "url": "https://ecolite.com.co/producto/luminaria-alumbrado-publico-con-fuente-led-de-40w-con-brazo-metalico-eco-sl-02/",
+    "name": "Luminaria LED alumbrado público IP66 40W ECO-SL-02",
+    "price": "$196.000",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-02.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-alumbrado-publico-ip66-40w-eco-sl-02/",
     "category": "Luminaria",
     "categories": [
       "Alumbrado público",
@@ -8419,7 +8611,7 @@
       "Vías",
       "Alumbrado publico"
     ],
-    "image": "https://ecolite.com.co/wp-content/uploads/2023/04/ECO-SL-06_1.jpg",
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/ECO-SL-02.webp",
     "family": "Alumbrado público"
   },
   "FLO500WIP65": {
@@ -8727,6 +8919,7 @@
     "categories": [
       "Accesorio",
       "Controlador",
+      "Novatronix",
       "Control remoto",
       "Driver",
       "Fuente",
@@ -8735,6 +8928,7 @@
     "tags": [
       "Driver",
       "N-2TGFCI20A",
+      "Novatronix",
       "Instalación",
       "Sistema"
     ],
@@ -8753,12 +8947,14 @@
       "Controlador",
       "Control remoto",
       "Driver",
+      "Novatronix",
       "Fuente",
       "Soporte"
     ],
     "tags": [
       "N-1DIM110V",
       "Driver",
+      "Novatronix",
       "Instalación",
       "Sistema"
     ],
@@ -8801,12 +8997,14 @@
       "Accesorio",
       "Controlador",
       "Control remoto",
+      "Novatronix",
       "Driver",
       "Fuente",
       "Soporte"
     ],
     "tags": [
       "N-1R",
+      "Novatronix",
       "Driver",
       "Instalación",
       "Sistema"
@@ -8875,6 +9073,7 @@
       "Accesorio",
       "Controlador",
       "Control remoto",
+      "Novatronix",
       "Driver",
       "Fuente",
       "Soporte"
@@ -8882,6 +9081,7 @@
     "tags": [
       "Driver",
       "N-1T2USB",
+      "Novatronix",
       "Instalación",
       "Sistema"
     ],
@@ -9316,22 +9516,15 @@
     "price": "$3.892",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2023/12/CORREA-DE-AMARRE-NEGRA-2.jpg",
     "url": "https://ecolite.com.co/producto/correa-de-amarre-2-5-x-200mm-negra-n-ca2-5x200n/",
-    "category": "Luminaria colgante",
+    "category": "Correa de Amarre",
     "categories": [
-      "Luminaria colgante / lineal",
-      "Luminarias lineales",
       "Lineal",
       "Sobreponer",
       "Suspendida",
-      "Lámpara decorativa",
-      "Lampara decorativa"
+      "Correa de amarre"
     ],
     "tags": [
-      "N-CA2.5X200N",
-      "Sala",
-      "Comedor",
-      "Habitación",
-      "Oficina"
+      "N-CA2.5X200N"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2023/12/CORREA-DE-AMARRE-NEGRA-2.jpg",
     "family": "Luminaria colgante / lineal"
@@ -9361,6 +9554,7 @@
     "category": "Interruptor",
     "categories": [
       "Accesorio",
+      "Novatronix",
       "Controlador",
       "Control remoto",
       "Driver",
@@ -9371,6 +9565,7 @@
       "N-1SC",
       "Driver",
       "Instalación",
+      "Novatronix",
       "Sistema"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2023/06/N-1SC_1-768x768.jpg",
@@ -9387,6 +9582,7 @@
       "Accesorio",
       "Controlador",
       "Control remoto",
+      "Novatronix",
       "Driver",
       "Fuente",
       "Soporte"
@@ -9394,6 +9590,7 @@
     "tags": [
       "N-2T",
       "Driver",
+      "Novatronix",
       "Instalación",
       "Sistema"
     ],
@@ -9409,6 +9606,7 @@
     "category": "Toma",
     "categories": [
       "Accesorio",
+      "Novatronix",
       "Controlador",
       "Control remoto",
       "Driver",
@@ -9416,6 +9614,7 @@
       "Soporte"
     ],
     "tags": [
+      "Novatronix",
       "N-1TV1LAN",
       "Driver",
       "Instalación",
@@ -9435,11 +9634,13 @@
       "Accesorio",
       "Controlador",
       "Control remoto",
+      "Novatronix",
       "Driver",
       "Fuente",
       "Soporte"
     ],
     "tags": [
+      "Novatronix",
       "Driver",
       "N-1TV1TEL",
       "Instalación",
@@ -9458,6 +9659,7 @@
     "categories": [
       "Accesorio",
       "Controlador",
+      "Novatronix",
       "Control remoto",
       "Driver",
       "Fuente",
@@ -9465,6 +9667,7 @@
     ],
     "tags": [
       "N-3SC",
+      "Novatronix",
       "Driver",
       "Instalación",
       "Sistema"
@@ -9484,12 +9687,14 @@
       "Controlador",
       "Control remoto",
       "Driver",
+      "Novatronix",
       "Fuente",
       "Soporte"
     ],
     "tags": [
       "Driver",
       "N-1TEL",
+      "Novatronix",
       "Instalación",
       "Sistema"
     ],
@@ -9506,6 +9711,7 @@
     "categories": [
       "Accesorio",
       "Controlador",
+      "Novatronix",
       "Control remoto",
       "Driver",
       "Fuente",
@@ -9514,6 +9720,7 @@
     "tags": [
       "N-2SC",
       "Driver",
+      "Novatronix",
       "Instalación",
       "Sistema"
     ],
@@ -9531,6 +9738,7 @@
       "Accesorio",
       "Controlador",
       "Control remoto",
+      "Novatronix",
       "Driver",
       "Fuente",
       "Soporte"
@@ -9538,6 +9746,7 @@
     "tags": [
       "N-1TV",
       "Driver",
+      "Novatronix",
       "Instalación",
       "Sistema"
     ],
@@ -9554,6 +9763,7 @@
     "categories": [
       "Accesorio",
       "Controlador",
+      "Novatronix",
       "Control remoto",
       "Driver",
       "Fuente",
@@ -9561,6 +9771,7 @@
     ],
     "tags": [
       "N-1LAN",
+      "Novatronix",
       "Driver",
       "Instalación",
       "Sistema"
@@ -9578,6 +9789,7 @@
     "categories": [
       "Accesorio",
       "Controlador",
+      "Novatronix",
       "Control remoto",
       "Driver",
       "Fuente",
@@ -9586,6 +9798,7 @@
     "tags": [
       "Driver",
       "N-1S1TC",
+      "Novatronix",
       "Instalación",
       "Sistema"
     ],
@@ -9598,7 +9811,7 @@
     "price": "$13.790",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2023/07/CK-FTS-202R537.jpg",
     "url": "https://ecolite.com.co/producto/soporte-l-en-aluminio-para-techo-ck-fts-202r537/",
-    "category": "Energía solar",
+    "category": "Soporte aluminio",
     "categories": [
       "Accesorio",
       "Controlador",
@@ -9609,7 +9822,6 @@
     ],
     "tags": [
       "Driver",
-      "Solar",
       "CK-FTS-202R537",
       "Instalación",
       "Sistema"
@@ -9719,9 +9931,9 @@
     "price": "$1.556.942",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2023/10/DS-2XS2T41G1-ID4G-768x768.jpg",
     "url": "https://ecolite.com.co/producto/camara-de-seguridad-inalambrica-solar-ds-2xs2t41g1-id-4g-hikvision/",
-    "category": "Solar",
+    "category": "Seguridad",
     "categories": [
-      "Solar",
+      "Seguridad",
       "Todo en uno",
       "Aplique solar",
       "Reflector solar",
@@ -9729,7 +9941,7 @@
       "Estaca solar"
     ],
     "tags": [
-      "Solar",
+      "Seguridad",
       "DS-2XS2T41G1-ID/4G",
       "Parque",
       "Sendero"
@@ -9743,17 +9955,13 @@
     "price": "$12.901.171",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2023/10/DS-2XS6A47G1-LS-C36S80-768x768.jpg",
     "url": "https://ecolite.com.co/producto/camara-de-seguridad-inalambrica-solar-ds-2xs6a47g1-ls-c36s80-hikvision/",
-    "category": "Solar",
+    "category": "Seguridad",
     "categories": [
-      "Solar",
-      "Todo en uno",
-      "Aplique solar",
-      "Reflector solar",
-      "Poste solar",
-      "Estaca solar"
+      "Seguridad",
+      "Todo en uno"
     ],
     "tags": [
-      "Solar",
+      "Seguridad",
       "DS-2XS6A47G1-LS/C36S80",
       "Parque",
       "Sendero"
@@ -9761,23 +9969,477 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2023/10/DS-2XS6A47G1-LS-C36S80-768x768.jpg",
     "family": "Solar"
   },
+  "SLSUNC-3CCT-120W": {
+    "code": "SLSUNC-3CCT-120W",
+    "name": "Luminaria Solar LED 3 CCT 120W SLSUNC",
+    "price": "$ 259.466",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/SLSUNC-150x150.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-solar-led-3-cct-120w-slsunc/",
+    "category": "Alumbrado Público Solar LED",
+    "categories": [
+      "Iluminación Exterior",
+      "Alumbrado Público Solar LED",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Todo en uno"
+    ],
+    "tags": [
+      "Iluminación solar LED",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "luminaria solar exterior",
+      "120W",
+      "Todo en uno"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/SLSUNC-150x150.webp",
+    "family": "Solar"
+  },
+  "SLSUND-3CCT-180W": {
+    "code": "SLSUND-3CCT-180W",
+    "name": "Luminaria Solar LED 3 CCT 180W SLSUND",
+    "price": "$ 352.800",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/SLSUND-150x150.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-solar-led-3-cct-180w-slsund/",
+    "category": "Alumbrado Público Solar LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Alumbrado Público Solar LED",
+      "Todo en uno"
+    ],
+    "tags": [
+      "Iluminación solar LED",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "luminaria solar exterior",
+      "180W",
+      "Todo en uno"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/SLSUND-150x150.webp",
+    "family": "Solar"
+  },
+  "SLSUNE-3CCT-240W": {
+    "code": "SLSUNE-3CCT-240W",
+    "name": "Luminaria Solar LED 3 CCT 240W SLSUNE",
+    "price": "$ 464.800",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/SLSUNE-150x150.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-solar-led-3-cct-240w-slsune/",
+    "category": "Alumbrado Público Solar LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Alumbrado Público Solar LED",
+      "Todo en uno"
+    ],
+    "tags": [
+      "Iluminación solar LED",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "luminaria solar exterior",
+      "240W",
+      "Todo en uno"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/SLSUNE-150x150.webp",
+    "family": "Solar"
+  },
+  "ECODLV12-3CCT": {
+    "code": "ECODLV12-3CCT",
+    "name": "Bala LED downlight 3 CCT 12W de incrustar ECODLV12",
+    "price": "$ 46.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/ECODLV12-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/bala-led-downlight-3-cct-12w-de-incrustar-ecodlv12/",
+    "category": "Balas LED Downlight",
+    "categories": [
+      "Iluminación Interior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Balas LED Downlight",
+      "3 CCT"
+    ],
+    "tags": [
+      "3 CCT",
+      "Downlight",
+      "Downlight LED",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Incrustar",
+      "Iluminacion Interior"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/09/ECODLV12-3CCT-150x150.webp",
+    "family": "Downlight"
+  },
+  "ECODLV24-3CCT": {
+    "code": "ECODLV24-3CCT",
+    "name": "Bala LED downlight 3 CCT 24W de incrustar ECODLV24",
+    "price": "$ 59.733",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/ECODLV24-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/bala-led-downlight-3-cct-24w-de-incrustar-ecodlv24/",
+    "category": "Balas LED Downlight",
+    "categories": [
+      "Iluminación Interior",
+      "Balas LED Downlight",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "3 CCT"
+    ],
+    "tags": [
+      "3 CCT",
+      "Downlight",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Downlight LED",
+      "Incrustar",
+      "Iluminacion Interior"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/09/ECODLV24-3CCT-150x150.webp",
+    "family": "Downlight"
+  },
+  "ECODLVB": {
+    "code": "ECODLVB",
+    "name": "Bala LED downlight 3W de incrustar ECODLVB",
+    "price": "$ 33.350",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/ECODLVB-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/bala-led-downlight-3w-de-incrustar-ecodlvb/",
+    "category": "Balas LED Downlight",
+    "categories": [
+      "Iluminación Interior",
+      "Balas LED Downlight"
+    ],
+    "tags": [
+      "Downlight",
+      "Downlight LED",
+      "Incrustar",
+      "Iluminacion Interior"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/09/ECODLVB-3CCT-150x150.webp",
+    "family": "Downlight"
+  },
+  "ECODLVD": {
+    "code": "ECODLVD",
+    "name": "Módulo bala GU10 ECODLVD",
+    "price": "$ 40.680",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/ECODLVD-3CCT.webp",
+    "url": "https://ecolite.com.co/producto/modulo-bala-gu10-ecodlvd/",
+    "category": "Balas LED Downlight",
+    "categories": [
+      "Iluminación Interior",
+      "Balas LED Downlight",
+      "GU10"
+    ],
+    "tags": [
+      "GU10",
+      "Downlight",
+      "Incrustar",
+      "Iluminacion Interior"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/09/ECODLVD-3CCT.webp",
+    "family": "Downlight"
+  },
+  "ECODLVE-3CCT": {
+    "code": "ECODLVE-3CCT",
+    "name": "Bala LED downlight 3 CCT 10W de incrustar ECODLVE",
+    "price": "$ 46.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/ECODLVE-150x150.webp",
+    "url": "https://ecolite.com.co/producto/bala-led-downlight-3-cct-10w-de-incrustar-ecodlve/",
+    "category": "Balas LED Downlight",
+    "categories": [
+      "Iluminación Interior",
+      "Balas LED Downlight",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "3 CCT"
+    ],
+    "tags": [
+      "3 CCT",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Downlight",
+      "Downlight LED",
+      "Incrustar",
+      "Iluminacion Interior"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/ECODLVE-150x150.webp",
+    "family": "Downlight"
+  },
+  "FLO10WIP65-3CCT": {
+    "code": "FLO10WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 10W FLO10WIP65",
+    "price": "$ 24.080",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/08/FLO10WIP65-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-10w-flo10wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflectores LED",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflector",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/08/FLO10WIP65-3CCT-150x150.webp",
+    "family": "Reflector"
+  },
+  "FLO20WIP65-3CCT": {
+    "code": "FLO20WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 20W FLO20WIP65",
+    "price": "$ 35.280",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/08/FLO20WIP65-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-20w-flo20wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflectores LED",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "Reflector",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/08/FLO20WIP65-3CCT-150x150.webp",
+    "family": "Reflector"
+  },
+  "FLO30WIP65-3CCT": {
+    "code": "FLO30WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 30W FLO30WIP65",
+    "price": "$ 46.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO30WIP65-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-30w-flo30wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflectores LED",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflector",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO30WIP65-3CCT-150x150.webp",
+    "family": "Reflector"
+  },
+  "FLO50WIP65-3CCT": {
+    "code": "FLO50WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 50W FLO50WIP65",
+    "price": "$ 67.014",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO50WIP65-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-50w-flo50wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflectores LED",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflector",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO50WIP65-3CCT-150x150.webp",
+    "family": "Reflector"
+  },
+  "FLO100WIP65-3CCT": {
+    "code": "FLO100WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 100W FLO100WIP65",
+    "price": "$ 102.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO100WIP65-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-100w-flo100wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflectores LED",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflector",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO100WIP65-3CCT-150x150.webp",
+    "family": "Reflector"
+  },
+  "FLO150WIP65-3CCT": {
+    "code": "FLO150WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 150W FLO150WIP65",
+    "price": "$ 149.146",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/08/FLO150WIP65-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-150w-flo150wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflectores LED",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflector",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/08/FLO150WIP65-3CCT-150x150.webp",
+    "family": "Reflector"
+  },
+  "FLO200WIP65-3CCT": {
+    "code": "FLO200WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 200W FLO200WIP65",
+    "price": "$ 186.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO200WIP65-3CCT.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-200w-flo200wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "Reflectores LED",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflector",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO200WIP65-3CCT.webp",
+    "family": "Reflector"
+  },
+  "FLO300WIP65-3CCT": {
+    "code": "FLO300WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 300W FLO300WIP65",
+    "price": "$ 348.973",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO300WIP65-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-300w-flo300wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflectores LED",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflector",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO300WIP65-3CCT-150x150.webp",
+    "family": "Reflector"
+  },
+  "FLO400WIP65-3CCT": {
+    "code": "FLO400WIP65-3CCT",
+    "name": "Reflector LED 3 CCT 400W FLO400WIP65",
+    "price": "$ 522.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO400WIP65-3CCT-150x150.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-3-cct-400w-flo400wip65/",
+    "category": "Reflectores LED",
+    "categories": [
+      "Iluminación Exterior",
+      "Reflectores LED",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "3 CCT"
+    ],
+    "tags": [
+      "Exterior",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Reflector",
+      "reflector led",
+      "IP65",
+      "3 CCT"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/FLO400WIP65-3CCT-150x150.webp",
+    "family": "Reflector"
+  },
   "DS-2XS2T47G1-LDH/4G": {
     "code": "DS-2XS2T47G1-LDH/4G",
     "name": "Cámara de seguridad inalámbrica solar DS-2XS2T47G1-LDH/4G HIKVISION",
     "price": "$4.404.021",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2024/01/DS-2XS2T47G1-LDH-4G.jpg",
     "url": "https://ecolite.com.co/producto/camara-de-seguridad-inalambrica-solar-ds-2xs2t47g1-ldh-4g-hikvision/",
-    "category": "Solar",
+    "category": "Seguridad",
     "categories": [
-      "Solar",
-      "Todo en uno",
-      "Aplique solar",
-      "Reflector solar",
-      "Poste solar",
-      "Estaca solar"
+      "Seguridad",
+      "Todo en uno"
     ],
     "tags": [
-      "Solar",
+      "Seguridad",
       "DS-2XS2T47G1-LDH/4G",
       "Parque",
       "Sendero"
@@ -9787,11 +10449,11 @@
   },
   "DS-2XS6K01-C36S80": {
     "code": "DS-2XS6K01-C36S80",
-    "name": "Kit de energía solar DS-2XS6K01-C36S80 HIKVISION",
+    "name": "Kit de energía DS-2XS6K01-C36S80 HIKVISION",
     "price": "$8.162.928",
     "img_url": "https://ecolite.com.co/wp-content/uploads/2023/10/DS-2XS6K01-C36S80-1-768x768.jpg",
     "url": "https://ecolite.com.co/producto/kit-de-energia-solar-ds-2xs6k01-c36s80-hikvision/",
-    "category": "Solar",
+    "category": "Kit",
     "categories": [
       "Solar",
       "Todo en uno",
@@ -9801,12 +10463,883 @@
       "Estaca solar"
     ],
     "tags": [
-      "Solar",
       "DS-2XS6K01-C36S80",
-      "Parque",
       "Sendero"
     ],
     "image": "https://ecolite.com.co/wp-content/uploads/2023/10/DS-2XS6K01-C36S80-1-768x768.jpg",
     "family": "Solar"
+  },
+  "FLORECA": {
+    "code": "FLORECA",
+    "name": "Reflector LED Recargable 100W FLORECA",
+    "price": "$179.946",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/10/FLORECA.webp",
+    "url": "https://ecolite.com.co/producto/reflector-led-recargable-100w-floreca/",
+    "category": "Reflector LED Recargable",
+    "categories": [
+      "Iluminación Exterior",
+      "Reflectores LED",
+      "Recargable"
+    ],
+    "tags": [
+      "Reflector",
+      "Recargable",
+      "Batería"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/10/FLORECA.webp",
+    "family": "Reflector"
+  },
+  "FLOWWB": {
+    "code": "FLOWWB",
+    "name": "Bañador de pared (Wall Washer) LED 24W FLOWWB",
+    "price": "$ 167.855",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/08/FLOWWB.webp",
+    "url": "https://ecolite.com.co/producto/banador-de-pared-led-24w-flowwb/",
+    "category": "Wall Washer",
+    "categories": [
+      "Iluminación Exterior",
+      "Wall Washer",
+      "Decorativa"
+    ],
+    "tags": [
+      "Exterior",
+      "IP66",
+      "Fachadas",
+      "Wall washer"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/08/FLOWWB.webp",
+    "family": "Decorativa"
+  },
+  "SLSUNFR3": {
+    "code": "SLSUNFR3",
+    "name": "Luminaria Solar LED 60W SLSUNFR3",
+    "price": "$ 670.134",
+    "img_url": null,
+    "url": "https://ecolite.com.co/producto/luminaria-solar-led-60w-slsunfr3/",
+    "category": "Farol Solar Exterior",
+    "categories": [
+      "Iluminación Exterior",
+      "Iluminación Solar",
+      "Farol Solar"
+    ],
+    "tags": [
+      "Solar",
+      "60W",
+      "Jardines",
+      "Parques"
+    ],
+    "image": null,
+    "family": "Solar"
+  },
+  "CP101": {
+    "code": "CP101",
+    "name": "Caperuza artesanal CP101",
+    "price": "$ 27.814",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP101_PAGWEB.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp101/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "caperuza de fibra",
+      "Luminaria colgante",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "caperuza de fibra",
+      "Fibra natural",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP101_PAGWEB.webp",
+    "family": "Decorativa"
+  },
+  "CP102": {
+    "code": "CP102",
+    "name": "Caperuza artesanal CP102",
+    "price": "$ 46.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP102_PAGWEB.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp102/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante",
+      "caperuza de fibra",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "caperuza de fibra",
+      "Trapezoide",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP102_PAGWEB.webp",
+    "family": "Decorativa"
+  },
+  "CP103": {
+    "code": "CP103",
+    "name": "Caperuza artesanal CP103",
+    "price": "$ 46.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP103_PAGWEB-150x150.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp103/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante",
+      "caperuza de fibra",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "caperuza de fibra",
+      "Domo",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP103_PAGWEB-150x150.webp",
+    "family": "Decorativa"
+  },
+  "CP104": {
+    "code": "CP104",
+    "name": "Caperuza artesanal CP104",
+    "price": "$ 61.414",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP104_PAGWEB.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp104/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "caperuza de fibra",
+      "Luminaria colgante",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "caperuza de fibra",
+      "Ondulada",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP104_PAGWEB.webp",
+    "family": "Decorativa"
+  },
+  "CP105": {
+    "code": "CP105",
+    "name": "Caperuza artesanal CP105",
+    "price": "$ 74.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP105_PAGWEB-150x150.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp105/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante",
+      "caperuza de fibra",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "caperuza de fibra",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP105_PAGWEB-150x150.webp",
+    "family": "Decorativa"
+  },
+  "CP106": {
+    "code": "CP106",
+    "name": "Caperuza artesanal CP106",
+    "price": "$111.814",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP106_PAGWEB.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp106/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante",
+      "caperuza de fibra",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "caperuza de fibra",
+      "Curva",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP106_PAGWEB.webp",
+    "family": "Decorativa"
+  },
+  "CP107": {
+    "code": "CP107",
+    "name": "Caperuza artesanal CP107",
+    "price": "$ 156.614",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP107_PAGWEB-150x150.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp107/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante",
+      "caperuza de fibra",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "Pera",
+      "caperuza de fibra",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP107_PAGWEB-150x150.webp",
+    "family": "Decorativa"
+  },
+  "CP108": {
+    "code": "CP108",
+    "name": "Caperuza artesanal CP108",
+    "price": "$ 149.146",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP108_PAGWEB.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp108/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante",
+      "caperuza de fibra",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "Ondulada",
+      "caperuza de fibra",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP108_PAGWEB.webp",
+    "family": "Decorativa"
+  },
+  "CP109": {
+    "code": "CP109",
+    "name": "Caperuza artesanal CP109",
+    "price": "$ 141.680",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/07/CP109_PAGWEB-150x150.webp",
+    "url": "https://ecolite.com.co/producto/caperuza-artesanal-cp109/",
+    "category": "Caperuza artesanal",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante",
+      "caperuza de fibra",
+      "Pantallas / Caperuzas"
+    ],
+    "tags": [
+      "Artesanal",
+      "Cono",
+      "caperuza de fibra",
+      "E27"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/07/CP109_PAGWEB-150x150.webp",
+    "family": "Decorativa"
+  },
+  "CHL07": {
+    "code": "CHL07",
+    "name": "Luminaria colgante CHL07",
+    "price": "$ 128.800",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/08/LUMI-COLGANTE_CHL07-1-150x150.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-colgante-chl07/",
+    "category": "Luminaria colgante",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante"
+    ],
+    "tags": [
+      "E27",
+      "Negro mate",
+      "Interior"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/08/LUMI-COLGANTE_CHL07-1-150x150.webp",
+    "family": "Decorativa"
+  },
+  "CHL15": {
+    "code": "CHL15",
+    "name": "Aplique de pared bombillo E27 CHL15",
+    "price": "$ 147.466",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/CHL15-D-1-150x150.jpg",
+    "url": "https://ecolite.com.co/producto/aplique-iluminacion-decorativa-dorado-chl15-d/",
+    "category": "Aplique de pared",
+    "categories": [
+      "Iluminación Decorativa",
+      "Apliques de pared"
+    ],
+    "tags": [
+      "E27",
+      "Interior",
+      "Difusor opal"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/CHL15-D-1-150x150.jpg",
+    "family": "Decorativa"
+  },
+  "CHL21": {
+    "code": "CHL21",
+    "name": "Luminaria colgante CHL21",
+    "price": "$136.266",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/08/LUMI-COLGANTE_CHL21.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-colgante-chl21/",
+    "category": "Luminaria colgante",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante"
+    ],
+    "tags": [
+      "E27",
+      "Interior"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/08/LUMI-COLGANTE_CHL21.webp",
+    "family": "Decorativa"
+  },
+  "CHL22": {
+    "code": "CHL22",
+    "name": "Luminaria colgante CHL22",
+    "price": "$136.266",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/08/LUMI-COLGANTE_CHL22-150x150.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-colgante-chl22/",
+    "category": "Luminaria colgante",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante"
+    ],
+    "tags": [
+      "E27",
+      "Interior",
+      "Retro"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/08/LUMI-COLGANTE_CHL22-150x150.webp",
+    "family": "Decorativa"
+  },
+  "CHL16": {
+    "code": "CHL16",
+    "name": "Luminaria colgante CHL16",
+    "price": "$558.786",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/CHL16-1.jpg",
+    "url": "https://ecolite.com.co/producto/luminaria-colgante-iluminacion-decorativa-dorado-chl16/",
+    "category": "Luminaria colgante",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante"
+    ],
+    "tags": [
+      "E27",
+      "Lineal",
+      "Múltiples esferas"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/CHL16-1.jpg",
+    "family": "Decorativa"
+  },
+  "LEDLC40": {
+    "code": "LEDLC40",
+    "name": "Luminaria LED colgante 3 CCT 40W LEDLC40",
+    "price": "$ 1.118.134",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC40-1-e1718207894780-150x150.jpg",
+    "url": "https://ecolite.com.co/producto/luminaria-colgante-iluminacion-decorativa-traslucido-40w-ledlc40/",
+    "category": "Luminaria colgante LED",
+    "categories": [
+      "Iluminación Decorativa",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Luminaria colgante",
+      "3 CCT"
+    ],
+    "tags": [
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "40W",
+      "3000K/4000K/6500K"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC40-1-e1718207894780-150x150.jpg",
+    "family": "Decorativa"
+  },
+  "LEDLC48": {
+    "code": "LEDLC48",
+    "name": "Luminaria LED colgante 3 CCT 48W LEDLC48",
+    "price": "$ 931.467",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/06/LEDLC48-150x150.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-led-colgante-48w-ledlc48/",
+    "category": "Luminaria colgante LED",
+    "categories": [
+      "Iluminación Decorativa",
+      "Luminaria colgante",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "3 CCT"
+    ],
+    "tags": [
+      "48W",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "3000K/4000K/6500K"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/06/LEDLC48-150x150.webp",
+    "family": "Decorativa"
+  },
+  "LEDLC2A": {
+    "code": "LEDLC2A",
+    "name": "Luminaria LED colgante 3 CCT 32W LEDLC2A",
+    "price": "$ 539.466",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC2A-N-1-150x150.webp",
+    "url": "https://ecolite.com.co/producto/luminaria-colgante-iluminacion-decorativa-blanco-32w-ledlc1c-1/",
+    "category": "Luminaria colgante LED",
+    "categories": [
+      "Iluminación Decorativa",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "Luminaria colgante",
+      "3 CCT"
+    ],
+    "tags": [
+      "32W",
+      "3CCT",
+      "3 temperaturas",
+      "tres temperaturas",
+      "3000K/4000K/6500K"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC2A-N-1-150x150.webp",
+    "family": "Decorativa"
+  },
+  "AP11": {
+    "code": "AP11",
+    "name": "Aplique LED AP11",
+    "price": "$149.146",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC0D-D-1-1-e1715811262974.jpg",
+    "url": "https://ecolite.com.co/producto/aplique-iluminacion-decorativa-dorado-3w-ledlc0d-d-1/",
+    "category": "Aplique de pared",
+    "categories": [
+      "Iluminación Decorativa",
+      "Apliques de pared"
+    ],
+    "tags": [],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC0D-D-1-1-e1715811262974.jpg",
+    "family": "Decorativa"
+  },
+  "AP12": {
+    "code": "AP12",
+    "name": "Aplique LED AP12",
+    "price": "$141.680",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC0D-D-2-1.jpg",
+    "url": "https://ecolite.com.co/producto/aplique-iluminacion-decorativa-dorado-8w-ledlc0d-d-2/",
+    "category": "Aplique de pared",
+    "categories": [
+      "Iluminación Decorativa",
+      "Apliques de pared"
+    ],
+    "tags": [],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC0D-D-2-1.jpg",
+    "family": "Decorativa"
+  },
+  "AP13": {
+    "code": "AP13",
+    "name": "Aplique LED Acrílico 18W AP13",
+    "price": "$134.214",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC0D-N-3-rotated-1.jpg",
+    "url": "https://ecolite.com.co/producto/aplique-iluminacion-decorativa-negro-18w-ledlc0d-n-3/",
+    "category": "Aplique de pared",
+    "categories": [
+      "Iluminación Decorativa",
+      "Apliques de pared"
+    ],
+    "tags": [
+      "Acrílico",
+      "3000K",
+      "18W"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/LEDLC0D-N-3-rotated-1.jpg",
+    "family": "Decorativa"
+  },
+  "ECOPL12WA-RGB": {
+    "code": "ECOPL12WA-RGB",
+    "name": "Bala LED sumergible 12W RGB (Pentair) ECOPL12WA-RGB",
+    "price": "$203.466 - $266.746",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/01/ECOPL12WA-1.jpg",
+    "url": "https://ecolite.com.co/producto/bala-led-sumergible-12w-de-sobreponer-ecopl12wa/",
+    "category": "Luz LED Sumergible",
+    "categories": [
+      "Iluminación Exterior",
+      "Iluminación para Piscinas",
+      "Sumergibles"
+    ],
+    "tags": [
+      "Piscina",
+      "RGB",
+      "DC12V",
+      "Pentair"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/01/ECOPL12WA-1.jpg",
+    "family": "Piscina"
+  },
+  "ECOPL12WB-RGB": {
+    "code": "ECOPL12WB-RGB",
+    "name": "Bala LED sumergible 12W RGB ECOPL12WB-RGB",
+    "price": "$203.466 - $266.746",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/01/ECOPL12WA-1-150x150.jpg",
+    "url": "https://ecolite.com.co/producto/bala-led-sumergible-12w-de-sobreponer-ecopl12wa/",
+    "category": "Luz LED Sumergible",
+    "categories": [
+      "Iluminación Exterior",
+      "Iluminación para Piscinas",
+      "Sumergibles"
+    ],
+    "tags": [
+      "Piscina",
+      "RGB",
+      "DC12V"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/01/ECOPL12WA-1-150x150.jpg",
+    "family": "Piscina"
+  },
+  "ECOPL12WA-F": {
+    "code": "ECOPL12WA-F",
+    "name": "Bala LED sumergible 12W Luz fría ECOPL12WA-F",
+    "price": "$203.466 - $266.746",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/01/ECOPL12WA-1-150x150.jpg",
+    "url": "https://ecolite.com.co/producto/bala-led-sumergible-12w-de-sobreponer-ecopl12wa/",
+    "category": "Luz LED Sumergible",
+    "categories": [
+      "Iluminación Exterior",
+      "Iluminación para Piscinas",
+      "Sumergibles"
+    ],
+    "tags": [
+      "Piscina",
+      "6500K",
+      "DC12V"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/01/ECOPL12WA-1-150x150.jpg",
+    "family": "Piscina"
+  },
+  "ECOPL12WA-C": {
+    "code": "ECOPL12WA-C",
+    "name": "Bala LED sumergible 12W Luz cálida ECOPL12WA-C",
+    "price": "$203.466 - $266.746",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/01/ECOPL12WA-1.jpg",
+    "url": "https://ecolite.com.co/producto/bala-led-sumergible-12w-de-sobreponer-ecopl12wa/",
+    "category": "Luz LED Sumergible",
+    "categories": [
+      "Iluminación Exterior",
+      "Iluminación para Piscinas",
+      "Sumergibles"
+    ],
+    "tags": [
+      "Piscina",
+      "3000K",
+      "DC12V"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/01/ECOPL12WA-1.jpg",
+    "family": "Piscina"
+  },
+  
+  "ECO2310-438": {
+    "code": "ECO2310-438",
+    "name": "Perfil de Aluminio 23X10 ECO2310-438",
+    "price": "$ 35.840",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/ECO2310-438X3MTS-1.jpg",
+    "url": "https://ecolite.com.co/producto/perfil-led-aluminio-eco2310-438/",
+    "category": "Perfiles de Aluminio",
+    "categories": [
+      "Perfiles de Aluminio",
+      "Canal de Aluminio",
+      "Canal para Luz LED",
+      "Perfil Led Superficie"
+    ],
+    "tags": [
+      "Aluminio",
+      "perfil",
+      "perfil aluminio",
+      "perfil de aluminio",
+      "Perfil LED",
+      "Perfiled",
+      "perfiles de aluminio"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/ECO2310-438X3MTS-1.jpg",
+    "family": "Perfiles"
+  },
+  "ECO2310-439": {
+    "code": "ECO2310-439",
+    "name": "Perfil de Aluminio 23X10 ECO2310-439",
+    "price": "$ 44.520",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/ECO2310-439X3MTS-1.jpg",
+    "url": "https://ecolite.com.co/producto/perfil-led-aluminio-eco2310-439/",
+    "category": "Perfiles de Aluminio",
+    "categories": [
+      "Perfiles de Aluminio",
+      "Canal de Aluminio",
+      "Canal para Luz LED",
+      "Perfil Led Empotrado"
+    ],
+    "tags": [
+      "Aluminio",
+      "Perfil LED"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/ECO2310-439X3MTS-1.jpg",
+    "family": "Perfiles"
+  },
+  "ECO1313": {
+    "code": "ECO1313",
+    "name": "Perfil de Aluminio 13X13 ECO1313",
+    "price": "$ 55.813",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/1-6.webp",
+    "url": "https://ecolite.com.co/producto/perfil-de-aluminio-13x13-eco1313/",
+    "category": "Perfiles de Aluminio",
+    "categories": [
+      "Perfiles de Aluminio",
+      "Canal de Aluminio",
+      "Perfil Esquinero de Aluminio"
+    ],
+    "tags": [
+      "Aluminio",
+      "perfil aluminio esquina",
+      "perfil de aluminio esquina",
+      "Perfil LED",
+      "perfil tipo aluminio",
+      "Perfiled"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/09/1-6.webp",
+    "family": "Perfiles"
+  },
+  "ECO1313E": {
+    "code": "ECO1313E",
+    "name": "Perfil de Aluminio 13X13 ECO1313E",
+    "price": "$ 55.813",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/1-7.webp",
+    "url": "https://ecolite.com.co/producto/perfil-de-aluminio-13x13-eco1313e/",
+    "category": "Perfiles de Aluminio",
+    "categories": [
+      "Perfiles de Aluminio",
+      "Canal de Aluminio",
+      "Perfil Esquinero de Aluminio"
+    ],
+    "tags": [
+      "Aluminio",
+      "perfil aluminio",
+      "perfil aluminio esquina",
+      "Perfil LED",
+      "perfil tipo aluminio",
+      "Perfiled"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/09/1-7.webp",
+    "family": "Perfiles"
+  },
+  "ECO2010AW": {
+    "code": "ECO2010AW",
+    "name": "Perfil de Silicona Incrustar 20X10 ECO2010AW",
+    "price": "$ 18.480",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/05/ECO2010AW-1.jpg",
+    "url": "https://ecolite.com.co/producto/perfil-led-blanco-eco2010aw/",
+    "category": "Perfiles de Silicona",
+    "categories": [
+      "Perfiles de Silicona",
+      "Perfiles Para Luces LED",
+      "Perfil para Luz led Indirecta",
+      "Perfil Silicona Transparente",
+      "Canal para Luz LED"
+    ],
+    "tags": [
+      "Blanco",
+      "perfil de silicona",
+      "Perfil LED",
+      "perfil silicona",
+      "Perfiles de silicona"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2024/05/ECO2010AW-1.jpg",
+    "family": "Perfiles de Silicona"
+  },
+  "ECO2014A": {
+    "code": "ECO2014A",
+    "name": "Perfil de Silicona Sobreponer 20X14 ECO2014A",
+    "price": "$ 16.614",
+    "img_url": null,
+    "url": "https://ecolite.com.co/producto/perfil-led-blanco-eco2014a/",
+    "category": "Perfiles de Silicona",
+    "categories": [
+      "Perfiles de Silicona",
+      "Perfiles Para Luces LED",
+      "Perfil para Luz led Indirecta",
+      "Perfil Silicona Transparente",
+      "Canal para Luz LED"
+    ],
+    "tags": [
+      "Blanco",
+      "perfil de silicona",
+      "Perfil LED",
+      "perfil silicona",
+      "Perfiles de silicona"
+    ],
+    "image": null,
+    "family": "Perfiles de Silicona"
+  },
+  "TLMF10-B": {
+    "code": "TLMF10-B",
+    "name": null,
+    "price": null,
+    "img_url": null,
+    "url": null,
+    "category": null,
+    "categories": [],
+    "tags": [],
+    "image": null,
+    "family": null
+  },
+  "TLM90": {
+    "code": "TLM90",
+    "name": "Unión Eléctrica para Sistema de Riel Magnético TLM90",
+    "price": "$ 18.059",
+    "img_url": null,
+    "url": "https://ecolite.com.co/producto/union-electrica-iluminacion-interior-negro-tlm90/",
+    "category": "Sistema de Riel Magnético SMART",
+    "categories": [
+      "Iluminación LED",
+      "Luminarias LED Interiores",
+      "Sistema de Riel Magnético SMART",
+      "Iluminación Led Interior para Techo"
+    ],
+    "tags": [
+      "DC42V",
+      "Unión",
+      "Unión eléctrica"
+    ],
+    "image": null,
+    "family": "Sistema de Riel Magnético"
+  },
+  "ECO30120V48": {
+    "code": "ECO30120V48",
+    "name": "Panel LED back light 30x120cm 48W de incrustar ECO30120V48",
+    "price": "$ 130.480",
+    "img_url": null,
+    "url": "https://ecolite.com.co/producto/panel-30x120-cm-con-fuente-led-de-48w-para-incrustar-eco30120v48/",
+    "category": "Paneles LED",
+    "categories": [
+      "Iluminación LED",
+      "Luminarias LED Interiores",
+      "Paneles LED",
+      "Panel Led 120x30",
+      "Panel Led 120x30 Empotrar"
+    ],
+    "tags": [
+      "30x120 cm",
+      "Fuente LED",
+      "Iluminacion Interior",
+      "Incrustar",
+      "Interior",
+      "Paneles LED"
+    ],
+    "image": null,
+    "family": "Paneles LED"
+  },
+  "LBPAR3012W": {
+    "code": "LBPAR3012W",
+    "name": "Bombillo LED PAR 12W rosca E27 LBPAR3012W",
+    "price": "$ 37.800",
+    "img_url": null,
+    "url": "https://ecolite.com.co/producto/spot-par-30-con-fuente-led-de-12w-para-enroscar-roscae27-lbpar3012w/",
+    "category": "Bombillos PAR",
+    "categories": [
+      "Bombillos PAR",
+      "Iluminación LED",
+      "Iluminación Led Interior para Techo",
+      "Luces Interiores Led para Casa",
+      "Luces Led para Negocios Interior",
+      "Luminarias LED Interiores",
+      "Luz Led Interior para Armario"
+    ],
+    "tags": [
+      "E27",
+      "Enroscar",
+      "Fuente LED",
+      "Iluminacion Interior",
+      "Interior",
+      "Par 30",
+      "Spot GU10",
+      "Spot PAR"
+    ],
+    "image": null,
+    "family": "Bombillos PAR"
+  },
+  "LBPAR30A": {
+    "code": "LBPAR30A",
+    "name": "Bombillo LED PAR30 10W rosca E27 LBPAR30A",
+    "price": "$ 24.080",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/LBPAR30A-150x150.webp",
+    "url": "https://ecolite.com.co/producto/bombillo-led-par30-10w-rosca-e27-lbpar30a/",
+    "category": "Bombillos PAR",
+    "categories": [
+      "Bombillos PAR",
+      "Iluminación LED",
+      "Iluminación Led Interior para Techo",
+      "Luces Interiores Led para Casa",
+      "Luces Led para Negocios Interior",
+      "Luminarias LED Interiores",
+      "Luz Led Interior para Armario"
+    ],
+    "tags": [
+      "Bombillo LED PAR30",
+      "Bombillos LED",
+      "E27",
+      "Enroscar",
+      "Fuente LED",
+      "Iluminacion Interior",
+      "Interior",
+      "Par 30",
+      "Spot PAR"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2025/09/LBPAR30A-150x150.webp",
+    "family": "Bombillos PAR"
+  },
+
+  "SE15-A": {
+    "code": "SE15-A",
+    "name": "Fotocelda SE15-A",
+    "price": "$ 27.814",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2024/02/SE15-A.jpg",
+    "url": "https://ecolite.com.co/producto/fotocelda-se15-a/",
+    "category": "Sensores Fotoeléctricos",
+    "categories": ["Sensores Fotoeléctricos", "Sensores", "Sensor Fotoeléctrico 220V"]
+  },
+  "T-1S": {
+    "code": "T-1S",
+    "name": "Interruptor SMART Sencillo T-1S",
+    "price": "$ 93.146",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/T-1S-B-1.webp",
+    "url": "https://ecolite.com.co/producto/interruptor-smart-sencillo-t-1s/",
+    "category": "Interruptores",
+    "categories": ["Interruptores", "Productos Eléctricos", "Interruptor 10A", "Interruptor 110V", "Interruptor 220V", "Interruptor Pared", "Interruptor Moderno", "Interruptores y Tomacorrientes"]
+  },
+  "T-2S": {
+    "code": "T-2S",
+    "name": "Interruptor SMART Doble T-2S",
+    "price": "$ 111.814",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/T-2S-B.webp",
+    "url": "https://ecolite.com.co/producto/interruptor-smart-doble-t-2s/",
+    "category": "Interruptores",
+    "categories": ["Interruptores", "Productos Eléctricos", "Interruptor 10A", "Interruptor 110V", "Interruptor 220V", "Interruptor Pared", "Interruptor Moderno", "Interruptores y Tomacorrientes"]
+  },
+  "T-3S": {
+    "code": "T-3S",
+    "name": "Interruptor SMART Triple T-3S",
+    "price": "$ 123.014",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/T-3S-B.webp",
+    "url": "https://ecolite.com.co/producto/interruptor-smart-triple-t-3s/",
+    "category": "Interruptores",
+    "categories": ["Interruptores", "Productos Eléctricos", "Interruptor 10A", "Interruptor 110V", "Interruptor 220V", "Interruptor Pared", "Interruptor Moderno", "Interruptores y Tomacorrientes"]
+  },
+  "X-1S": {
+    "code": "X-1S",
+    "name": "Mini modulo SMART Sencillo X-1S",
+    "price": "$ 93.146",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/X-1S-W.webp",
+    "url": "https://ecolite.com.co/producto/mini-modulo-smart-sencillo-x-1s/",
+    "category": "Interruptores",
+    "categories": ["Interruptores", "Productos Eléctricos", "Interruptor 10A", "Interruptor 110V", "Interruptor 220V", "Interruptor Pared", "Interruptor Dimmer", "Interruptores y Tomacorrientes"]
+  },
+  "X-2S": {
+    "code": "X-2S",
+    "name": "Mini modulo SMART Doble X-2S",
+    "price": "$ 111.814",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2025/09/X-2S-W.webp",
+    "url": "https://ecolite.com.co/producto/mini-modulo-smart-doble-x-2s/",
+    "category": "Interruptores",
+    "categories": ["Interruptores", "Productos Eléctricos", "Interruptor 10A", "Interruptor 110V", "Interruptor 220V", "Interruptor Pared", "Interruptor Dimmer", "Interruptores y Tomacorrientes"]
   }
+
+
+
 }

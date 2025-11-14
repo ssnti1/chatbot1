@@ -330,14 +330,11 @@ function maybeDecorateWhatsApp(link) {
 
 
 
-  // =======================
-  // Linkify + anchors enriquecidos
-  // =======================
   function linkify(s) {
     return (s || "").replace(/(https?:\/\/[^\s)]+)|(\bwww\.[^\s)]+)/gi, function (m) {
       var url = m.startsWith("http") ? m : ("https://" + m);
-      url = maybeDecorateWhatsApp(url); // ← decoración WA
-var target = "_blank";  // abrir siempre en nueva pestaña
+      url = maybeDecorateWhatsApp(url);
+var target = "_blank";
       return '<a class="cb-link" href="' + url + '" target="' + target + '" rel="noopener">' + m + '</a>';
     });
   }
@@ -346,49 +343,41 @@ var target = "_blank";  // abrir siempre en nueva pestaña
     var anchors = [];
     var raw = String(s || "");
 
-    // 1) Detecta tokens [[a|Texto Visible|URL]] y guarda placeholders
     raw = raw.replace(/\[\[a\|([^|]+)\|([^\]]+)\]\]/gi, function (_, label, url) {
       var cleanUrl = (url || "").trim();
       if (!/^https?:\/\//i.test(cleanUrl)) cleanUrl = "https://" + cleanUrl;
-      cleanUrl = maybeDecorateWhatsApp(cleanUrl); // ← decoración WA también para anchors
+      cleanUrl = maybeDecorateWhatsApp(cleanUrl); 
 
       var target = "_blank";
       try {
         var H = new URL(cleanUrl).hostname;
-        var target = "_blank"; // abrir siempre en nueva pestaña
+        var target = "_blank"; 
       } catch (_) {}
 
       var html = '<a class="cb-link" href="' + escapeHtml(cleanUrl) + '" target="' + target + '" rel="noopener">' +
                  escapeHtml(label) + '</a>';
       var idx = anchors.push(html) - 1;
-      return "__A" + idx + "__"; // placeholder temporal
+      return "__A" + idx + "__"; 
     });
 
-    // 2) Escapar + linkify del resto del texto
     var safe = linkify(escapeHtml(raw));
 
-    // 3) Reinyectar anchors reales
     safe = safe.replace(/__A(\d+)__/g, function (_, i) { return anchors[+i] || ""; });
 
     return safe;
   }
 
-  // =======================
-  // Deep-link / Intent a la app de WhatsApp con fallback a Web
-  // =======================
   function buildWhatsAppLinksFromHref(href) {
     try {
       var u = new URL(href);
       if (!isWhatsAppHost(u.hostname)) return null;
 
-      // Reusa la misma lógica del decorador
-      var web = maybeDecorateWhatsApp(href);        // -> https://wa.me/PHONE?text=...
+      var web = maybeDecorateWhatsApp(href);
       var U = new URL(web);
       var phone = extractPhoneFromUrl(U);
       var params = new URLSearchParams(U.search);
       var text = params.get("text") || "";
 
-      // Deep-link prioritario para app (iOS usa wa.me, Android intenta intent://)
       var deep = phone
         ? ("whatsapp://send?phone=" + phone + "&text=" + encodeURIComponent(text))
         : ("whatsapp://send?text=" + encodeURIComponent(text));
@@ -420,21 +409,20 @@ var target = "_blank";  // abrir siempre en nueva pestaña
     window.addEventListener("blur", onVis);
 
   if (isAndroid()) {
-    window.location.href = links.intent; // Android: app
+    window.location.href = links.intent; 
   } else if (isIOS()) {
-    window.open(links.web, "_blank");    // iOS: wa.me conserva mejor el text
+    window.open(links.web, "_blank");
   } else {
-    window.open(links.web, "_blank");    // Desktop: usa wa.me directo (evita perder el texto)
+    window.open(links.web, "_blank");
   }
 
 
     var tid = setTimeout(function () {
-      if (!opened) window.open(links.web, "_blank"); // Fallback a wa.me
+      if (!opened) window.open(links.web, "_blank"); 
       cleanup();
     }, 1200);
   }
 
-  // Intercepta clicks en enlaces de WhatsApp y aplica intento de app + fallback
   document.addEventListener("click", function (e) {
     var a = e.target && e.target.closest && e.target.closest("a.cb-link");
     if (!a) return;
@@ -450,9 +438,6 @@ var target = "_blank";  // abrir siempre en nueva pestaña
     tryOpenWhatsApp(links);
   }, true);
 
-  // =======================
-  // VALIDACIONES FORM LEAD
-  // =======================
   function setupLeadValidation() {
     var f = refs.leadForm;
     if (!f) return;
@@ -465,7 +450,6 @@ var target = "_blank";  // abrir siempre en nueva pestaña
     var profession = f.elements.namedItem("profession");
     var city = f.elements.namedItem("city");
 
-    // Atributos HTML para ayudar al navegador
 if (name) {
   name.required = true;
   name.maxLength = 60;
@@ -474,11 +458,10 @@ if (name) {
   name.autocapitalize = "words";
   name.placeholder = name.placeholder || "Nombre y apellido";
 
-  // ⬇️ Sanea en tiempo real: NO números ni símbolos fuera de . - y espacio
   name.addEventListener("input", function () {
     var v = this.value;
-    v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, ""); // quita dígitos y otros
-    v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, "");   // colapsa espacios / recorta inicios
+    v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, ""); 
+    v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, ""); 
     this.value = v;
     clearFieldError(this);
   });
@@ -497,7 +480,7 @@ if (name) {
       phone.required = true;
       phone.inputMode = "numeric";
       phone.pattern = "\\d*";
-      phone.maxLength = 13; // exactamente 10
+      phone.maxLength = 13; 
       phone.placeholder = phone.placeholder || "Celular (10 dígitos)";
       phone.addEventListener("input", function () {
         var digits = this.value.replace(/\D+/g, "");
@@ -524,11 +507,10 @@ if (city) {
   city.pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñÜü.\\-\\s]{2,60}";
   city.autocapitalize = "words";
 
-  // ⬇️ Sanea en tiempo real: NO números ni símbolos fuera de . - y espacio
   city.addEventListener("input", function () {
     var v = this.value;
-    v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, ""); // quita dígitos y otros
-    v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, "");   // colapsa espacios / recorta inicios
+    v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, ""); 
+    v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, ""); 
     this.value = v;
     clearFieldError(this);
   });
@@ -618,7 +600,6 @@ if (city) {
     ["name","email","phone","profession","city"].forEach(function(n){
       if (!validateField(n)) ok = false;
     });
-    // focus en el primero con error
     if (!ok) {
       for (var i=0;i<5;i++){
         var nm = ["name","email","phone","profession","city"][i];
@@ -630,9 +611,6 @@ if (city) {
     return ok;
   }
 
-  // =======================
-  // Formulario Overlay
-  // =======================
   function showLeadOverlay() {
     if (!refs.leadOverlay) return;
     refs.leadOverlay.hidden = false;
@@ -663,7 +641,6 @@ if (city) {
       city: (refs.leadForm.elements.namedItem("city").value || "").trim(),
     };
 
-    // Guardar el nombre para WhatsApp
     try { localStorage.setItem("ecolite_lead_name", data.name || ""); } catch (_e) {}
 
     var btn = refs.leadForm.querySelector(".lead-submit");
@@ -684,9 +661,6 @@ if (city) {
       });
   }
 
-  // =======================
-  // Render / Productos
-  // =======================
   function row(cls, htmlOrNode) {
     if (!refs.stream) return;
     var wrap = document.createElement("div");
