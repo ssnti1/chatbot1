@@ -251,10 +251,8 @@ def search_candidates(products: List[Dict], query: str, limit: int = 12) -> List
     if not raw_terms:
         return []
 
-    # tokens del query que existen en el vocabulario del catálogo
     q_terms = [t for t in raw_terms if t in _VOCAB]
 
-    # Si no hubo cruce con catálogo, intenta recuperar con scoring libre
     if not q_terms:
         scored: List[Tuple[float, Dict]] = []
         for row in _INDEX:
@@ -273,7 +271,6 @@ def search_candidates(products: List[Dict], query: str, limit: int = 12) -> List
     REQUIRED = [t for t in q_terms if df_ratio(t) <= 0.60]
     OPTIONAL = [t for t in q_terms if t not in REQUIRED]
 
-    # Fuerza a que términos "estrictos" (p.ej. sumergible) sean obligatorios
     for t in q_terms:
         if t in STRICT_TERMS and t not in REQUIRED:
             REQUIRED.append(t)

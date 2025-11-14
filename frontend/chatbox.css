@@ -42,6 +42,13 @@ body {
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
     background: linear-gradient(180deg, #f9fbff 0%, var(--bg) 40%, #f5f7fb 100%);
     color: var(--text);
+
+  background-image: url("body.png"); /* cambia la ruta según tu carpeta */
+  background-size: cover;        /* que cubra toda la pantalla */
+  background-repeat: no-repeat;  /* que no se repita */
+  background-position: center;   /* centrada */
+  background-attachment: fixed;  /* que no se mueva al hacer scroll (opcional) */
+
 }
 
 /* =========================
@@ -54,9 +61,8 @@ body {
     display: flex;
     gap: .6rem;
     align-items: center;
-    padding: 12px 14px;
+    padding: 8px 14px;
     border-radius: 999px;
-    background: linear-gradient(180deg, var(--brand), var(--brand-600));
     color: #fff;
     border: 1px solid rgba(255, 255, 255, .6);
     box-shadow: var(--shadow-2);
@@ -76,6 +82,10 @@ body {
     border-radius: 999px;
     background: var(--success);
     box-shadow: 0 0 0 6px rgba(16, 185, 129, .20);
+}
+
+.cb-fab-avatar {
+    width: 60%;
 }
 
 /* =========================

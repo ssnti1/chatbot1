@@ -19,7 +19,7 @@ def get_state(session_id: str) -> dict:
         _SESSIONS[session_id] = {
             "espacio": None,
             "necesidad": None,
-            "preferencias": {},  # ya no guardamos W/IP/K/sockets/etc.
+            "preferencias": {}, 
             "historial": [],
             "page": 0,
             "last_query": None,

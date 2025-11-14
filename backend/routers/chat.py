@@ -134,9 +134,9 @@ def _is_question(msg: str) -> bool:
     return bool(QUESTION_RE.search(m))
 
 # ⬇️ NUEVO: Intenciones explícitas (mostrar vs sugerir) y guard de “muéstrame …”
-SHOW_RE     = re.compile(r'\b(muestrame|muéstrame|muestra|ver|ens[eé]ñame|listar|ensename)\b', re.I)
+SHOW_RE     = re.compile(r'\b(muestrame|quiero|muéstrame|muestra|ver|ens[eé]ñame|listar|ensename)\b', re.I)
 SUGGEST_RE = re.compile(
-    r'\b(sugiereme|sugi[eé]reme|recomiendame|recomi[eé]ndame|recomienda(?:s)?|sugerir)\b',
+    r'\b(sugiereme|sugi[eé]reme|quiero|recomiendame|recomi[eé]ndame|recomienda(?:s)?|sugerir)\b',
     re.I
 )
 ASK_PREFIX_RE = re.compile(r'^\s*(muestrame|muéstrame|muestra|ver|ens[eé]ñame)\b', re.I)
