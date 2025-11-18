@@ -23,6 +23,7 @@ FAQ_RESPONSES = [
         ),
     },
 
+
     {
         "patterns": [
             r"qu[eé]\s+hacen",
