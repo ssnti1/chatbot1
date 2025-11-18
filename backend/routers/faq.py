@@ -19,7 +19,7 @@ FAQ_RESPONSES = [
         "response": (
             "Ecolite es una empresa dedicada a la comercialización de soluciones de iluminación LED "
             "para aplicaciones comerciales, industriales, residenciales y decorativas, en interiores y exteriores."
-            "https://ecolite.com.co/politicas-de-garantia"
+            "https://ecolite.com.co"
         ),
     },
 
