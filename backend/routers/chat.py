@@ -20,6 +20,7 @@ except Exception:
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
+
 CATALOG_URL = os.getenv("ECOLITE_CATALOG_URL", "https://ecolite.com.co/")
 CATALOG_KEYWORDS = {
     "catalogo", "catalogos",
@@ -766,6 +767,16 @@ def chat(in_: ChatIn) -> ChatOut:
             raise HTTPException(status_code=400, detail="message is required")
 
         msg_norm = _norm(msg_raw)
+
+        faq_text = faq_try_answer(msg_raw)
+        if faq_text:
+            return ChatOut(
+                content=faq_text,
+                products=[],
+                page=0,
+                last_query="",
+                has_more=False
+            )
 
         # 🚫 Bloquear menciones a otras marcas / competencia
         if any(k in msg_norm for k in [

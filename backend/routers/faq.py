@@ -18,12 +18,48 @@ FAQ_RESPONSES = [
         ],
         "response": (
             "Ecolite es una empresa dedicada a la comercialización de soluciones de iluminación LED "
-            "para aplicaciones comerciales, industriales, residenciales y decorativas, en interiores y exteriores."
+            "para aplicaciones comerciales, industriales, residenciales y decorativas, en interiores y exteriores.\n"
             "https://ecolite.com.co"
         ),
     },
 
+{
+    "patterns": [
+        r"cat[aá]logo",                     
+        r"ver\s+el\s+cat[aá]logo",          
+        r"mu[eé]strame\s+el\s+cat[aá]logo",
+        r"d[óo]nde\s+est[aá]\s+el\s+cat[aá]logo",
+        r"p[aá]gina\s+de\s+productos",
+        r"lista\s+de\s+productos",
+        r"comprar\s+en\s+l[ií]nea",          # ← FIX: con tilde y funcionando
+        r"productos\s+ecolite",
+    ],
+    "response": (
+        "Puedes ver todo nuestro catálogo completo aquí:\n"
+        "https://ecolite.com.co"
+    ),
+},
 
+
+
+{
+    "patterns": [
+        r"me\s+puede\s+compartir\s+el\s+sitio\s+web\s+de\s+ecolite",
+        r"me\s+puedes\s+compartir\s+el\s+sitio\s+web\s+de\s+ecolite",
+        r"puedes?\s+compartir\s+el\s+sitio\s+web\s+de\s+ecolite",
+        r"comp[aá]rteme\s+el\s+sitio\s+web\s+de\s+ecolite",
+        r"pas[aá]me\s+el\s+sitio\s+web\s+de\s+ecolite",
+        r"c[uú]al\s+es\s+el\s+sitio\s+web\s+de\s+ecolite",
+        r"sitio\s+web\s+de\s+ecolite",
+        r"p[aá]gina\s+web\s+de\s+ecolite",
+        r"p[aá]gina\s+oficial\s+de\s+ecolite",
+        r"link\s+de\s+ecolite",
+        r"url\s+de\s+ecolite",
+        r"ecolite\s+web"
+    ],
+    "response": "La página oficial de Ecolite es: https://ecolite.com.co"
+}
+,
     {
         "patterns": [
             r"qu[eé]\s+hacen",
@@ -92,6 +128,7 @@ FAQ_RESPONSES = [
             r"sede",
             r"ubicada",
             r"oficina",
+            r"ubicado",
             r"bodega",
             r"punto\s+de\s+atenci[oó]n",
         ],

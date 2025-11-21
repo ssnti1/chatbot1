@@ -230,15 +230,15 @@ body {
     background: #ffffff;
     box-shadow: var(--shadow-1);
     line-height: 1.4;
-    white-space: pre-line;  /* respeta \n como saltos de línea */
+    white-space: pre-line; 
 }
 
 .msg.me {
     justify-content: flex-end;
 }
 
-.msg.me .bubble {
-    background: linear-gradient(180deg, var(--brand-50), #fff);
+.msg.me .bubble {   
+    background: #ffffff;
     border-color: #dbeafe;
     box-shadow: 0 8px 24px rgba(37, 99, 235, .12);
 }
@@ -373,6 +373,7 @@ body {
     padding: 4px 8px;
     background: linear-gradient(180deg, #f9fbff 0%, var(--bg) 40%, #f5f7fb 100%);
 }
+
 
 #typing.is-hidden {
     display: none !important;
