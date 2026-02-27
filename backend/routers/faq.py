@@ -11,7 +11,7 @@ FAQ_RESPONSES = [
         "patterns": [
             r"qu[eé]\s+es\s+ecolite",
             r"h[aá]blame\s+de\s+ecolite",
-            r"qui[eé]nes?\s+son\s+ecolite",
+            r"qui[eé]nes?\s+xson\s+ecolite",
             r"sobre\s+ecolite",
             r"acerca\s+de\s+ecolite",
             r"empresa\s+ecolite",
@@ -127,9 +127,7 @@ FAQ_RESPONSES = [
             r"d[oó]nde\s+queda",
             r"sede",
             r"ubicada",
-            r"oficina",
             r"ubicado",
-            r"bodega",
             r"punto\s+de\s+atenci[oó]n",
         ],
         "response": (
@@ -207,7 +205,7 @@ FAQ_RESPONSES = [
             r"manual\s+(t[eé]cnico|de\s+instalaci[oó]n)",
         ],
         "response": (
-            "Para ver la ficha técnica de un producto, la podrás encontrar en nuestra página web utilizando el enlace que aparece en las busquedas de producto."
+            "Para ver la ficha técnica de un producto, la podrás encontrar en nuestra página web utilizando el enlace que aparece en las busquedas de producto. https://ecolite.com.co/"
         ),
     },
 ]

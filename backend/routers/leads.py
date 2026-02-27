@@ -1,103 +1,41 @@
 from __future__ import annotations
-import sqlite3, datetime
-from pathlib import Path
 from typing import Any, Mapping
-try:
-    from backend.routers import chat as chat_mod
-except Exception:
-    import chat as chat_mod
 
+from fastapi import APIRouter, Request
 from pydantic import BaseModel
-from fastapi import APIRouter, Request, Body, HTTPException
+
+# 👇 Importa tu cliente de DataCRM
+from backend.services.datacrm_client import send_contact_to_datacrm
+
+router = APIRouter(prefix="/leads", tags=["Leads"])
 
 
-router = APIRouter(prefix="/leads", tags=["leads"])
-
-
-class LeadForm(BaseModel):
-    session_id: str
+class LeadIn(BaseModel):
     name: str
-
-@router.post("/save")
-def save_lead(form: LeadForm):
-    st = chat_mod._SESS.setdefault(form.session_id, {})
-    st["lead_name"] = (form.name or "").strip()
-    return {"ok": True}
-
-DATA_DIR = Path(__file__).parent.parent / "data"
-DATA_DIR.mkdir(parents=True, exist_ok=True)
-DB_PATH = DATA_DIR / "leads.db"
-
-def _conn():
-    con = sqlite3.connect(DB_PATH, timeout=10, check_same_thread=False)
-    con.execute("PRAGMA journal_mode=WAL;")
-    con.execute("""
-        CREATE TABLE IF NOT EXISTS leads (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            session_id TEXT,
-            name TEXT,
-            email TEXT,
-            phone TEXT,
-            profession TEXT,
-            city TEXT,
-            user_agent TEXT,
-            created_at TEXT
-        )
-    """)
-    return con
-
-_KEY_MAP = {
-    "nombre": "name", "name": "name",
-    "correo": "email", "email": "email", "mail": "email",
-    "numero": "phone", "celular": "phone", "telefono": "phone", "tel": "phone", "phone": "phone",
-    "profesion": "profession", "profesión": "profession", "profession": "profession",
-    "ciudad": "city", "cuidad": "city", "city": "city",
-    "session": "session_id", "session_id": "session_id",
-}
-
-def _normalize_payload(obj: Mapping[str, Any]) -> dict[str, Any]:
-    out: dict[str, Any] = {}
-    for k, v in obj.items():
-        key = str(k).strip().lower()
-        mapped = _KEY_MAP.get(key, key)
-        if isinstance(v, str): v = v.strip()
-        out[mapped] = v
-    return out
-
+    email: str
+    phone: str
+    profession: str
+    city: str
+    session_id: str = ""
 
 
 @router.post("/")
-async def save_lead_form(request: Request, payload: dict = Body(default=None)):
-    raw: dict[str, Any] = {}
-    if isinstance(payload, dict) and payload:
-        raw = _normalize_payload(payload)
-    if not raw:
-        try:
-            form = await request.form()
-            raw = _normalize_payload(dict(form))
-        except Exception:
-            pass
+async def guardar_lead(lead: LeadIn, request: Request):
+    """
+    Recibe el lead del chatbot, lo puede guardar en tu BD
+    y luego lo envía a DataCRM.
+    """
+    user_agent = request.headers.get("User-Agent", "Unknown")
+    created_at = request.headers.get("Date", "")
 
-    raw.setdefault("session_id",
-        request.headers.get("x-session-id")
-        or raw.get("session")
-        or request.client.host
-        or "web-unknown"
-    )
+    raw = lead.dict()
 
-    required = ["session_id", "name", "email", "phone", "profession", "city"]
-    missing = [k for k in required if not raw.get(k)]
-    if missing:
-        raise HTTPException(status_code=422, detail={"error": "missing_fields", "missing": missing, "received": list(raw.keys())})
+    # 1️⃣ (Opcional) Guardar en tu BASE DE DATOS LOCAL
+    # aquí iría la llamada a tu función de BD si ya la tienes,
+    # por ejemplo:
+    # save_lead_in_db(raw, user_agent, created_at)
 
-    ua = request.headers.get("user-agent", "")
-    now = datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z"
+    # 2️⃣ Enviar a DataCRM
+    send_contact_to_datacrm(raw)
 
-    with _conn() as con:
-        con.execute(
-            """INSERT INTO leads (session_id, name, email, phone, profession, city, user_agent, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-            (str(raw["session_id"]), str(raw["name"]), str(raw["email"]), str(raw["phone"]),
-             str(raw["profession"]), str(raw["city"]), ua, now)
-        )
-    return {"ok": True, "saved_at": now}
+    return {"status": "ok", "message": "Lead procesado correctamente"}

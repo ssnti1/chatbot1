@@ -3959,6 +3959,33 @@
     "image": "https://ecolite.com.co/wp-content/uploads/2023/01/ARQ30_1-768x768.jpg",
     "family": "Luminaria colgante / lineal"
   },
+  
+  "ARQ20": {
+    "code": "ARQ20",
+    "name": "Luminaria lineal LED ARQ20",
+    "price": "$60.666-$91.466",
+    "img_url": "https://ecolite.com.co/wp-content/uploads/2023/01/ARQ30_1-768x768.jpg",
+    "url": "https://ecolite.com.co/producto/luminaria-lineal-led-ltt812020w/",
+    "category": "Luminaria lineal",
+    "categories": [
+      "Luminaria colgante / lineal",
+      "Luminarias lineales",
+      "Colgante",
+      "Lineal",
+      "Sobreponer",
+      "Suspendida"
+    ],
+    "tags": [
+      "020W",
+      "LTT812020W",
+      "Sala",
+      "Comedor",
+      "Habitación",
+      "Oficina"
+    ],
+    "image": "https://ecolite.com.co/wp-content/uploads/2023/01/ARQ30_1-768x768.jpg",
+    "family": "Luminaria colgante / lineal"
+  },
   "LBGU105W-DIM-C": {
     "code": "LBGU105W-DIM-C",
     "name": "Bombillo LED 5W dimerizable base GU10 LBGU105W DIM",

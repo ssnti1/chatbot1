@@ -31,10 +31,14 @@
     </header>
 
     <div class="cb-body">
-      <!-- OVERLAY de formulario (cubre toda la pantallita del chat) -->
+      <!-- overlay form -->
       <div id="leadOverlay" class="lead-overlay" aria-modal="true" role="dialog" hidden>
-        <form class="lead-form" id="leadForm" novalidate>
-
+<form
+  id="leadForm"
+  class="lead-form"
+  autocomplete="on"
+  onsubmit="return false;"
+>
           <label>
             <span>Nombre</span>
             <input name="name" type="text" required placeholder="Tu nombre">

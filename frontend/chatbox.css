@@ -43,7 +43,6 @@ body {
     background: linear-gradient(180deg, #f9fbff 0%, var(--bg) 40%, #f5f7fb 100%);
     color: var(--text);
 
-  background-image: url("body.png"); /* cambia la ruta según tu carpeta */
   background-size: cover;        /* que cubra toda la pantalla */
   background-repeat: no-repeat;  /* que no se repita */
   background-position: center;   /* centrada */
@@ -556,3 +555,40 @@ body {
     margin: 10px 0px;
 }
 
+/* Quitar fondo blanco al mensaje "Escribiendo..." */
+.cb-msg.typing,
+.cb-msg.cb-typing,
+.cb-msg[data-type="typing"] {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Opcional: hace que el texto "Escribiendo..." sea más sutil */
+.cb-msg.typing span,
+.cb-msg.cb-typing span {
+  background: transparent !important;
+  color: #888 !important;
+  font-style: italic;
+}
+
+
+/* === FIX: quitar las franjas detrás de "Escribiendo..." === */
+#typing.msg{
+  /* anula el layout heredado de .msg que mete aire extra */
+  margin: 0 !important;
+  gap: 8px !important;
+
+  /* mismo padding lateral que .cb-stream para que no se vea “corte” */
+  padding: 10px 14px 10px !important;
+
+  /* IMPORTANTE: usa el MISMO fondo de .cb-stream */
+  background: linear-gradient(180deg, #fff, #fafbff) !important;
+
+  border: 0 !important;
+}
+
+/* Opcional: si quieres que el indicador se vea más “integrado” */
+#typing .bubble{
+  box-shadow: none !important;
+}

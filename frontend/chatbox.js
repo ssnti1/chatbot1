@@ -76,7 +76,7 @@
   }
 
   function init() {
-    injectValidationStyles(); // ← inyecta estilos para .invalid y .field-error
+    injectValidationStyles();
 
     wireRefs();
     wireOpenClose();
@@ -84,12 +84,15 @@
 
     if (refs.typing) refs.typing.classList.add('is-hidden');
 
-    // Mensaje de bienvenida
     if (refs.stream && !refs.stream.children.length) {
       appendBot(
         "👋 Bienvenido a Ecolite. Te ayudamos a elegir la iluminación LED ideal para tus proyectos. ¿Qué espacio deseas iluminar? (oficina, piscina, bodega…)\n" +
         "Ver página: " + CATALOG_URL
       );
+      if (!localStorage.getItem("ecolite_lead_saved")) {
+        showLeadOverlay();
+      }
+
     }
 
     if (isPanelOpen()) showLeadOverlay();
@@ -108,7 +111,6 @@
     refs.leadForm = $id("leadForm");
     refs.leadSkip = $id("leadSkip");
 
-    // Observa por si el HTML se inserta tarde
     if (!refs.fab || !refs.panel || !refs.stream) {
       var obs = new MutationObserver(function () {
         refs.fab = refs.fab || $id("cbFab");
@@ -130,7 +132,6 @@
       obs.observe(document.documentElement || document.body, { childList: true, subtree: true });
     }
 
-    // Wire del overlay
     if (refs.leadForm) {
       // Validaciones & constraints
       setupLeadValidation();
@@ -175,7 +176,6 @@
 
     setTimeout(function () { try { refs.input && refs.input.focus(); } catch (_) { } }, 60);
 
-    // Mostrar SIEMPRE el overlay al abrir
     showLeadOverlay();
   }
 
@@ -221,23 +221,109 @@
   // =======================
   // Chat
   // =======================
-  function wireChat() {
-    if (refs.send && refs.input) {
-      refs.send.addEventListener("click", function () { sendMessage(refs.input.value); });
-      refs.send.addEventListener("touchstart", function (e) { e.preventDefault(); sendMessage(refs.input.value); }, { passive: false });
+function wireChat() {
+  // evita duplicar listeners si se re-ejecuta
+  if (window.__cbChatWired) return;
+  if (!refs || !refs.input || !refs.send) return;
+
+  window.__cbChatWired = true;
+
+  function guardLead() {
+    if (!localStorage.getItem("ecolite_lead_saved")) {
+      appendSystem("⚠️ Por favor completa primero tus datos antes de empezar el chat.");
+      showLeadOverlay();
+      return false;
     }
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" && document.activeElement === refs.input) {
-        e.preventDefault();
-        sendMessage(refs.input.value);
-      }
-    });
-    document.addEventListener("click", function (e) {
-      var t = e.target;
-      if (!t || typeof t.closest !== "function") return;
-      if (t.closest(".cb-cta")) { e.preventDefault(); sendMessage("más"); } // Ver más
-    });
+    return true;
   }
+
+  function doSend() {
+    if (!guardLead()) return;
+    sendMessage(refs.input.value);
+  }
+
+  // Click (desktop)
+  refs.send.addEventListener("click", doSend);
+
+  // Touch (mobile)
+  refs.send.addEventListener(
+    "touchstart",
+    function (e) {
+      e.preventDefault();
+      doSend();
+    },
+    { passive: false }
+  );
+
+  // Enter para enviar
+  refs.input.addEventListener("keydown", function (e) {
+    if (e && e.isComposing) return; // IME / teclado móvil
+    var key = e && (e.key || "");
+    if (key === "Enter" || e.keyCode === 13) {
+      if (e.shiftKey) return;
+      e.preventDefault();
+      doSend();
+    }
+  });
+
+  // ====== "Ver más" (paginación) ======
+  // Delegación: el botón se inyecta dinámicamente en el stream
+  if (refs.stream) {
+    refs.stream.addEventListener(
+      "click",
+      function (e) {
+        var btn = e && e.target && e.target.closest ? e.target.closest(".cb-cta") : null;
+        if (!btn) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!guardLead()) return;
+
+        if (!lastQuery) {
+          appendSystem("⚠️ Primero haz una búsqueda para poder mostrar más resultados.");
+          return;
+        }
+
+        // evita doble click mientras responde
+        if (btn.disabled) return;
+        btn.disabled = true;
+
+        callAPI(
+          lastQuery,
+          page,
+          function (data) {
+            // actualiza query global
+            lastQuery = (data && data.last_query) ? data.last_query : lastQuery;
+            window.__ecoliteLastQuery = lastQuery;
+
+            // agrega productos nuevos
+            if (data && Array.isArray(data.products) && data.products.length) {
+              renderProductCards(data.products, !!data.has_more);
+              page += 1;
+            } else {
+              clearShowMore();
+              if (data && data.content) appendBot(String(data.content));
+              else appendBot("No hay más resultados para mostrar.");
+            }
+
+            // scroll al final
+            try {
+              if (refs.stream) refs.stream.scrollTop = refs.stream.scrollHeight;
+            } catch (_) {}
+          },
+          function (err) {
+            appendSystem("⚠️ No me pude conectar. " + (err && err.message ? err.message : ""));
+          }
+        );
+      },
+      true
+    );
+  }
+}
+
+
+
 
   // ---------- UI utils ----------
   function showTyping() {
@@ -249,8 +335,18 @@
     if (__pending === 0 && refs.typing) refs.typing.classList.add('is-hidden');
   }
   function escapeHtml(s) {
-    return (s || "").replace(/[&<>"']/g, function (m) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[m]; });
+    var map = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    };
+    return (s || "").replace(/[&<>"']/g, function (m) {
+      return map[m] || m;
+    });
   }
+
 
   // =======================
   // WhatsApp helpers
@@ -261,15 +357,13 @@
   }
 
   function normalizePhone(raw) {
-    return String(raw || "").replace(/[^\d]/g, ""); // deja solo dígitos
+    return String(raw || "").replace(/[^\d]/g, "");
   }
   function extractPhoneFromUrl(u) {
-    // wa.me/<phone>
     if (/wa\.me$/i.test(u.hostname)) {
       var seg = (u.pathname || "").split("/").filter(Boolean);
       if (seg.length) return normalizePhone(seg[0]);
     }
-    // api.whatsapp.com/send?phone=<phone> | phoneNumber=
     var p = new URLSearchParams(u.search);
     if (p.get("phone")) return normalizePhone(p.get("phone"));
     if (p.get("phoneNumber")) return normalizePhone(p.get("phoneNumber"));
@@ -284,48 +378,47 @@
   // =======================
   // Decorador de URLs → WA con nombre + mensaje
   // =======================
-function maybeDecorateWhatsApp(link) {
-  const name = getLeadName();
-  // último texto que escribió el usuario (ya lo guardas aquí):
-  // window.__ecoliteLastQuery se setea después de cada respuesta del backend
-  // (no toques eso)
-  let last = (window.__ecoliteLastQuery || "").trim().toLowerCase();
+  function maybeDecorateWhatsApp(link) {
+    const name = getLeadName();
+    // último texto que escribió el usuario (ya lo guardas aquí):
+    // window.__ecoliteLastQuery se setea después de cada respuesta del backend
+    // (no toques eso)
+    let last = (window.__ecoliteLastQuery || "").trim().toLowerCase();
 
-  // 1) Limpia saludos/política al inicio
-  //    ej: "hola,", "buenas tardes:", "por favor ..."
-  last = last
-    .replace(/^\s*(hola|buenas(?:\s+(tardes|noches|d[ií]as))?|buenos\s+d[ií]as)\s*[,;:\-]?\s*/i, "")
-    .replace(/^\s*(por\s+favor|porfa|porfis)\s*[,;:\-]?\s*/i, "")
-    .trim();
+    // 1) Limpia saludos
+    last = last
+      .replace(/^\s*(hola|buenas(?:\s+(tardes|noches|d[ií]as))?|buenos\s+d[ií]as)\s*[,;:\-]?\s*/i, "")
+      .replace(/^\s*(por\s+favor|porfa|porfis)\s*[,;:\-]?\s*/i, "")
+      .trim();
 
-  // 2) Si arranca con "sugiereme / recomiéndame", quítalo
-  last = last
-    .replace(/^\s*(sugiereme|sugiéreme|recomiendame|recomiéndame)\b\s*/i, "")
-    .trim();
+    // 2) Quitame "sugiereme / recomiéndame"
+    last = last
+      .replace(/^\s*(sugiereme|sugiéreme|recomiendame|recomiéndame)\b\s*/i, "")
+      .trim();
 
-  // 3) Decide la forma natural del "topic"
-  let topic;
-  if (!last) {
-    topic = "quiero cotizar";
-  } else if (/^(quiero|necesito|busco|me\s+gustar[ií]a|deseo|quisiera)\b/i.test(last)) {
-    // El usuario ya dijo "quiero/necesito/busco..."
-    topic = last;
-  } else if (/^(estoy|soy)\s+interesad[ao]\s+en\b/i.test(last)) {
-    // Ya viene con "estoy interesado en ..."
-    topic = last;
-  } else {
-    topic = "estoy interesado en " + last;
+    // 3) Decide la forma natural del "topic"
+    let topic;
+    if (!last) {
+      topic = "quiero cotizar";
+    } else if (/^(quiero|necesito|busco|me\s+gustar[ií]a|deseo|quisiera)\b/i.test(last)) {
+      // El usuario ya dijo "quiero/necesito/busco..."
+      topic = last;
+    } else if (/^(estoy|soy)\s+interesad[ao]\s+en\b/i.test(last)) {
+      // Ya viene con "estoy interesado en ..."
+      topic = last;
+    } else {
+      topic = "estoy interesado en " + last;
+    }
+
+    // 4) Mensaje final (evita dobles "Hola")
+    let text = name ? ("Hola, soy " + name + ". " + topic) : ("Hola, " + topic);
+
+    // 5) Adjunta el ?text= al link (base debe ser wa.me/NUMERO)
+    const encoded = encodeURIComponent(text);
+    if (link.includes("?")) link += "&text=" + encoded;
+    else link += "?text=" + encoded;
+    return link;
   }
-
-  // 4) Mensaje final (evita dobles "Hola")
-  let text = name ? ("Hola, soy " + name + ". " + topic) : ("Hola, " + topic);
-
-  // 5) Adjunta el ?text= al link (base debe ser wa.me/NUMERO)
-  const encoded = encodeURIComponent(text);
-  if (link.includes("?")) link += "&text=" + encoded;
-  else link += "?text=" + encoded;
-  return link;
-}
 
 
 
@@ -334,7 +427,7 @@ function maybeDecorateWhatsApp(link) {
     return (s || "").replace(/(https?:\/\/[^\s)]+)|(\bwww\.[^\s)]+)/gi, function (m) {
       var url = m.startsWith("http") ? m : ("https://" + m);
       url = maybeDecorateWhatsApp(url);
-var target = "_blank";
+      var target = "_blank";
       return '<a class="cb-link" href="' + url + '" target="' + target + '" rel="noopener">' + m + '</a>';
     });
   }
@@ -346,18 +439,18 @@ var target = "_blank";
     raw = raw.replace(/\[\[a\|([^|]+)\|([^\]]+)\]\]/gi, function (_, label, url) {
       var cleanUrl = (url || "").trim();
       if (!/^https?:\/\//i.test(cleanUrl)) cleanUrl = "https://" + cleanUrl;
-      cleanUrl = maybeDecorateWhatsApp(cleanUrl); 
+      cleanUrl = maybeDecorateWhatsApp(cleanUrl);
 
       var target = "_blank";
       try {
         var H = new URL(cleanUrl).hostname;
-        var target = "_blank"; 
-      } catch (_) {}
+        var target = "_blank";
+      } catch (_) { }
 
       var html = '<a class="cb-link" href="' + escapeHtml(cleanUrl) + '" target="' + target + '" rel="noopener">' +
-                 escapeHtml(label) + '</a>';
+        escapeHtml(label) + '</a>';
       var idx = anchors.push(html) - 1;
-      return "__A" + idx + "__"; 
+      return "__A" + idx + "__";
     });
 
     var safe = linkify(escapeHtml(raw));
@@ -408,17 +501,17 @@ var target = "_blank";
     window.addEventListener("pagehide", onVis);
     window.addEventListener("blur", onVis);
 
-  if (isAndroid()) {
-    window.location.href = links.intent; 
-  } else if (isIOS()) {
-    window.open(links.web, "_blank");
-  } else {
-    window.open(links.web, "_blank");
-  }
+    if (isAndroid()) {
+      window.location.href = links.intent;
+    } else if (isIOS()) {
+      window.open(links.web, "_blank");
+    } else {
+      window.open(links.web, "_blank");
+    }
 
 
     var tid = setTimeout(function () {
-      if (!opened) window.open(links.web, "_blank"); 
+      if (!opened) window.open(links.web, "_blank");
       cleanup();
     }, 1200);
   }
@@ -450,37 +543,37 @@ var target = "_blank";
     var profession = f.elements.namedItem("profession");
     var city = f.elements.namedItem("city");
 
-if (name) {
-  name.required = true;
-  name.maxLength = 60;
-  name.inputMode = "text";
-  name.pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñÜü.\\-\\s]{2,60}";
-  name.autocapitalize = "words";
-  name.placeholder = name.placeholder || "Nombre y apellido";
+    if (name) {
+      name.required = true;
+      name.maxLength = 60;
+      name.inputMode = "text";
+      name.pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñÜü.\\-\\s]{2,60}";
+      name.autocapitalize = "words";
+      name.placeholder = name.placeholder || "Nombre y apellido";
 
-  name.addEventListener("input", function () {
-    var v = this.value;
-    v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, ""); 
-    v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, ""); 
-    this.value = v;
-    clearFieldError(this);
-  });
+      name.addEventListener("input", function () {
+        var v = this.value;
+        v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, "");
+        v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, "");
+        this.value = v;
+        clearFieldError(this);
+      });
 
-  name.addEventListener("blur", function(){ validateField("name"); });
-}
+      name.addEventListener("blur", function () { validateField("name"); });
+    }
 
     if (email) {
       email.required = true;
       email.inputMode = "email";
       email.placeholder = email.placeholder || "correo@ejemplo.com";
-      email.addEventListener("input", function(){ clearFieldError(this); });
-      email.addEventListener("blur", function(){ validateField("email"); });
+      email.addEventListener("input", function () { clearFieldError(this); });
+      email.addEventListener("blur", function () { validateField("email"); });
     }
     if (phone) {
       phone.required = true;
       phone.inputMode = "numeric";
       phone.pattern = "\\d*";
-      phone.maxLength = 13; 
+      phone.maxLength = 13;
       phone.placeholder = phone.placeholder || "Celular (10 dígitos)";
       phone.addEventListener("input", function () {
         var digits = this.value.replace(/\D+/g, "");
@@ -488,7 +581,7 @@ if (name) {
         this.value = digits;
         clearFieldError(this);
       });
-      phone.addEventListener("blur", function(){ validateField("phone"); });
+      phone.addEventListener("blur", function () { validateField("phone"); });
     }
     if (profession) {
       profession.required = true;
@@ -498,25 +591,25 @@ if (name) {
         this.value = this.value.replace(/\s+/g, " ").replace(/^[\s-]+/, "");
         clearFieldError(this);
       });
-      profession.addEventListener("blur", function(){ validateField("profession"); });
+      profession.addEventListener("blur", function () { validateField("profession"); });
     }
-if (city) {
-  city.required = true;
-  city.maxLength = 60;
-  city.inputMode = "text";
-  city.pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñÜü.\\-\\s]{2,60}";
-  city.autocapitalize = "words";
+    if (city) {
+      city.required = true;
+      city.maxLength = 60;
+      city.inputMode = "text";
+      city.pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñÜü.\\-\\s]{2,60}";
+      city.autocapitalize = "words";
 
-  city.addEventListener("input", function () {
-    var v = this.value;
-    v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, ""); 
-    v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, ""); 
-    this.value = v;
-    clearFieldError(this);
-  });
+      city.addEventListener("input", function () {
+        var v = this.value;
+        v = v.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñÜü.\-\s]/g, "");
+        v = v.replace(/\s+/g, " ").replace(/^[\s-]+/, "");
+        this.value = v;
+        clearFieldError(this);
+      });
 
-  city.addEventListener("blur", function(){ validateField("city"); });
-}
+      city.addEventListener("blur", function () { validateField("city"); });
+    }
 
   }
 
@@ -557,7 +650,7 @@ if (city) {
 
   function clearAllErrors() {
     if (!refs.leadForm) return;
-    ["name","email","phone","profession","city"].forEach(function(n){
+    ["name", "email", "phone", "profession", "city"].forEach(function (n) {
       clearFieldError(fieldEl(n));
     });
   }
@@ -597,15 +690,15 @@ if (city) {
   function validateLeadForm() {
     clearAllErrors();
     var ok = true;
-    ["name","email","phone","profession","city"].forEach(function(n){
+    ["name", "email", "phone", "profession", "city"].forEach(function (n) {
       if (!validateField(n)) ok = false;
     });
     if (!ok) {
-      for (var i=0;i<5;i++){
-        var nm = ["name","email","phone","profession","city"][i];
+      for (var i = 0; i < 5; i++) {
+        var nm = ["name", "email", "phone", "profession", "city"][i];
         var el = fieldEl(nm);
         var err = el && el.nextElementSibling && el.nextElementSibling.classList.contains("field-error") && el.nextElementSibling.textContent;
-        if (err) { try { el.focus(); } catch(_){} break; }
+        if (err) { try { el.focus(); } catch (_) { } break; }
       }
     }
     return ok;
@@ -615,7 +708,7 @@ if (city) {
     if (!refs.leadOverlay) return;
     refs.leadOverlay.hidden = false;
     var first = refs.leadForm && refs.leadForm.elements.namedItem("name");
-    if (first && typeof first.focus === "function") setTimeout(function(){ first.focus(); }, 60);
+    if (first && typeof first.focus === "function") setTimeout(function () { first.focus(); }, 60);
   }
   function hideLeadOverlay() {
     if (!refs.leadOverlay) return;
@@ -627,21 +720,33 @@ if (city) {
     e.stopPropagation();
     if (!refs.leadForm) return;
 
-    // Validación
-    if (!validateLeadForm()) {
+    // Validación del formulario
+    if (!validateLeadForm()) return;
+
+    // ✅ Tomar el número y usarlo como session_id
+    var rawPhone = (refs.leadForm.elements.namedItem("phone").value || "").trim();
+    var phoneId = rawPhone.replace(/\D+/g, ""); // solo dígitos
+
+    if (!phoneId) {
+      appendSystem("⚠️ No pude leer el número de celular. Revisa el campo teléfono.");
       return;
     }
 
     var data = {
-      session_id: getSessionId(),
+      session_id: phoneId, // ← El número ahora es el ID de sesión
       name: (refs.leadForm.elements.namedItem("name").value || "").trim(),
       email: (refs.leadForm.elements.namedItem("email").value || "").trim(),
-      phone: (refs.leadForm.elements.namedItem("phone").value || "").trim(),
+      phone: rawPhone,
       profession: (refs.leadForm.elements.namedItem("profession").value || "").trim(),
       city: (refs.leadForm.elements.namedItem("city").value || "").trim(),
     };
 
-    try { localStorage.setItem("ecolite_lead_name", data.name || ""); } catch (_e) {}
+    try {
+      // Guardar nombre y teléfono en localStorage
+      localStorage.setItem("ecolite_lead_name", data.name || "");
+      localStorage.setItem("ecolite_client_phone", phoneId);
+      localStorage.setItem("ecolite_session_id", phoneId);
+    } catch (_e) { }
 
     var btn = refs.leadForm.querySelector(".lead-submit");
     if (btn) btn.disabled = true;
@@ -650,15 +755,31 @@ if (city) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    }).then(function (r) { return r.json(); })
+    })
+      .then(function (r) { return r.json(); })
       .then(function () {
-        appendBot("✅ Gracias, tus datos fueron guardados.");
+        localStorage.setItem("ecolite_lead_saved", "1");
+        appendBot("✅ Gracias, tus datos fueron guardados. Ya puedes comenzar el chat.");
         hideLeadOverlay();
       })
       .catch(function (err) {
         if (btn) btn.disabled = false;
         appendSystem("⚠️ No pude guardar tus datos: " + (err && err.message ? err.message : "error"));
       });
+  }
+
+
+
+  // ---------- Scroll robusto ----------
+  // A veces el alto real cambia después (por imágenes/productos). Esto fuerza el scroll varias veces.
+  function scrollStreamToBottom(tries) {
+    if (!refs.stream) return;
+    var el = refs.stream;
+    el.scrollTop = el.scrollHeight;
+
+    if (tries && tries > 0) {
+      requestAnimationFrame(function () { scrollStreamToBottom(tries - 1); });
+    }
   }
 
   function row(cls, htmlOrNode) {
@@ -670,8 +791,12 @@ if (city) {
     if (typeof htmlOrNode === "string") b.innerHTML = htmlOrNode; else b.appendChild(htmlOrNode);
     wrap.appendChild(b);
     refs.stream.appendChild(wrap);
-    refs.stream.scrollTop = refs.stream.scrollHeight;
+
+    // Scroll inmediato + reintentos (layout, imágenes, etc.)
+    scrollStreamToBottom(3);
+    setTimeout(function () { scrollStreamToBottom(2); }, 60);
   }
+
   function appendUser(t) { row("me", escapeHtml(t)); }
   function appendBot(t) { row("", renderRichBotText(t)); }
   function appendSystem(t) { row("system", escapeHtml(t)); }
@@ -726,25 +851,59 @@ if (city) {
       list.appendChild(item);
     }
 
+
+    // Re-scroll cuando cargan las imágenes (cambian el alto después del append)
+    var imgs = list.querySelectorAll("img");
+    for (var k = 0; k < imgs.length; k++) {
+      (function (img) {
+        if (!img) return;
+        if (img.complete) return;
+        img.addEventListener("load", function () { scrollStreamToBottom(3); }, { once: true });
+        img.addEventListener("error", function () { scrollStreamToBottom(3); }, { once: true });
+      })(imgs[k]);
+    }
+
     row("", list);
 
     clearShowMore();
     if (hasMore && refs.tplShowMore) {
       var clone = refs.tplShowMore.content.cloneNode(true);
       refs.stream.appendChild(clone);
-      refs.stream.scrollTop = refs.stream.scrollHeight;
+      scrollStreamToBottom(3);
     }
   }
 
   // =======================
   // Red / API
   // =======================
+  // Usa el número de teléfono como ID principal de la conversación
   function getSessionId() {
-    var KEY = "ecolite_session_id";
-    var sid = localStorage.getItem(KEY);
-    if (!sid) { sid = "web-" + Math.random().toString(36).slice(2); localStorage.setItem(KEY, sid); }
+    var SESSION_KEY = "ecolite_session_id";
+    var PHONE_KEY = "ecolite_client_phone";
+
+    // 1) Si ya guardamos un teléfono como ID, úsalo siempre
+    var phoneId = null;
+    try {
+      phoneId = (localStorage.getItem(PHONE_KEY) || "").trim();
+    } catch (_) { }
+
+    if (phoneId) {
+      try { localStorage.setItem(SESSION_KEY, phoneId); } catch (_) { }
+      return phoneId;
+    }
+
+    // 2) Fallback: si por alguna razón no hay teléfono todavía, usa lo que haya
+    var sid = null;
+    try { sid = localStorage.getItem(SESSION_KEY); } catch (_) { }
+
+    if (!sid) {
+      sid = "web-" + Math.random().toString(36).slice(2);
+      try { localStorage.setItem(SESSION_KEY, sid); } catch (_) { }
+    }
+
     return sid;
   }
+
   function callAPI(message, overridePage, onOk, onErr) {
     var payload = { session_id: getSessionId(), message: message, page: (overridePage == null ? page : overridePage) };
     var xhr = new XMLHttpRequest();
@@ -791,7 +950,7 @@ if (city) {
 
     callAPI(q, page, function (data) {
       lastQuery = data.last_query || q;
-      window.__ecoliteLastQuery = lastQuery; // opcional para WA
+      window.__ecoliteLastQuery = lastQuery;
 
       if (Array.isArray(data.products) && data.products.length) {
         renderProductCards(data.products, !!data.has_more);
@@ -810,7 +969,6 @@ if (city) {
     });
   }
 
-  // Exponer para debugging
   window.__ecoliteSend = sendMessage;
 
 })();

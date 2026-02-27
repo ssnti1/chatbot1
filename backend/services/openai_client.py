@@ -36,4 +36,4 @@ def chat(system_prompt: str, user_msg: str) -> str:
             return _brief(text)
         except Exception:
             pass
-    return _brief("Puedo ayudarte con iluminación del catálogo; dime el espacio o especificaciones (vatios, IP, 3000K/4000K, presupuesto).")
+    return _brief("Puedo ayudarte con iluminación del catálogo; dime el espacio o especificaciones.")

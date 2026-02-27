@@ -7,6 +7,9 @@ import os
 import re
 import difflib
 from urllib.parse import quote_plus
+from backend.routers.db import guardar_conversacion
+from .db import guardar_conversacion
+
 
 # Servicios con fallback (sin auto-importarse a sí mismo)
 try:
@@ -19,6 +22,16 @@ except Exception:
     from openai_client import chat as llm_chat
 
 router = APIRouter(prefix="/chat", tags=["chat"])
+
+def _log_conversation_safe(session_id: str, user_message: str, bot_message: str) -> None:
+    """
+    Intenta guardar el turno de conversación en SQLite sin romper el flujo
+    si hay algún error de base de datos.
+    """
+    try:
+        guardar_conversacion(session_id, user_message, bot_message)
+    except Exception:
+        pass
 
 
 CATALOG_URL = os.getenv("ECOLITE_CATALOG_URL", "https://ecolite.com.co/")
@@ -34,27 +47,20 @@ QUOTE_WHATSAPP_URL = os.getenv(
 )
 
 COTIZAR_KEYWORDS = {
-    # Raíces y verbos
     "cotiz", "cotiza", "cotizo", "cotizas", "cotizan", "cotizame", "coticen", "cotizador",
-    # Presupuesto
     "presupuesto", "presupuestar", "presupuesta", "presupuesten",
     "quiero un presupuesto", "necesito presupuesto", "hacer un presupuesto", "presupuesto formal",
-    # Frases típicas de solicitud
     "quiero cotizar", "puedes cotizar", "me puedes cotizar", "me cotizas", "me cotiza", "me cotizan",
     "solicitar cotizacion", "solicitud de cotizacion", "hacer una cotizacion", "enviar cotizacion",
     "enviame una cotizacion", "mandame una cotizacion", "comparteme una cotizacion", "coticen por favor",
-    # Lista / unitario / cuánto
     "lista de precios", "precio unitario", "cuanto cuesta", "cuanto vale", "cuanto sale",
     "me regalas precio", "me das precio", "me pasas precio",
-    # Documentos comerciales
     "proforma", "factura proforma", "oferta economica", "propuesta economica", "propuesta comercial",
-    # Inglés / RFQ
-    "quote", "quotation", "request for quote", "rfq"
+    "quote", "quotation", "request for quote", "rfq", "quiero comprar", "comprar", "comprarlo",  "compro",
 }
 
 # === Guardas de marca / temática ===
 COMPETITOR_KEYWORDS = {
-    # agrega/quita según necesites
     "sylvania", "sylvannia", "philips", "osram", "ge lighting",
     "schneider", "siemens", "opple", "xiaomi", "yeelight",
     "panasonic", "abb", "legrand", "lumenac", "techlight", "luxion", "tecnolite", "roy alpha",
@@ -770,13 +776,15 @@ def chat(in_: ChatIn) -> ChatOut:
 
         faq_text = faq_try_answer(msg_raw)
         if faq_text:
-            return ChatOut(
+            resp = ChatOut(
                 content=faq_text,
                 products=[],
                 page=0,
                 last_query="",
                 has_more=False
             )
+            _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+            return resp
 
         # 🚫 Bloquear menciones a otras marcas / competencia
         if any(k in msg_norm for k in [
@@ -787,7 +795,8 @@ def chat(in_: ChatIn) -> ChatOut:
             "safiro", "lumek", "evergreen", "eglo", "lumenex", "delta light",
             "luminex", "luxion"
         ]):
-            return ChatOut(
+
+            resp = ChatOut(
                 content="En ECOLITE contamos con un portafolio completo y disponibilidad inmediata para cubrir todas las necesidades de tu proyecto. Nuestras luminarias destacan por su calidad, eficiencia y respaldo técnico. 🔧\n"
                         "Estoy aquí para ayudarte a encontrar la mejor opción dentro de nuestra línea.",
                 products=[],
@@ -795,6 +804,9 @@ def chat(in_: ChatIn) -> ChatOut:
                 last_query="",
                 has_more=False
             )
+            _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+            return resp
+                
 
         st = _st(in_.session_id)
 
@@ -802,29 +814,45 @@ def chat(in_: ChatIn) -> ChatOut:
         msg_norm = _norm(msg_raw)
         if any(k in msg_norm for k in CATALOG_KEYWORDS):
             text = f"Puedes ver el catálogo y portafolio aquí: {CATALOG_URL}"
-            return ChatOut(content=text, products=[], page=0, last_query="", has_more=False)
+            resp = ChatOut(
+                content=text,
+                products=[],
+                page=0,
+                last_query="",
+                has_more=False
+            )
+            _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+            return resp
+
 
         # Cotizar (WhatsApp)
         msg_norm = _norm(msg_raw)
         if any(k in msg_norm for k in COTIZAR_KEYWORDS):
             url = QUOTE_WHATSAPP_URL
-            return ChatOut(
-                content=f"Abrir [[a|WhatsApp|{url}]] para continuar 👌",
-                products=[], page=0, last_query=st.get("last_query") or "", has_more=False
+            resp = ChatOut(
+                content=f"Entra a [[a|WhatsApp|{url}]] para continuar 👌",
+                products=[],
+                page=0,
+                last_query=st.get("last_query") or "",
+                has_more=False
             )
+            _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+            return resp
 
-        # —— Manejo especial para ventiladores ——
+        # ( Ventiladores )
         msg_norm = _norm(msg_raw)
         ventilador_mode = ("ventilador" in msg_norm) or ("ventiladores" in msg_norm)
         if ventilador_mode:
-            # añadimos una marca en el mensaje para forzar el copy correcto del texto final
             in_.message = msg_raw + " (VENTILADOR_MODE)"
 
-        # Bloquear menciones a otras marcas/empresas (competencia)
+        # Bloquear competencia)
         if _mentions_competitor(msg_norm):
-            return ChatOut(content=OFFSCOPE_REPLY, products=[], page=0, last_query="", has_more=False)
+            resp = ChatOut(content=OFFSCOPE_REPLY, products=[], page=0, last_query="", has_more=False)
+            _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+            return resp
 
-        # Cargar catálogo y preparar señales
+
+        # Cargar catálogo y señales
         catalog, _path = load_products()
         products = list(catalog.values())
         cat_vocab = _cat_tag_vocab(products)
@@ -841,13 +869,11 @@ def chat(in_: ChatIn) -> ChatOut:
         is_more = bool(_MORE_RE.search(msg_raw))
         abused  = bool(ABUSE_RE.search(msg_raw))
 
-        # ⬇️ NUEVO: override al modo del LLM cuando el usuario es explícito
         mode = _llm_product_mode(msg_raw)
         ov   = _product_mode_override(msg_raw)
         if ov:
             mode = ov
 
-        # Pregunta de asesoría (sin listado): si es de producto y el usuario NO pidió ver productos
         if (not is_more and not abused
                 and _looks_like_product_intent(msg_raw, vocab, cats, phr)
                 and mode == "ASESORAR"):
@@ -861,20 +887,24 @@ def chat(in_: ChatIn) -> ChatOut:
                 ai = VENTILADOR_NOTE
             st["last_query"] = msg_raw
             st["server_page"] = 0
-            return ChatOut(content=ai, products=[], page=0, last_query=msg_raw, has_more=False)
+            resp = ChatOut(content=ai, products=[], page=0, last_query=msg_raw, has_more=False)
+            _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+            return resp
 
-        # FAQ (solo texto) — solo si la intención es FAQ (data + LLM), no productos
+
+        # FAQ
         if not is_more and _is_question(msg_raw) and not abused:
-            # Primero: señales de catálogo (datos), sin reglas fijas
             if not _looks_like_product_intent(msg_raw, vocab, cats, phr):
-                # Segundo: desempate con LLM (una palabra)
                 if _llm_intent(msg_raw) == "FAQ":
                     try:
                         faq_text = faq_try_answer(msg_raw)
                     except Exception:
                         faq_text = None
                     if faq_text:
-                        return ChatOut(content=faq_text, products=[], page=0, last_query="", has_more=False)
+                        resp = ChatOut(content=faq_text, products=[], page=0, last_query="", has_more=False)
+                        _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+                        return resp
+
 
                     sys_prompt = (
                         "Eres el asistente de Ecolite. Responde en 2–4 líneas una duda general del usuario sin listar productos. "
@@ -883,20 +913,26 @@ def chat(in_: ChatIn) -> ChatOut:
                     ai = llm_chat(sys_prompt, msg_raw) or "Estoy disponible para ayudarte con temas de empresa, garantía o envíos."
                     if ventilador_mode:
                         ai = VENTILADOR_NOTE
-                    return ChatOut(content=ai, products=[], page=0, last_query="", has_more=False)
-        # Si no entró al return de arriba, continúa el flujo normal (asesoría/browsing de productos)
+                    resp = ChatOut(content=ai, products=[], page=0, last_query="", has_more=False)
+                    _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+                    return resp
 
-        # Smalltalk / offtopic sin “más”
+
         if not is_more and not abused and kind in {"smalltalk", "offtopic"}:
             if kind == "offtopic":
-                return ChatOut(content=OFFSCOPE_REPLY, products=[], page=0, last_query="", has_more=False)
+                resp = ChatOut(content=OFFSCOPE_REPLY, products=[], page=0, last_query="", has_more=False)
+                _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+                return resp
             sys_prompt = _build_system_prompt(kind, ctx)
             ai = llm_chat(sys_prompt, msg_raw) or _fallback_dynamic(msg_raw, products, vocab)
             if ventilador_mode:
                 ai = VENTILADOR_NOTE
-            return ChatOut(content=ai, products=[], page=0, last_query="", has_more=False)
+            resp = ChatOut(content=ai, products=[], page=0, last_query="", has_more=False)
+            _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+            return resp
 
-        # Gestión de página / query
+
+        # Gestión de page
         if is_more and st["last_query"]:
             q = st["last_query"]
             st["server_page"] = max(st.get("server_page", 0) + 1, client_page)
@@ -909,7 +945,7 @@ def chat(in_: ChatIn) -> ChatOut:
             st["server_page"] = client_page
             page = client_page
 
-        # ⬇️ NUEVO: Guard para “muéstrame <etiqueta>” inexistente → no listar irrelevantes
+        # Guard
         if ASK_PREFIX_RE.search(msg_raw) and not is_more:
             tokens = [t for t in _parts(msg_raw) if t not in {'muestrame','muéstrame','muestra','ver','enseñame','enséñame'}]
             generic = {'iluminacion','iluminación','led','luz','luminaria','luminarias','para','de','en'}
@@ -933,17 +969,19 @@ def chat(in_: ChatIn) -> ChatOut:
             item = _pick_code_item(code_hit, q)  # elegir mejor candidato (prefiere exacto)
             st["had_evidence"]  = True
             st["topic_tokens"]  = list(set(cats + phr))
-            # Intro determinista (evita respuestas raras del LLM)
             ai = "Te muestro la referencia más cercana al código indicado."
             if ventilador_mode:
                 ai = VENTILADOR_NOTE
-            return ChatOut(
+            resp = ChatOut(
                 content=ai,
                 products=_pack_products([item]),
                 page=0,
                 last_query=q,
                 has_more=False
             )
+            _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+            return resp
+
 
         # === BÚSQUEDA POR CÓDIGO EXACTO (modo estricto) ===
         # Si el usuario dio UN SOLO token de código, buscamos match EXACTO.
@@ -1036,13 +1074,16 @@ def chat(in_: ChatIn) -> ChatOut:
             "No encontré productos que coincidan con lo que buscas. "
             "Cuéntame qué espacio quieres iluminar o qué tipo de producto necesitas 😊"
         )
-        return ChatOut(
+        resp = ChatOut(
             content=VENTILADOR_NOTE if ventilador_mode else respuesta,
             products=[],
             page=0,
             last_query="",
             has_more=False
         )
+        _log_conversation_safe(in_.session_id, msg_raw, resp.content)
+        return resp
+
 
     except HTTPException:
         raise
